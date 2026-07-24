@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Tag API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Tag
+paths:
+  /v2/clients/{ClientID}/tags:
+    post:
+      tags:
+      - Tag
+      summary: Query Tag
+      description: 'Returns whether the last 4 of a phone number match what is on record.
+
+        May also return the owner''s name.'
+      operationId: tagQuery
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryTagName'
+        required: true
+      responses:
+        '200':
+          description: "Returns whether the last 4 of a phone number match what is on record. \n May also return the owner's name."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryTagNameResponse'
+              examples:
+                Successful Match:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    codeConfirmResult: M
+                    name:
+                      first: Sam
+                      middle: Wise
+                      last: Gamgee
+                Successful NO Match:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    codeConfirmResult: N
+                    name:
+                      first: Sam
+                      middle: Wise
+                      last: Gamgee
+                Successful No Match Performed:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    codeConfirmResult: A
+                    name:
+                      first: Sam
+                      middle: Wise
+                      last: Gamgee
+components:
+  schemas:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    queryTagNameResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        codeConfirmResult:
+          type: string
+          description: "M = Match \nN = No Match \nA = Match was not performed"
+          example: M
+        name:
+          type: object
+          description: Name
+          properties:
+            first:
+              type: string
+              description: First name
+              example: Sam
+            middle:
+              type: string
+              description: Middle name
+              example: Wise
+            last:
+              type: string
+              description: Last Name
+              example: Gamkee
+    queryTagName:
+      type: object
+      required:
+      - network
+      - tagName
+      properties:
+        network:
+          type: string
+          description: "The network of the tag. \nSupported Networks: \n - `Visa`"
+          example: Visa
+        tagName:
+          type: string
+          description: "The name of the tag.\n - For Visa, this would be the `payname`"
+          example: +sammy.wallet
+        phoneLast4:
+          type: string
+          description: Last 4 digits of the tag owner's phone number.
+          example: '4343'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

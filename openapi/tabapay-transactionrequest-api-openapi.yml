@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure TransactionRequest API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: TransactionRequest
+  description: This resource represents a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>)
+paths:
+  /v2/clients/{ClientID}/transactionrequests:
+    post:
+      tags:
+      - TransactionRequest
+      summary: Create TransactionRequest
+      description: Creates a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>).
+      operationId: createTransactionRequest
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: A Transaction is created and processing is completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactionRequestResponse'
+              example:
+                SC: 200
+                EC: '0'
+                otppid: TabaPay_OTPPID_22Chars
+                link: https://link/?ID=TabaPay_OTPPID_22Chars
+components:
+  schemas:
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    amount:
+      type: string
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    createTransactionRequest:
+      type: object
+      required:
+      - type
+      - amount
+      - customer
+      - callback
+      properties:
+        type:
+          type: string
+          description: Transaction Type. Currently, only `pull` is supported.
+          pattern: ^pull$
+        user1:
+          type: string
+          description: '1-15 character User1 Data.
+
+
+            *Optional*'
+          pattern: ^[ a-zA-Z0-9_-]{1,15}$
+        user2:
+          type: string
+          description: '1-15 character User2 Data.
+
+
+            *Optional*'
+          pattern: ^[ a-zA-Z0-9_-]{1,15}$
+        amount:
+          $ref: '#/components/schemas/amount'
+        customer:
+          type: object
+          required:
+          - name
+          description: Customer
+          properties:
+            name:
+              type: object
+              required:
+              - first
+              - last
+              description: Name
+              properties:
+                first:
+                  type: string
+                  description: First Name
+                  pattern: ^[ a-zA-Z0-9_-]+$
+                last:
+                  type: string
+                  description: Last Name
+                  pattern: ^[ a-zA-Z0-9_-]+$
+            address:
+              type: object
+              description: Address
+              required:
+              - line1
+              - city
+              - state
+              - zipcode
+              - country
+              properties:
+                line1:
+                  $ref: '#/components/schemas/line1'
+                line2:
+                  $ref: '#/components/schemas/line2'
+                city:
+                  $ref: '#/components/schemas/city'
+                state:
+                  $ref: '#/components/schemas/state'
+                zipcode:
+                  $ref: '#/components/schemas/zipcode'
+                country:
+                  $ref: '#/components/schemas/country'
+            callback:
+              type: object
+              required:
+              - type
+              - value
+              description: 'Callback, contact TabaPay.
+
+
+                Optional.'
+              properties:
+                type:
+                  type: string
+                  description: Currently, `URL` is the only value supported.
+                value:
+                  type: string
+                  description: URL String
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    transactionRequestResponse:
+      type: object
+      properties:
+        SC:
+          type: integer
+          description: HTTP Status Code
+        EC:
+          type: string
+          description: 'Internal Error Code.
+
+
+            Present if `SC` is `200`.'
+        EM:
+          type: string
+          description: Short Description of Error if `EC` is not `"0"`.
+        otppID:
+          type: string
+          description: '22-character TransactionRequestID (<<glossary:OTPP>>)
+
+
+            Present if `SC` is `200`.'
+        link:
+          type: string
+          description: 'URL
+
+
+            Present if `SC` is `200`.'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

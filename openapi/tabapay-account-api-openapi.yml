@@ -1,0 +1,1039 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Account API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Account
+  description: This resource represents a Client's Account.
+paths:
+  /v1/clients/{ClientID}/accounts:
+    post:
+      tags:
+      - Account
+      summary: Create Account
+      description: 'Creates an Account.
+
+
+        In circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*'
+      operationId: accountCreate
+      parameters:
+      - name: ClientID
+        in: path
+        description: '22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level.'
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/RejectDuplicateCard'
+      - $ref: '#/components/parameters/OKToAddDuplicateCard'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAccount'
+            examples:
+              Create Bank Account Request:
+                value:
+                  bank:
+                    routingNumber: '021000021'
+                    accountNumber: '123456789'
+                    accountType: C
+                  owner:
+                    name:
+                      first: Owner
+                      middle: Test
+                      last: Name
+                    address:
+                      line1: 123 Street
+                      city: San Francisco
+                      state: CA
+                      zipcode: '94103'
+                      country: '840'
+                  referenceID: uniqueid123
+              Create Card Account Request:
+                value:
+                  referenceID: Unique_refID123
+                  card:
+                    accountNumber: '4111111111111111'
+                    expirationDate: '202708'
+                  owner:
+                    name:
+                      company: High Value Company
+                      first: Test
+                      middle: D
+                      last: Name
+                    address:
+                      line1: 123 Street
+                      city: San Francisco
+                      state: CA
+                      zipcode: '94103'
+                      country: '840'
+        required: true
+      responses:
+        '200':
+          description: An Account is Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountCreateResponse'
+              example:
+                SC: 200
+                EC: '0'
+                accountID: TabaPay_AccountID_22ch
+                card:
+                  last4: '1234'
+                  expirationDate: '202502'
+        '207':
+          description: Account created, but Duplicate Card Check Failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+        '409':
+          description: Duplicate Card Check Matched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountCreateResponseDuplicateCard'
+              example:
+                SC: 409
+                EC: 3C463000
+                EM: Duplicate
+                duplicateAccountIDs:
+                - ih0V8HSE2S6gAUqCkG29uw
+  /{Version}/clients/{ClientID}/accounts/{AccountID}:
+    delete:
+      tags:
+      - Account
+      summary: Delete Account
+      description: The Account is marked for Deletion.
+      operationId: accountDelete
+      parameters:
+      - name: Version
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^v1$
+          example: v1
+        description: '`v1` is the only accepted value.'
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/DeleteDuplicateCard'
+      responses:
+        '200':
+          description: Account is marked for deletion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 200
+                EC: '0'
+        '207':
+          description: Account marked for deletion, but Delete Duplicate Card Check Failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+    get:
+      tags:
+      - Account
+      summary: Retrieve Account
+      description: 'Retrieves the Account.
+
+
+        In circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*'
+      operationId: accountRetrieve
+      parameters:
+      - name: Version
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^v1$
+          example: v1
+        description: '`v1` is the only accepted value.'
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/AccountID'
+      responses:
+        '200':
+          description: Account retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveAccountResponse'
+              example:
+                SC: 200
+                EC: '0'
+                referenceID: '1'
+                card:
+                  last4: '9990'
+                  expirationDate: '202012'
+                owner:
+                  name:
+                    first: John
+                    last: Customer
+                  address:
+                    line1: 465 Fairchild Drive
+                    line2: 'Suite #222'
+                    city: Mountain View
+                    state: CA
+                    zipcode: '94043'
+                  phone:
+                    number: '4159808222'
+        '421':
+          description: Too late to retrieve account by referenceId. Use accountId.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 421
+                EC: InternalErrorCode
+                EM: ReferenceID
+    put:
+      tags:
+      - Account
+      summary: Update Account
+      description: Updates the Account. Use `v1` to replace all fields.
+      operationId: updateAccount
+      parameters:
+      - name: Version
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^v{1,2}$
+          example: v1
+        description: '`v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers.'
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/RejectDuplicateCard'
+      - $ref: '#/components/parameters/OKToAddDuplicateCard'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAccount'
+        required: true
+      responses:
+        '200':
+          description: Account is updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 200
+                EC: '0'
+        '207':
+          description: Account updated, but update duplicate card check failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+        '409':
+          description: Duplicate card check matched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountCreateResponseDuplicateCard'
+              example:
+                SC: 409
+                EC: 3C463000
+                EM: Duplicate
+                duplicateAccountIDs:
+                - ih0V8HSE2S6gAUqCkG29uw
+  /v2/clients/{ClientID}/accounts/{AccountID}:
+    put:
+      tags:
+      - Account
+      summary: Update Account V2
+      description: Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers ([Refer to v1](https://developers.tabapay.com/reference/updateaccount#/)).
+      operationId: updateAccountV2
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/AccountID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAccountV2'
+        required: true
+      responses:
+        '200':
+          description: Account is updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 200
+                EC: '0'
+components:
+  schemas:
+    name:
+      type: object
+      description: 'Name
+
+
+        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
+
+
+        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
+      properties:
+        company:
+          type: string
+          description: 'Company Name
+
+
+            Incompatible with any other `name` field.'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        first:
+          type: string
+          description: 'First Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        middle:
+          type: string
+          description: 'Middle Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        last:
+          type: string
+          description: 'Last Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        suffix:
+          type: string
+          description: 'Suffix
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
+    keyID:
+      type: string
+      pattern: ^[a-zA-Z0-9_-]{22}$
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        22 character KeyID. Ensure the RSA key you''re using to encrypt the card data is consistent with this keyID
+
+
+        Compatible with `data` and nothing else.'
+    owner:
+      type: object
+      required:
+      - name
+      description: Owner Details
+      properties:
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          type: object
+          description: 'Address.
+
+
+            *All fields optional.* However, if you''re planning on using AVS in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
+          properties:
+            line1:
+              $ref: '#/components/schemas/line1'
+            line2:
+              type: string
+              description: Address Line 2
+              pattern: ^[ a-zA-Z0-9._-]+$
+            city:
+              $ref: '#/components/schemas/city'
+            state:
+              $ref: '#/components/schemas/state'
+            zipcode:
+              $ref: '#/components/schemas/zipcode'
+            country:
+              $ref: '#/components/schemas/country'
+        phone:
+          type: object
+          required:
+          - number
+          description: Phone *object*
+          properties:
+            countryCode:
+              type: string
+              description: '1-3 digit Country Calling Code
+
+
+                *Optional.* Default is `1`.'
+              pattern: ^[0-9]{3}$
+              example: '1'
+            number:
+              type: string
+              description: 'Phone Number.
+
+
+                For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+              pattern: ^[0-9]{4,14}$
+              example: '5555555555'
+    referenceID:
+      type: string
+      format: string
+      description: 1-15 character unique [referenceID](https://developers.tabapay.com/docs/glossary#reference-id). Used for [Retrieve via ReferenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid) in case of an HTTP timeout, or any scenario where you fail to get a response body. *Not case sensitive*
+      pattern: ^[a-zA-Z0-9_-]{1,15}$
+    retrieveAccountResponse:
+      type: object
+      required:
+      - owner
+      - referenceID
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        referenceID:
+          $ref: '#/components/schemas/referenceID'
+        bank:
+          type: object
+          description: Bank Details
+          required:
+          - last4
+          properties:
+            routingNumber:
+              $ref: '#/components/schemas/routingNumber'
+            last4:
+              type: string
+              description: Last 4 of Bank Account Number
+            accountType:
+              $ref: '#/components/schemas/accountType'
+        card:
+          type: object
+          description: Card Details
+          required:
+          - last4
+          properties:
+            last4:
+              type: string
+              description: Last 4 of Card Account Number (PAN)
+            expirationDate:
+              type: string
+              description: 'Expiration Date in YYYYMM Format
+
+
+                Returned if present in the account.'
+        owner:
+          $ref: '#/components/schemas/owner'
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    accountCreateResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        card:
+          type: object
+          description: 'Card Details
+
+
+            Not returned if using <<glossary:Payment Card Not Encrypted>>'
+          required:
+          - last4
+          properties:
+            last4:
+              type: string
+              description: Last 4 of Card Account Number (PAN)
+              pattern: ^[0-9]{4}$
+            expirationDate:
+              type: string
+              description: 'Expiration Date
+
+                YYYYMM Format'
+        notices:
+          type: string
+          description: Important Notices
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    accountID:
+      type: string
+      description: 22 characters assigned <<glossary:accountID>> representing one card or bank account.
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    createAccount:
+      type: object
+      required:
+      - owner
+      - referenceID
+      properties:
+        referenceID:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{1,15}$
+          description: 1-15 characer unique referenceID. This is used to do a [Retrieve via ReferenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid#/) in case of an HTTP timeout, or any scenario where you fail to get a response body
+        bank:
+          type: object
+          description: 'Bank Account Data
+
+
+            *Choose either* `bank` *or* `card`. *Do not include both, or leave both out.*'
+          required:
+          - routingNumber
+          - accountNumber
+          - accountType
+          properties:
+            routingNumber:
+              type: string
+              pattern: ^[0-9]{9}$
+              description: '9-digit [Routing Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number). TabaPay performs [check-digit validations](https://en.wikipedia.org/w/index.php?title=ABA_routing_transit_number&section=7#Check_digit); no other validations are done.
+
+
+                *Required if choosing `bank`*'
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{4,17}$
+              description: 'Bank Account Number.
+
+
+                *Required if choosing `bank`*'
+            accountType:
+              type: string
+              pattern: ^[CSABL]$
+              description: 'Bank Account Type.
+
+                - `S` Savings
+
+                - `C` Checking
+
+                - `A` Business Savings
+
+                - `B` Business Checking
+
+                - `L` Loan
+
+
+                No validations are done to match `accountNumber` to `accountType`. Required if choosing `bank`'
+              example: C
+        card:
+          type: object
+          description: '**Choose either* `bank` *or* `card`. *Do not include both, or leave both out.**
+
+
+            Payment Card Data.
+
+
+            Choose ***exactly ONE*** of the following:
+
+            - [Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-card-not-encrypted)
+
+            - [Payment Card Encrypted](https://developers.tabapay.com/docs/glossary#payment-card-encrypted)
+
+            - `token`
+
+            - `device` *object*'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: '<<glossary:Payment Card Not Encrypted>>A Primary Account Number (PAN/Card Number)
+
+
+                Compatible *only* with `expirationDate` and nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: '<<glossary:Payment Card Not Encrypted>>Expiration Date in YYYYMM
+
+
+                Compatible *only* with `accountNumber` and nothing else.'
+            keyID:
+              $ref: '#/components/schemas/keyID'
+            data:
+              $ref: '#/components/schemas/data'
+            token:
+              type: string
+              pattern: ^[A-Za-z0-9_+=-]{344}$
+              format: byte
+              description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
+
+
+                Incompatible with any other `card` field.'
+            device:
+              type: object
+              description: 'Card Data from a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions#/)
+
+
+                Incompatible with any other `card` object(s) or field(s)*'
+              required:
+              - id
+              - blob
+              properties:
+                id:
+                  type: string
+                  description: TabaPay-assigned device ID
+                blob:
+                  $ref: '#/components/schemas/blob'
+        owner:
+          type: object
+          required:
+          - name
+          description: Owner Details
+          properties:
+            name:
+              $ref: '#/components/schemas/name'
+            address:
+              type: object
+              description: 'Address.
+
+
+                *All fields optional.* However, if you''re planning on using AVS in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
+              properties:
+                line1:
+                  $ref: '#/components/schemas/line1'
+                line2:
+                  type: string
+                  description: Address Line 2
+                  pattern: ^[ a-zA-Z0-9._-]+$
+                city:
+                  $ref: '#/components/schemas/city'
+                state:
+                  $ref: '#/components/schemas/state'
+                zipcode:
+                  $ref: '#/components/schemas/zipcode'
+                country:
+                  $ref: '#/components/schemas/country'
+            phone:
+              type: object
+              description: Phone *object*
+              properties:
+                countryCode:
+                  type: string
+                  description: '1-3 digit Country Calling Code
+
+
+                    *Optional.* Default is `1`.'
+                  pattern: ^[0-9]{3}$
+                  example: '1'
+                number:
+                  type: string
+                  description: 'Phone Number.
+
+
+                    For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+                  pattern: ^[0-9]{4,14}$
+                  example: '5555555555'
+    blob:
+      type: string
+      description: URL-safe, Base64 encoded card data
+      pattern: ^[A-Za-z0-9_+=-]{1500}$
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    accountCreateResponseDuplicateCard:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        duplicateAccountIDs:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountID'
+          description: '<<glossary:AccountID>>s using the same Card Account Number (PAN)
+
+
+            If more than 3 <<glossary:AccountID>>s exist, only the 3 most recently created will be present*'
+    updateAccount:
+      type: object
+      required:
+      - owner
+      properties:
+        card:
+          type: object
+          description: 'Payment Card Data.
+
+
+            Choose ***exactly ONE*** of the following:
+
+            - <<glossary:Payment Card Not Encrypted>>
+
+            - <<glossary:Payment Card Encrypted>>
+
+            - `token`
+
+            - `device` *object*
+
+
+            If <<glossary:Version>> is `v1`: either `card` object or `bank` object is required*
+
+            If `Version` is `v2`: `card` object or `bank` object is optional.'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: '<<glossary:Payment Card Not Encrypted>>A Primary Account Number (PAN/Card Number)
+
+
+                Compatible *only* with `expirationDate` and nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: '<<glossary:Payment Card Not Encrypted>>Expiration Date in YYYYMM
+
+
+                Compatible *only* with `accountNumber` and nothing else.'
+            keyID:
+              type: string
+              pattern: ^[a-zA-Z0-9_-]{22}$
+              description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+                22 character KeyID. Ensure the RSA key you''re using to encrypt the card data is consistent with this keyID
+
+
+                Compatible with `data` and nothing else.
+
+
+                Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+            data:
+              type: string
+              description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+                [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
+
+
+                Compatible with `keyID` and nothing else
+
+
+                Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+            token:
+              type: string
+              pattern: ^[A-Za-z0-9_+=-]{344}$
+              format: byte
+              description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
+
+
+                Incompatible with any other `card` field.
+
+
+                Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+            device:
+              type: object
+              description: 'Card Data from either a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions#/) or from a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/)
+
+
+                Incompatible with any other `card` object(s) or field(s)
+
+
+                Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+              required:
+              - id
+              - blob
+              properties:
+                id:
+                  type: string
+                  description: 'Either:
+
+                    - TabaPay-assigned device ID
+
+                    - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
+                blob:
+                  $ref: '#/components/schemas/blob'
+        owner:
+          $ref: '#/components/schemas/owner'
+    accountType:
+      type: string
+      pattern: ^[SCABL]$
+      description: 'Bank Account Type.
+
+        - `S` Savings
+
+        - `C` Checking
+
+        - `A` Business Savings
+
+        - `B` Business Checking
+
+        - `L` Loan '
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    updateAccountV2:
+      type: object
+      properties:
+        card:
+          type: object
+          description: 'Payment Card Data.
+
+            Supports <<glossary:Payment Card Not Encrypted>>, no other card data types supported at this time.'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: '<<glossary:Payment Card Not Encrypted>>A Primary Account Number (PAN/Card Number)
+
+
+                Compatible *only* with `expirationDate` and nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: '<<glossary:Payment Card Not Encrypted>>Expiration Date in YYYYMM
+
+
+                Compatible *only* with `accountNumber` and nothing else.'
+        owner:
+          type: object
+          properties:
+            name:
+              type: object
+              description: 'Name
+
+
+                Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
+
+
+                If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
+              properties:
+                company:
+                  type: string
+                  description: "Company Name\n\nIncompatible with any other `name` field.\n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+                  pattern: ^[ a-zA-Z0-9_-]+$
+                first:
+                  type: string
+                  description: 'First Name
+
+
+                    Incompatible with `company` name*'
+                  pattern: ^[ a-zA-Z0-9_-]+$
+                middle:
+                  type: string
+                  description: 'Middle Name
+
+
+                    Incompatible with `company` name*'
+                  pattern: ^[ a-zA-Z0-9_-]+$
+                last:
+                  type: string
+                  description: 'Last Name
+
+
+                    Incompatible with `company` name*'
+                  pattern: ^[ a-zA-Z0-9_-]+$
+                suffix:
+                  type: string
+                  description: 'Suffix
+
+
+                    Incompatible with `company` name*'
+                  pattern: ^[ a-zA-Z0-9_-]+$
+            address:
+              type: object
+              description: Address
+              properties:
+                line1:
+                  $ref: '#/components/schemas/line1'
+                line2:
+                  $ref: '#/components/schemas/line2'
+                city:
+                  $ref: '#/components/schemas/city'
+                state:
+                  $ref: '#/components/schemas/state'
+                zipcode:
+                  $ref: '#/components/schemas/zipcode'
+                country:
+                  $ref: '#/components/schemas/country'
+            phone:
+              $ref: '#/components/schemas/phone'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    phone:
+      type: object
+      required:
+      - number
+      description: Phone *object*
+      properties:
+        countryCode:
+          type: string
+          description: '1-3 digit Country Calling Code
+
+
+            *Optional.* Default is `1`.'
+          pattern: ^[0-9]{3}$
+          example: '1'
+        number:
+          type: string
+          description: 'Phone Number.
+
+
+            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+          pattern: ^[0-9]{4,14}$
+          example: '5555555555'
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    data:
+      type: string
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
+
+
+        Compatible with `keyID` and nothing else'
+  parameters:
+    AccountID:
+      name: AccountID
+      in: path
+      description: '22 character assigned <<glossary:accountID>>.
+
+
+        Returned from [Create Account](https://developers.tabapay.com/reference/account#/)'
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    OKToAddDuplicateCard:
+      name: OKToAddDuplicateCard
+      in: query
+      description: 'Use to allow account creation if an account with card already exists
+
+
+        Incompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).
+
+        Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    RejectDuplicateCard:
+      name: RejectDuplicateCard
+      in: query
+      description: 'Use to disallow account creation if an account with card already exists
+
+
+        Incompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).
+
+        Use is allowed if <<glossary:Version>> is `v1` (not `v2`)'
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    DeleteDuplicateCard:
+      name: DeleteDuplicateCard
+      in: query
+      description: Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

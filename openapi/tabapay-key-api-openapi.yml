@@ -1,0 +1,301 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Key API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Key
+  description: This resource represents an RSA Encryption Key.
+paths:
+  /v1/clients/{ClientID}/keys:
+    post:
+      tags:
+      - Key
+      summary: Create Key
+      description: Creates a Key.
+      operationId: keyCreate
+      parameters:
+      - name: ClientID
+        in: path
+        description: 22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createKey'
+        required: true
+      responses:
+        '200':
+          description: A Key is created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createKeyResponse'
+              examples:
+                ASN.1:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    keyID: TabaPay_KeyID_22_chars
+                    key: Base64_Encoded_Key
+                    expiration: '2017-04-03T00:00:00Z'
+                Raw:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    keyID: TabaPay_KeyID_22_chars
+                    keyModulus: Base64_Encoded_Modulus
+                    keyExponent: Base64_Encoded_Exponent
+                    expiration: '2017-04-03T00:00:00Z'
+        '429':
+          description: Created too many Keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 429
+                EC: InternalErrorCode
+                EM: Keys Created
+  /v1/clients/{ClientID}/keys/{KeyID}:
+    delete:
+      tags:
+      - Key
+      summary: Delete Key
+      description: Deletes a Key.
+      operationId: keyDelete
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/KeyID'
+      - $ref: '#/components/parameters/Format'
+      responses:
+        '200':
+          description: The Key is marked for deletion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 200
+                EC: '0'
+        '404':
+          description: Key not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 404
+                EC: '10000000'
+                EM: KeyID
+        '410':
+          description: Key already marked for deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 410
+                EC: '50000000'
+                EM: Key Deleted
+    get:
+      tags:
+      - Key
+      summary: Retrieve Key
+      description: Retrieves the Key.
+      operationId: keyRetrieve
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/KeyID'
+      - $ref: '#/components/parameters/Format'
+      responses:
+        '200':
+          description: The Key is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveKeyResponse'
+              examples:
+                ASN.1:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    keyID: TabaPay_KeyID_22_chars
+                    key: Base64_Encoded_Key
+                    expiration: '2017-04-03T00:00:00Z'
+                Raw:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    keyModulus: Base64_Encoded_Modulus
+                    keyExponent: Base64_Encoded_Exponent
+                    expiration: '2017-04-03T00:00:00Z'
+components:
+  schemas:
+    createKeyResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        keyID:
+          type: string
+          description: 22 character KeyID
+          example: TabaPay_KeyID_22_chars
+        key:
+          type: string
+          description: 'ASN.1
+
+            encoded in Base64 URL-Safe Character Set
+
+
+            Only present if `format` is `ASN.1`'
+        keyModulus:
+          type: string
+          description: 'Modulus, encoded in Base64 URL-Safe Character Set
+
+
+            Only present if `format` is `Raw`'
+        keyExponent:
+          type: string
+          description: 'Public Exponent, encoded in Base64 URL-Safe Character Set
+
+
+            Only present if `format` is `Raw`'
+        expiration:
+          type: string
+          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
+          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
+        notices:
+          type: string
+          description: Important Notices
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    createKey:
+      type: object
+      required:
+      - format
+      pattern: (?:ASN.1|Raw)
+      properties:
+        format:
+          type: string
+          description: 'Public Key Response Format, either:
+
+
+            - `ASN.1`
+
+            - `Raw` (Modulus and Public Exponent)'
+          example: ASN.1
+    retrieveKeyResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        key:
+          type: string
+          description: 'ASN.1 key, encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `ASN.1`*'
+        keyModulus:
+          type: string
+          description: 'Raw Key Modulus. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        keyExponent:
+          type: string
+          description: 'Raw Key Public Exponent. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        expiration:
+          type: string
+          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
+          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+  parameters:
+    Format:
+      name: Format
+      in: query
+      description: Use to specify your key format
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+        pattern: ^(?:ASN.1|Raw)$
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    KeyID:
+      name: KeyID
+      in: path
+      description: Identification for the RSA key
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

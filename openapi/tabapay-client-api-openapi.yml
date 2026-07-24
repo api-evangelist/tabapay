@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Client API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Client
+  description: This resource represents a Client.
+paths:
+  /v1/clients/{ClientID}:
+    get:
+      tags:
+      - Client
+      summary: Retrieve Client
+      description: Retrieves the attributes and status of a Client.
+      operationId: clientRetrieve
+      parameters:
+      - name: ClientID
+        in: path
+        description: 22-character ClientID. Present in your credential file.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Client's attributes are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientRetrieveResponse'
+              example:
+                SC: 200
+                EC: '0'
+                label: ClientLabel
+                networks:
+                  pull:
+                  - STAR
+                  - Visa
+                  push:
+                  - STAR
+                  - CU24
+                  - Visa
+                limits:
+                  currency: '840'
+                  pull:
+                    transaction: '0.25'
+                    daily: '1.00'
+                  push:
+                    transaction: '0.25'
+                    daily: '1.00'
+                    networks:
+                    - network: CU24
+                      transaction: '0.20'
+                      daily: '1.00'
+        '404':
+          description: Client not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientNotFound'
+              example:
+                SC: 404
+                EC: 3A1000000
+                EM: Not Found
+        '423':
+          description: Client locked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientLocked'
+              example:
+                SC: 423
+                EC: 3A1000000
+                EM: Locked
+components:
+  schemas:
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    clientLocked:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    networkLimits:
+      type: object
+      description: 'List of Network Limits.
+
+        Network is listed only if if different from above limits'
+      properties:
+        network:
+          type: string
+          description: Network Name
+        transaction:
+          type: string
+          description: Network Transaction Limit
+        daily:
+          type: string
+          description: '*Approximate* Network Daily Limit'
+    clientRetrieveResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        label:
+          type: string
+          example: ClientLabel
+          description: 'The Client Label is the human readable identifier used to identify you versus using your ClientID. It may be used:
+
+            - in part of the file name for various [Reports]](/docs/reporting) TabaPay generates for you, and
+
+            - in part of the URL for access to the Client WebSite.'
+        networks:
+          type: object
+          description: List of Available Networks
+          properties:
+            pull:
+              type: array
+              description: 'For Pull Transactions
+
+
+                Array can be empty or is a List of [Network Names](https://developers.tabapay.com/reference/networks#/).'
+              items:
+                type: string
+            push:
+              type: array
+              description: 'For Push Transactions
+
+
+                Array can be empty or is a List of [Network Names](https://developers.tabapay.com/reference/networks#/).'
+              items:
+                type: string
+        limits:
+          type: object
+          description: ''
+          properties:
+            currency:
+              type: string
+              description: '[ISO 4217 Currency Number](https://developers.tabapay.com/reference/currency-numbers#/)'
+              example: '840'
+            pull:
+              type: object
+              description: ''
+              properties:
+                transaction:
+                  type: string
+                  example: '0.25'
+                  description: Pull Transaction [Limit](/docs/adjusting-limits)
+                daily:
+                  type: string
+                  example: '1.00'
+                  description: '*Approximate* Pull Daily [Limit](/docs/adjusting-limits)'
+                networks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/networkLimits'
+                  description: 'List of Network Limits
+
+
+                    Network is listed only if different from above Pull Limits'
+            push:
+              type: object
+              description: ''
+              properties:
+                transaction:
+                  type: string
+                  example: '0.25'
+                  description: Push Transaction [Limit](/docs/adjusting-limits)
+                daily:
+                  type: string
+                  example: '1.00'
+                  description: '*Approximate* Push Daily [Limit](/docs/adjusting-limits)'
+                networks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/networkLimits'
+                  description: 'List of Network Limits
+
+
+                    Network is listed only if different from above Push Limits'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    clientNotFound:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

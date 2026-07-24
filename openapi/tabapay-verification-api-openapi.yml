@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Verification API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Verification
+  description: This resource represents a Client's Verification.
+paths:
+  /v2/clients/{ClientID}/verifications:
+    post:
+      tags:
+      - Verification
+      summary: Create Verification
+      description: "Creates a KYB/KYC verification case. \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      operationId: createverification
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verificationCreate'
+            example:
+              document:
+                front: 22CharacTabapayDocID11
+                back: 22CharacTabapayDocID12
+              referenceID: 1234reference
+              userID: 22CharacterTabaPayID12
+        required: true
+      responses:
+        '200':
+          description: Verification created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createVerificationResponse'
+              example:
+                SC: 200
+                EC: '0'
+                verificationID: 22CharacterTPVerifyID12
+                status: CREATED
+        '207':
+          description: One or more failures occurred while processing the Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+  /v2/clients/{ClientID}/verifications/{VerificationID}:
+    get:
+      tags:
+      - Verification
+      summary: Retrieve Verification
+      description: Retrieves a verification by verificationID.
+      operationId: retrieveverification
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/VerificationID'
+      - $ref: '#/components/parameters/ReferenceIDQuery'
+      responses:
+        '200':
+          description: Verification retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveVerificationResponse'
+              example:
+                SC: 200
+                EC: '0'
+                verificationID: 22CharacterTabaPayID12
+                referenceID: 123RefID
+                userID: 22CharacterTPayUserID12
+                status: PENDING
+        '404':
+          description: Verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+components:
+  schemas:
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    tpUserID:
+      type: string
+      description: TabaPay user identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    verificationCreate:
+      type: object
+      required:
+      - referenceID
+      - userID
+      - document
+      properties:
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        document:
+          type: object
+          required:
+          - front
+          - back
+          properties:
+            front:
+              type: string
+              description: 22 character unique document ID from [Create Document](https://developers.tabapay.com/reference/createdocument)
+            back:
+              type: string
+              description: 22 character unique document ID from [Create Document](https://developers.tabapay.com/reference/createdocument)
+    createVerificationResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        verificationID:
+          $ref: '#/components/schemas/tpVerificationID'
+        status:
+          type: string
+          description: "Status of Verification Request\n\nValid Values:\n - CREATED\n - PENDING\n - COMPLETED\n - FAILED\n - UNKNOWN"
+    tpReferenceID:
+      type: string
+      description: Client-defined reference identifier
+      minLength: 1
+      maxLength: 15
+      pattern: ^[A-Za-z0-9._-]+$
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    tpVerificationID:
+      type: string
+      description: TabaPay verification identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    retrieveVerificationResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        verificationID:
+          $ref: '#/components/schemas/tpVerificationID'
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        status:
+          type: string
+          description: "Status of Verification Request\n\nValid Values:\n - CREATED\n - PENDING\n - COMPLETED\n - FAILED\n - UNKNOWN"
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+  parameters:
+    VerificationID:
+      name: VerificationID
+      in: path
+      description: 22-character VerificationID returned from Create Verification.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ReferenceIDQuery:
+      name: referenceID
+      in: query
+      description: Reference ID fallback lookup.
+      required: false
+      schema:
+        type: string
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

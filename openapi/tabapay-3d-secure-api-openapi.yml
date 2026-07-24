@@ -1,0 +1,937 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: 3D Secure
+paths:
+  /v2/clients/{ClientID}/3ds/authenticate:
+    post:
+      tags:
+      - 3D Secure
+      summary: 3D Secure Authenticate
+      description: 3D Secure Card Authentication Request.
+      operationId: 3dsauthenticate
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/3dsauthenticate'
+        required: true
+      responses:
+        '200':
+          description: An Authenticate Response is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3dsAuthenticateResponse'
+              examples:
+                Success:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    actionCode: SUCCESS
+                    errorNumber: '0'
+                    errorDescription: Success
+                    3dsVersion: 2.1.0
+                    processorTransactionID: '11111111111111111111'
+                    status: Y
+                    ECI: '05'
+                    UCAF: '1111111111111111111111111111'
+                Error:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    actionCode: FAILURE
+                    errorNumber: '0'
+                    errorDescription: Success
+                    3dsVersion: 2.2.0
+                    processorTransactionID: f2T1gBHnnq028ujOLlC1
+                    status: N
+                    ECI: '07'
+                    UCAF: ''
+  /v2/clients/{ClientID}/3ds/init:
+    post:
+      tags:
+      - 3D Secure
+      summary: 3D Secure Initialize
+      description: "Initializes a 3D Secure Card Authentication Request. \n\nRequest to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      operationId: 3dsinit
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/3dsinit'
+            examples:
+              3DS Init with Card Info:
+                value:
+                  referenceID: 1dkt062024
+                  account:
+                    card:
+                      accountNumber: '4000000000002446'
+                  order:
+                    orderID: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                    currency: '840'
+                    amount: '4.00'
+              3DS Init with AccountID:
+                value:
+                  referenceID: 1dkt062024
+                  account:
+                    accountID: BikavmpEWcIxHodMwv5g3A
+                  order:
+                    orderID: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                    currency: '840'
+                    amount: '4.00'
+        required: true
+      responses:
+        '200':
+          description: A JWT is Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3dsInitResponse'
+              example:
+                SC: 200
+                EC: '0'
+                3dsID: ID_BASE64-URL-SAFE-VALUE
+                jwt: JWT-BASE64-URL-SAFE-VALUE
+                deviceCollectionURL: https://someplace.somewhere.com/DeviceCollect
+        '207':
+          description: One or more Failures occurred while processing the Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+        '404':
+          description: The AccountID does not point to a valid Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 404
+                EC: InternalErrorCode
+                EM: AccountID
+  /v2/clients/{ClientID}/3ds/lookup:
+    post:
+      tags:
+      - 3D Secure
+      summary: 3D Secure Lookup
+      description: 3D Secure Card Lookup.
+      operationId: 3dslookup
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/enhancedResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/3dslookup'
+        required: true
+      responses:
+        '200':
+          description: A Lookup Response is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3dsLookupResponse'
+              examples:
+                frictionless successful authentication, without enhancedResponse:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    3dsVersion: 2.1.0
+                    enrolled: Y
+                    processorTransactionID: '11111111111111111111'
+                    dsTransactionID: 11111111-2222-3333-4444-555555555555
+                    status: Y
+                    ECI: '05'
+                    UCAF: '1111111111111111111111111111'
+                  summary: Successful Authentication, No Challenge
+                challenge, without enhancedResponse:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    3dsVersion: 2.1.0
+                    enrolled: Y
+                    ECI: '07'
+                    processorTransactionID: '11111111111111111111'
+                    dsTransactionID: 11111111-2222-3333-4444-555555555555
+                    challengeURL: https://someplace.somewhere.com/challenge
+                    payload: A_LONG_PAYLOAD
+                frictionless successful authentication, with enhancedResponse:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    3dsVersion: 2.1.0
+                    enrolled: Y
+                    processorTransactionID: '11111111111111111111'
+                    dsTransactionID: 11111111-2222-3333-4444-555555555555
+                    status: Y
+                    ECI: '05'
+                    UCAF: '1111111111111111111111111111'
+                    signatureVerification: Y
+                  summary: No Challenge, with enhancedResponse
+                challenge, with enhancedResponse:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    3dsVersion: 2.1.0
+                    enrolled: Y
+                    processorTransactionID: '11111111111111111111'
+                    dsTransactionID: 11111111-2222-3333-4444-555555555555
+                    status: C
+                    ECI: '07'
+                    challengeURL: https://someplace.somewhere.com/challenge
+                    payload: A_LONG_PAYLOAD
+                    stepUpURL: '[step up URL]'
+                    signatureVerification: Y
+                failed, with enhancedResponse:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    3dsVersion: 2.1.0
+                    enrolled: Y
+                    3dsRC: '0000'
+                    processorTransactionID: '11111111111111111111'
+                    dsTransactionID: 11111111-2222-3333-4444-555555555555
+                    status: N
+                    ECI: '07'
+                    challengeURL: https://someplace.somewhere.com/challenge
+                    payload: A_LONG_PAYLOAD
+                    signatureVerification: Y
+                    cardholderInfo: 'Note: Additional authentication is required by the issuing bank for this transaction, please contact Bank at 123-456-7890.'
+        '207':
+          description: One or more Failures occurred while processing the Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+        '404':
+          description: The AccountID does not point to a valid Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+              example:
+                SC: 404
+                EC: InternalErrorCode
+                EM: Account
+components:
+  schemas:
+    userAgent:
+      type: string
+      description: '*Deprecated*
+
+
+        User Agent'
+    screenWidth:
+      type: string
+      description: '*Deprecated*
+
+
+        Screen Width'
+    javaEnabled:
+      type: boolean
+      description: '*Deprecated*
+
+
+        Java Enabled'
+    language:
+      type: string
+      description: '*Deprecated*
+
+
+        Language'
+    currency:
+      type: string
+      description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    3dslookup:
+      type: object
+      required:
+      - account
+      - order
+      - 3dsID
+      - authenticationIndicator
+      - transactionType
+      - productCode
+      - browser
+      properties:
+        3dsID:
+          $ref: '#/components/schemas/3dsID'
+        sdkSessionID:
+          $ref: '#/components/schemas/sdkSessionID'
+        authenticationIndicator:
+          $ref: '#/components/schemas/authenticationIndicator'
+        transactionMode:
+          $ref: '#/components/schemas/transactionMode'
+        transactionType:
+          $ref: '#/components/schemas/transactionType'
+        productCode:
+          $ref: '#/components/schemas/productCode'
+        account:
+          type: object
+          description: Account Details
+          required:
+          - owner
+          properties:
+            accountID:
+              type: string
+              description: '<<glossary:Account ID>>
+
+
+                22 characters.
+
+
+                Exclusively use `accountID` field or `card` object to input card information. Incompatible with the `card` object.'
+            card:
+              type: object
+              description: 'Payment Card Data.
+
+
+                Incompatible with `accountID`. Exclusively use: `card` *OR* `accountID`.'
+              properties:
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{13,19}$
+                  description: '<<glossary:Payment Card Not Encrypted>> A Primary Account Number (PAN/Card Number)
+
+
+                    Compatible *only* with `expirationDate`, nothing else.'
+                expirationDate:
+                  type: string
+                  pattern: ^[0-9]{6}$
+                  description: '<<glossary:Payment Card Not Encrypted>> Expiration Date in YYYYMM
+
+
+                    Compatible *only* with `accountNumber`, nothing else.'
+            owner:
+              type: object
+              description: Owner
+              required:
+              - email
+              - phone
+              - name
+              properties:
+                email:
+                  type: string
+                  pattern: ^[A-Za-z._-]+@(?:[A-Za-z_-]+.?)*.[A-Za-z]+$
+                  description: Valid Email Address
+                  example: test@tabapay.com
+                phone:
+                  $ref: '#/components/schemas/phone'
+                name:
+                  type: object
+                  required:
+                  - first
+                  - last
+                  properties:
+                    first:
+                      type: string
+                      description: 2-22 character First Name
+                      pattern: ^[ a-zA-Z0-9_-]+$
+                      example: Tobias
+                    last:
+                      type: string
+                      description: 2-22 character Last Name
+                      pattern: ^[ a-zA-Z0-9_-]+$
+                      example: Pennywick
+                address:
+                  type: object
+                  description: "Billing Address. \n\nPlease Do NOT use this field unless you are allowed to send cards in the clear. \n\nOtherwise, please Create Accounts with Address. \n If a TabaPay Account already has an address, then that will be used."
+                  properties:
+                    line1:
+                      $ref: '#/components/schemas/line1'
+                    line2:
+                      $ref: '#/components/schemas/line2'
+                    city:
+                      $ref: '#/components/schemas/city'
+                    state:
+                      $ref: '#/components/schemas/state'
+                    zipcode:
+                      $ref: '#/components/schemas/zipcode'
+                    country:
+                      $ref: '#/components/schemas/country'
+        order:
+          type: object
+          description: Order
+          required:
+          - orderID
+          - amount
+          properties:
+            orderID:
+              type: string
+              format: uuid
+              description: 1-50 characters
+              pattern: ^[a-zA-Z0-9_-]{1,50}$
+            currency:
+              $ref: '#/components/schemas/currency'
+            amount:
+              $ref: '#/components/schemas/amount'
+        browser:
+          $ref: '#/components/schemas/browser'
+    3dsAuthenticateResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        actionCode:
+          type: string
+          description: "[Result](/reference/3ds-challenge-results) of the 3DS transaction attempt\n\n- SUCCESS \n- CANCEL \n- ERROR \n- FAILURE \n- NOACTION \n- TIMEOUT"
+          example: SUCCESS
+        errorNumber:
+          type: string
+          description: Listed error number
+          example: '0'
+        errorDescription:
+          type: string
+          description: Description of the listed actionCode error and errorNumber
+          example: '0'
+        3dsVersion:
+          $ref: '#/components/schemas/3dsVersion'
+        processorTransactionID:
+          type: string
+          description: Processor Transaction Identifier
+          example: '11111111111111111111'
+        status:
+          type: string
+          example: '`Y`'
+          description: 'Transaction Status Result
+
+
+            Possible Values:
+
+            - `Y` Successful Authentication
+
+            - `N` Failed Authentication
+
+            - `U` Unable to Complete Authentication
+
+            - `A` Successful Attempts Transaction
+
+            - `R` Authentication Rejected
+
+            - `I` Informational Only; 3DS Requester challenge preference acknowledged'
+        ECI:
+          type: string
+          pattern: ^[0][012567]$
+          description: 'Electronic Commerce Indicator
+
+
+            Possible Values:
+
+            - `00`
+
+            - `01`
+
+            - `02`
+
+            - `04`
+
+            - `05`
+
+            - `06`
+
+            - `07`'
+          example: '05'
+        UCAF:
+          type: string
+          description: 'Universal Cardholder Authentication Field
+
+
+            [Visa](/docs/visa-cavv-results-code#/) uses <<glossary:CAVV>> (Cardholder Authentication Verification Value)
+
+
+            [MasterCard](/docs/mastercard-ucaf-collection-downgrade-indicator#/) uses AAV (Account-Holder Authentication Value)'
+          example: '1111111111111111111111111111'
+        XID:
+          type: string
+          description: XID (Transaction ID)
+          example: VkM0MXAwOGhjMGxuaUcxU1VtNjA=
+    browser:
+      type: object
+      required:
+      - deviceChannel
+      description: Browser Information. For more information on these fields see [here](https://developers.tabapay.com/reference/browser-fields)
+      properties:
+        javascriptEnabled:
+          $ref: '#/components/schemas/javascriptEnabled'
+        userAgent:
+          $ref: '#/components/schemas/userAgent'
+        header:
+          $ref: '#/components/schemas/header'
+        javaEnabled:
+          $ref: '#/components/schemas/javaEnabled'
+        language:
+          $ref: '#/components/schemas/language'
+        colorDepth:
+          $ref: '#/components/schemas/colorDepth'
+        screenHeight:
+          $ref: '#/components/schemas/screenHeight'
+        screenWidth:
+          $ref: '#/components/schemas/screenWidth'
+        ipAddress:
+          $ref: '#/components/schemas/ipAddress'
+        browserInfo:
+          $ref: '#/components/schemas/browserInfo'
+        deviceChannel:
+          $ref: '#/components/schemas/deviceChannel'
+    deviceChannel:
+      type: string
+      pattern: ^(?:Browser|SDK)$
+      description: Either `Browser` or `SDK`
+    ipAddress:
+      type: string
+      description: '*Deprecated*
+
+
+        IP Addresses in IPv4 or IPv6 formats are accepted.'
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    3dsinit:
+      type: object
+      required:
+      - order
+      properties:
+        sdkVersion:
+          type: string
+          description: This is for mobile SDK flows (if you use this, you do not need to pass in AccountID, but you have to use lookup.sdkSessionID).
+        account:
+          type: object
+          description: Account Details
+          properties:
+            accountID:
+              type: string
+              description: '<<glossary:Account ID>>
+
+
+                22 characters.
+
+
+                Exclusively use `accountID` field or `card` object to input card information. Incompatible with the `card` object.'
+              example: 22CharacterTabaPayID12
+            card:
+              type: object
+              description: 'Payment Card Data.
+
+
+                Incompatible with `accountID`. Exclusively use: `card` *OR* `accountID`.'
+              properties:
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{13,19}$
+                  description: '<<glossary:Payment Card Not Encrypted>>
+
+
+                    A Primary Account Number (PAN/Card Number)
+
+
+                    Not compatible with `accountID`.'
+                  example: '4111111111111111'
+        order:
+          type: object
+          description: Order
+          required:
+          - orderID
+          - amount
+          properties:
+            orderID:
+              type: string
+              format: uuid
+              description: 1-50 characters
+              pattern: ^[a-zA-Z0-9_-]{1,50}$
+            currency:
+              $ref: '#/components/schemas/currency'
+            amount:
+              $ref: '#/components/schemas/amount'
+    authenticationIndicator:
+      type: string
+      pattern: ^(?:0[1|2|3|4|5|6])$
+      description: 2-digit [Authentication Indicator](https://developers.tabapay.com/reference/lookup#/authentication-indicator)
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    javascriptEnabled:
+      type: boolean
+      description: '*Deprecated*
+
+
+        Javascript Enabled'
+    transactionMode:
+      type: string
+      pattern: ^(?:M|P|R|S|T)$
+      description: 1-character [Transaction Mode](https://developers.tabapay.com/reference/lookup#/transaction-mode)
+    productCode:
+      type: string
+      pattern: ^(?:PHY|CHA|ACF|QCT|PAL)$
+      description: 3-character [Product Code](lookup#product-code)
+    3dsLookupResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        3dsVersion:
+          $ref: '#/components/schemas/3dsVersion'
+        enrolled:
+          type: string
+          description: 'Authentication Eligibility Status
+
+
+            Possible Values:
+
+            - `Y` Enrolled
+
+            - `N` Not Enrolled
+
+            - `U` Issuer Server Unavailable
+
+            - `B` Merchant bypassed authentication'
+          example: Y
+        processorTransactionID:
+          type: string
+          description: Processor Transaction Identifier
+          example: '11111111111111111111'
+        dsTransactionID:
+          type: string
+          description: "Directory Server Transaction Identifier\n\n Save to pass to [Create Transaction](/reference/transactioncreate) for a 3DS Payment"
+          example: 11111111-2222-3333-4444-555555555555
+        status:
+          type: string
+          example: '`Y`'
+          description: 'Transaction Status Result
+
+
+            Possible Values:
+
+            - `Y` Successful Authentication
+
+            - `N` Failed Authentication
+
+            - `B` Merchant bypassed authentication
+
+            - `U` Unable to Complete Authentication
+
+            - `A` Successful Attempts Transaction
+
+            - `C` Challenge Required for Authentication
+
+            - `R` Authentication Rejected
+
+            - `I` Informational Only; 3DS Requester challenge preference acknowledged'
+        ECI:
+          type: string
+          pattern: ^[0][012567]$
+          description: '[Electronic Commerce Indicator](/docs/visa-eci-response)
+
+
+            Possible Values:
+
+            - `00`
+
+            - `01`
+
+            - `02`
+
+            - `05`
+
+            - `06`
+
+            - `07`'
+          example: '05'
+        UCAF:
+          type: string
+          description: 'Universal Cardholder Authentication Field
+
+
+            [Visa](/docs/visa-cavv-results-code#/) uses <<glossary:CAVV>> (Cardholder Authentication Verification Value)
+
+
+            [MasterCard](/docs/mastercard-ucaf-collection-downgrade-indicator#/) uses AAV (Account-Holder Authentication Value)'
+          example: '1111111111111111111111111111'
+        XID:
+          type: string
+          description: 'XID (Transaction ID)
+
+
+            Optional'
+          example: VkM0MXAwOGhjMGxuaUcxU1VtNjA=
+        challengeURL:
+          type: string
+          description: 'Consumer Authentication URL
+
+
+            ***Only present if Challenge***'
+          example: https://someplace.somewhere.com/challenge
+        payload:
+          type: string
+          description: 'Base64 Encoded Payment Request
+
+
+            ***Only present if Challenge***'
+        cardholderInfo:
+          type: string
+          description: 'Text provided by the ACS/Issuer to Cardholder during a Frictionless transaction. The Issuer can provide information to Cardholder. For example: Additional authentication is needed for this transaction, please contact (Issuer Name) at xxx-xxx-xxxx. The Issuing Bank can optionally support this value. The merchant is required to display this within their Checkout when present.'
+        signatureVerification:
+          type: string
+          description: "Transaction Signature status identifier. \n\nPossible Values:\nY - Indicates that the signature of the PARes has been validated successfully and the message contents can be trusted.\nN - Indicates that the PARes could not be validated. This result could be for a variety of reasons; tampering, certificate expiration, etc., and the result should not be trusted."
+        stepUpURL:
+          type: string
+          description: 'The fully qualified URL that the client uses to post the cardholder in order to complete the Consumer Authentication transaction for the Cardinal Cruise API integration.
+
+            Note: This is only for a Cardinal Cruise API Integration'
+        3dsRC:
+          type: string
+          description: TabaPay Error Code for <<glossary:3DS>>, this should be 0 unless there is an issue. Please store this in your logs.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    3dsauthenticate:
+      type: object
+      required:
+      - 3dsID
+      - jwt
+      properties:
+        3dsID:
+          $ref: '#/components/schemas/3dsID'
+        jwt:
+          type: string
+          description: '[JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)'
+    transactionType:
+      type: string
+      pattern: ^C$
+      description: '`C` is the only [Transaction Type](https://developers.tabapay.com/reference/lookup#/transaction-type) supported.'
+    amount:
+      type: string
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
+    3dsID:
+      type: string
+      description: 3dsID returned from [3dsinit](https://developers.tabapay.com/reference/3dsinit#/)
+    sdkSessionID:
+      type: string
+      description: 'Mobile flow referenceID (used in conjunction with init.sdkVersion, comes from the SDK''s setup.onComplete)
+
+
+        Required if the device channel is SDK.'
+    colorDepth:
+      type: string
+      description: '*Deprecated*
+
+
+        Color Depth'
+    3dsVersion:
+      type: string
+      description: 'The 3D Secure Version that was used to process this request.
+
+
+        Expected values are of the form: `2.X.X`'
+      example: 2.2.0
+    browserInfo:
+      type: string
+      description: 'Concatenated [Browser Data Fields](https://developers.tabapay.com/reference/browser-fields). Concatenate the below fields (in order!) with the `|`
+
+
+        1. `javascriptEnabled`
+
+        2. `userAgent`
+
+        3. `header`
+
+        4. `javaEnabled`
+
+        5. `language`
+
+        6. `colorDepth`
+
+        7. `screenHeight`
+
+        8. `screenWidth`
+
+        9. `timezone`
+
+        10. `ipAddress`
+
+
+
+
+        *See an example [here](https://developers.tabapay.com/reference/browser-fields#browser-object-field-browserinfo)*'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    phone:
+      type: object
+      required:
+      - number
+      description: Phone *object*
+      properties:
+        countryCode:
+          type: string
+          description: '1-3 digit Country Calling Code
+
+
+            *Optional.* Default is `1`.'
+          pattern: ^[0-9]{3}$
+          example: '1'
+        number:
+          type: string
+          description: 'Phone Number.
+
+
+            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+          pattern: ^[0-9]{4,14}$
+          example: '5555555555'
+    screenHeight:
+      type: string
+      description: '*Deprecated*
+
+
+        Screen Height'
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    3dsInitResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        3dsID:
+          $ref: '#/components/schemas/3dsID'
+        jwt:
+          type: string
+          pattern: ^[a-zA-Z0-9-_.]+$
+          description: '[JWT](https://jwt.io)'
+        deviceCollectionURL:
+          type: string
+          description: 'URL for Device Data Collection.
+
+
+            See [3DS FAQ](https://developers.tabapay.com/reference/device-data-collection#/) for details on how to use this value.'
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    header:
+      type: string
+      description: '*Deprecated*
+
+
+        Header'
+  parameters:
+    enhancedResponse:
+      name: enhancedResponse
+      in: query
+      description: Provides more granular detail in 3DS responses.
+      required: true
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Bank API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Bank
+  description: This resource represents a Bank.
+paths:
+  /v1/clients/{ClientID}/banks:
+    post:
+      tags:
+      - Bank
+      summary: Query Bank
+      description: Returns the attributes for the requested Bank.
+      operationId: bankQuery
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryBank'
+            examples:
+              Query Bank Real-Time Payments:
+                value:
+                  routingNumber: '011001234'
+        required: true
+      responses:
+        '200':
+          description: The Bank's Attributes are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryBankResponse'
+              examples:
+                Routing Number Enabled:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    RTP: true
+                    RTPAttributes:
+                      TCH: true
+                      TCHRequestForPayment: false
+                      FED: true
+                      FEDRequestForPayment: false
+                Routing Number Not Enabled:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    RTP: false
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryBankResponse'
+              examples:
+                Invalid Routing Number:
+                  value:
+                    SC: 400
+                    EC: InternalErrorCode
+                    EM: accounts.destinationAccount.bank.routingNumber
+components:
+  schemas:
+    queryBank:
+      type: object
+      required:
+      - routingNumber
+      properties:
+        routingNumber:
+          $ref: '#/components/schemas/routingNumber'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
+    queryBankResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        RTP:
+          type: boolean
+          description: <<glossary:RTP>>-enabled
+          example: true
+        RTPAttributes:
+          type: object
+          description: Additional RTP Attributes of the Routing Number
+          properties:
+            TCH:
+              type: boolean
+              description: The routing number enablement for Real Time Payments within The Clearing House (TCH) network
+              example: true
+            TCHRequestForPayment:
+              type: boolean
+              description: The routing number enablement for [RfP (Request for Payment](/docs/request-for-payment-via-rtp-by-tch#/) within The Clearing House (TCH) network.
+              example: false
+            FED:
+              type: boolean
+              description: The routing number enablement for Real Time Payments within the FedNow network
+              example: true
+            FEDRequestForPayment:
+              type: boolean
+              description: The routing number enablement for Request For Payment (RFP) within the FedNow network
+              example: false
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

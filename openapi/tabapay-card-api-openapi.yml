@@ -1,0 +1,1157 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Card API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Card
+  description: This resource represents a Payment Card (Debit Card, PrePaid Card, or Credit Card).
+paths:
+  /v1/clients/{ClientID}/cards:
+    post:
+      tags:
+      - Card
+      summary: Query Card
+      description: 'Returns the attributes for the requested Payment Card.
+
+
+        Request to enable <Glossary>ANI</Glossary> or <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)'
+      operationId: cardQuery
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/AU'
+      - $ref: '#/components/parameters/AVS'
+      - $ref: '#/components/parameters/ANI'
+      - $ref: '#/components/parameters/Fees'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryCard'
+            examples:
+              Query Card - US Card:
+                value:
+                  card:
+                    accountNumber: '4111111111111111'
+                    expirationDate: '202708'
+                    securityCode: '232'
+                  owner:
+                    name:
+                      first: Test
+                      last: Name
+                    address:
+                      line1: 123 Street
+                      city: San Francisco
+                      state: CA
+                      zipcode: '94104'
+                      country: '840'
+                  currency: '840'
+                  timeout: '39'
+              Query Card - Account ID:
+                value:
+                  account:
+                    accountID: 22CharacterTabaPayID12
+              Query Card - Encrypted Card Info - RSA:
+                value:
+                  card:
+                    keyID: TabaPay_KeyID_22_chars
+                    data: Base64_Encoded_Key
+                  owner:
+                    name:
+                      first: Test
+                      last: Name
+                    address:
+                      line1: 123 Street
+                      city: San Francisco
+                      state: CA
+                      zipcode: '94104'
+              Query Card - Encrypted Card Info - iFrame Token:
+                value:
+                  card:
+                    token: 80di7pLqLIAjagqBgTquXkGvos1Yjs-tzIgnHbXUwObg-vR48OumErarFEypJg6ghQwoYNFaV_zv3LKogdGOfKylpZHl7HG4rPEe2LyzY1vBdzEBm1UubBAAeo_iKvnrMwObBTRMxbsvlJVwsFpJZ879wp0jnO8sYCXop3yp0w5LaqlQoyfbSloxOi5ZkX9jOCxfuKWf4uXcvWiBCeYtIr78_rldk5SvjMpp4u2eBN6gAcnjczMxIYIJD_zrI1zGYRq8SJwhVdYr2C8VYbkgoHnT1JDyDdwspVtQ1NP9vesNdEF_1qc_9MpogQeM-O3G09WWivDchJscJbbTZnjU6CaR
+                  owner:
+                    name:
+                      first: Test
+                      last: Name
+                    address:
+                      line1: 123 Street
+                      city: San Francisco
+                      state: CA
+                      zipcode: '94104'
+        required: true
+      responses:
+        '200':
+          description: The Payment Card's Attributes are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryCardResponse'
+              examples:
+                No Query Strings:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                'AU Card-in-the-clear Card Updated:':
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                    AU:
+                      reasonCode: E
+                      card:
+                        accountNumber: '4111111111111111'
+                        expirationDate: '203012'
+                'Account-based query, Card updated:':
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                    AU:
+                      reasonCode: E
+                      card:
+                        newBIN: '411111'
+                        newLast4: '1111'
+                        newExpirationDate: '203012'
+                'Encrypted Token Response, No Update:':
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                    AU:
+                      reasonCode: V
+                      card:
+                        token: 80kzS2VZQ0N1a1p3T0h2N2p...base64…Pkq9w==
+                'Encrypted Token Response, Card Updated:':
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                    AU:
+                      reasonCode: E
+                      card:
+                        token: 80kzS2VZQ0N1a1p3T0h2N2p...base64…Pkq9w==
+                        newBIN: '411111'
+                        newLast4: '1111'
+                        newExpirationDate: '203012'
+                Query Card with RTM:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      pull:
+                        enabled: false
+                      push:
+                        enabled: true
+                        network: MoneySend
+                        type: PrePaid
+                        availability: Immediate
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      bin: '510510'
+                      last4: '5100'
+                      nameFI: Whoop I.E. Institution
+                    AVS:
+                      avsID: xfo9IPoCgMfC9HouViFDmw
+                      networkRC: '00'
+                      networkID: '2001831410402'
+                      codeAVS: Y
+                      codeSecurityCode: M
+                      par: 5001AJ7BWBMW0ML5RUYTQ8KDVRH2D
+                    limits:
+                      card:
+                        push:
+                          1Day: '182.55'
+                          3Day: '165.52'
+                          7Day: '0.00'
+                          30Day: '0.00'
+                      user:
+                        push:
+                          1Day: '500.00'
+                          3Day: '500.00'
+                          7Day: '450.00'
+                          30Day: '0.00'
+                    RTM:
+                      status: IN_REVIEW
+                      transactDate: '20260502'
+                    subClientID: '13001511'
+                Pull Disabled:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: false
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                        availability: Immediate
+                Push Disabled:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: Financial Institution Name
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Debit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: false
+                Disabled/Unsupported Card:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      bin: '411111'
+                      last4: '1111'
+                      pull:
+                        enabled: false
+                      push:
+                        enabled: false
+                AVS:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        availability: Immediate
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: FORD Instiution
+                    AVS:
+                      avsID: hz8pVrQTCa8IDpu3-v_wcA
+                      networkRC: '85'
+                      networkID: '501419181603'
+                      authorizeID: '181603'
+                      codeAVS: Y
+                      codeSecurityCode: M
+                      par: V0010013022073812195104907179
+                ANI:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        availability: Immediate
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      bin: '411111'
+                      last4: '1111'
+                      nameFI: FORD Instiution
+                    AVS:
+                      avsID: Q78rZrISCc3jeQORXlWtBg
+                      networkRC: '85'
+                      networkID: '501419181602'
+                      authorizeID: '181602'
+                      codeAVS: Y
+                      codeSecurityCode: M
+                      par: V0010013022073812195104907179
+                      ANI:
+                        codeMatch: M
+                        codeFullName: M
+                        codeFirstName: M
+                        codeLastName: M
+                ANI MC MAC:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    card:
+                      pull:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      push:
+                        enabled: true
+                        network: Visa
+                        type: Credit
+                        availability: Immediate
+                        regulated: true
+                        currency: '840'
+                        country: '840'
+                      bin: '222300'
+                      last4: '2300'
+                      nameFI: FORD Instiution
+                    AVS:
+                      avsID: 85px9T46MXJcVwxALTblN7
+                      networkRC: '101'
+                      networkID: '501419181602'
+                      authorizeID: '181602'
+                      codeAVS: Y
+                      codeSecurityCode: M
+                      par: '7600083030404688609424091890'
+                      codeMAC: '01'
+                      ANI:
+                        codeMatch: M
+                        codeFullName: M
+                        codeFirstName: M
+                        codeLastName: M
+        '207':
+          description: One or more Failures occurred while processing the Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+components:
+  schemas:
+    name:
+      type: object
+      description: 'Name
+
+
+        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
+
+
+        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
+      properties:
+        company:
+          type: string
+          description: 'Company Name
+
+
+            Incompatible with any other `name` field.'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        first:
+          type: string
+          description: 'First Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        middle:
+          type: string
+          description: 'Middle Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        last:
+          type: string
+          description: 'Last Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        suffix:
+          type: string
+          description: 'Suffix
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+    queryCardResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        card:
+          type: object
+          description: ''
+          properties:
+            bin:
+              type: string
+              description: First 6 digits of the card number
+              example: '411111'
+            last4:
+              type: string
+              description: Last 4 digits of the card number
+              example: '1111'
+            nameFI:
+              type: string
+              description: "Issuer Name\n\n*Note:* \n1. Not present if no issuer name found.\n2. TabaPay will Include (CashApp) in `nameFI` if it is a CashApp BIN."
+            pull:
+              type: object
+              description: Debit Transaction
+              properties:
+                enabled:
+                  type: string
+                  description: Eligible for pull
+                  example: true
+                network:
+                  type: string
+                  description: Payment network
+                  example: Visa
+                type:
+                  type: string
+                  description: Product type – `Credit`, `Debit`, `PrePaid`
+                  example: Debit
+                regulated:
+                  type: boolean
+                  description: Exempt/non-exempt from the debit card interchange fee standards
+                  example: true
+                currency:
+                  type: string
+                  description: "Corresponding issuer billing currency \n[4217 ISO 3-Digit Currency Code](https://developers.tabapay.com/reference/currency-numbers#/)"
+                  example: '840'
+                country:
+                  type: string
+                  description: "[Corresponding issuer country code \nCountry Code](https://developers.tabapay.com/reference/country-codes#/)"
+                  example: '840'
+            push:
+              type: object
+              description: Credit Transaction
+              properties:
+                enabled:
+                  type: string
+                  description: Eligible for push
+                  example: true
+                network:
+                  type: string
+                  description: Payment network
+                  example: Visa
+                type:
+                  type: string
+                  description: Product type – `Credit`, `Debit`, `PrePaid`
+                  example: Debit
+                regulated:
+                  type: boolean
+                  description: Exempt/non-exempt from the debit card interchange fee standards
+                  example: true
+                currency:
+                  type: string
+                  description: "Corresponding issuer billing currency \n[ISO 4217 Currency Number](https://developers.tabapay.com/reference/currency-numbers#/)"
+                  example: '840'
+                country:
+                  type: string
+                  description: "Corresponding issuer country code \n[Country Code](https://developers.tabapay.com/reference/country-codes#/)"
+                  pattern: ^[0-9]{3}$
+                availability:
+                  type: string
+                  description: "Estimated Funds Availability:\n- `Immediate` => Funds are usually available in 30 minutes \n- `Next Business Day` => Funds are available Next Business day.\n- `Few Business Days` => Funds are available within a few business days."
+                  example: Immediate
+        AU:
+          type: object
+          description: Real Time Account Updater (RTAU) Results. Returns only if query string `AU` is present.
+          properties:
+            reasonCode:
+              type: string
+              description: "Always present when `AU` is requested. For more info on values, refer to [Account Updater Codes](/reference/account-updater).\n\n  - `U`: Unsupported card brand (not Visa/MasterCard). No lookup performed; original card unchanged; no card object. \n\n **Visa Values**: \n - `A`: Account number updated \n - `E`: Expiration date updated\n - `C`: Closed account advice\n - `Q`: Contact cardholder advice \n - `O`: Cardholder opted-out \n - `V`: Validation, account number and expiration date unchanged \n - `P`: Participating BIN, no match \n - `N`: Non-participating BIN \n - `101`: Non-numeric account number \n - `103`: Invalid expiry \n - `104`: Merchant not registered \n - `122`: Sub-merchant not registered \n\n **Mastercard Values:** \n - `UPDATE`: Account number updated \n - `EXPIRY`: Expiration date updated \n - `CONTAC`: Account Closed \n - `UNKNWN`: Account not found \n - `VALID`: Valid, details unchanged"
+            card:
+              type: object
+              description: Present whenever at least one card field (below) is produced. Omitted if there is nothing to return (e.g., unsupported brand, or no change and no in-the-clear permission).
+              properties:
+                accountNumber:
+                  type: string
+                  description: "Contains the effective (updated, or original if unchanged) full card number in the clear. \n Only when the client has the Receiving Card in the Clear permission."
+                  example: '4111111111111111'
+                expirationDate:
+                  type: string
+                  description: "Effective expiration date (updated, or original if unchanged).\n\n Only when the client has the Receiving Card in the Clear permission."
+                  example: '202612'
+                token:
+                  type: string
+                  description: "RSA-encrypted, `80`: prefixed token of the effective card payload. \n\n Only when the client does not have the in-the-clear permission and the request supplied a raw card number (not an account-based query)."
+                newBIN:
+                  type: string
+                  description: "First 6 digits (BIN) of the new card. \n\n Only when the client does not have the in-the-clear permission and the card number changed."
+                  example: '400000'
+                newLast4:
+                  type: string
+                  description: "Last 4 digits of the new card. \n\n Only when the client does not have the in-the-clear permission and the card number changed."
+                  example: '0000'
+                newExpirationDate:
+                  type: string
+                  description: "The new expiration date.\n\n Only when the client does not have the in-the-clear permission and the expiration date changed."
+                  example: '202707'
+        AVS:
+          type: object
+          description: <<glossary:AVS>> Results. Returns only if query string `AVS` is present.
+          properties:
+            avsID:
+              type: string
+              description: <<glossary:AVS>> Transaction Identifier
+              example: D1Xdr2dGHjGnJ0b07vcXEB
+            networkRC:
+              type: string
+              description: '[Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)'
+              example: '85'
+            networkID:
+              type: string
+              description: NetworkID
+              example: '422330486047511'
+            authorizeID:
+              type: string
+              description: ID
+            resultText:
+              type: string
+              description: <<glossary:AVS>> Result Text. ***Optional***
+              example: NOT DECLINED
+            codeAVS:
+              type: string
+              description: '[<<glossary:AVS>> Response Code](https://developers.tabapay.com/reference/avs-response-codes#/)'
+              example: Y
+            codeSecurityCode:
+              type: string
+              description: '[Security Code Response Code](https://developers.tabapay.com/reference/cvv2-response-codes#/)'
+              example: M
+            par:
+              type: string
+              description: '[Payment Account Reference](https://developers.tabapay.com/docs/payment-account-reference-par#/)'
+              example: V0010013022073812195104908149
+            codeMAC:
+              type: string
+              description: "[Merchant Advice Code](https://developers.tabapay.com/docs/merchant-advice-code-mac#/). Expected Values:\n  - 01: New account information available\n  - 02: Cannot approve at this time, try again later\n  - 03: Do not try again\n  - 04: Token requirements not fulfilled for this token type\n  - 05: Negotiated value not approved\n  - 21: Payment Cancellation (MasterCard use only)\n  - 22: Merchant does not qualify for product code\n  - 24: Retry after 1 hour (Mastercard use only)\n  - 25: Retry after 24 hours (Mastercard use only)\n  - 26: Retry after 2 days (Mastercard use only)\n  - 27: Retry after 4 days (Mastercard use only)\n  - 28: Retry after 6 days (Mastercard use only)\n  - 29: Retry after 8 days (Mastercard use only)\n  - 30: Retry after 10 days (Mastercard use only)\n  - 40: Consumer non-reloadable prepaid card\n  - 41: Consumer single-use virtual card number"
+            EC:
+              $ref: '#/components/schemas/EC'
+            ANI:
+              type: object
+              description: '[<<glossary:ANI>> Results](https://developers.tabapay.com/reference/ani-response-codes). Present only if query string `ANI` is present.'
+              properties:
+                codeMatch:
+                  type: string
+                  description: "Whether the <<glossary:ANI>> match was performed. \n- `M` Match was performed.\n- `N` Match was ***not*** performed.\n- `U` ANI is not supported."
+                  example: M
+                codeFullName:
+                  type: string
+                  description: 'Name match result for the full name (first + middle + last)
+
+
+                    - `M` Match.
+
+                    - `P` Partial Match.
+
+                    - `N` No Match.'
+                  example: M
+                codeFirstName:
+                  type: string
+                  description: 'First name match result
+
+                    - `M` Match.
+
+                    - `P` Partial Match.
+
+                    - `N` No Match.'
+                  example: M
+                codeMiddleName:
+                  type: string
+                  description: 'Middle name match result
+
+                    - `M` Match.
+
+                    - `P` Partial Match.
+
+                    - `N` No Match.'
+                  example: M
+                codeLastName:
+                  type: string
+                  description: 'Last name match result
+
+                    - `M` Match.
+
+                    - `P` Partial Match.
+
+                    - `N` No Match.'
+                  example: M
+        fees:
+          type: object
+          description: Fees Check. Present only if query string `Fees` is present.
+          properties:
+            pull:
+              type: object
+              description: Debit Transaction
+              properties:
+                interchange:
+                  type: string
+                  description: Interchange Fees
+                network:
+                  type: string
+                  description: Network Fees
+                tabapay:
+                  type: string
+                  description: TabaPay Fees
+            push:
+              type: object
+              description: Credit Transaction
+              properties:
+                interchange:
+                  type: string
+                  description: Interchange Fees
+                network:
+                  type: string
+                  description: Network Fees
+                tabapay:
+                  type: string
+                  description: TabaPay Fees
+        limits:
+          type: object
+          description: Card and user limits on the account.
+          properties:
+            card:
+              type: string
+              description: Card limit details for push and pull
+              properties:
+                push:
+                  type: string
+                  description: Push limits on the card account
+                  properties:
+                    1Day:
+                      type: string
+                      description: Daily push limits on the card account
+                    3Day:
+                      type: string
+                      description: 3 day push limits on the card account
+                    7Day:
+                      type: string
+                      description: 7 day push limits on the card account
+                    30Day:
+                      type: string
+                      description: 30 push limits on the card account
+                pull:
+                  type: string
+                  description: Pull limits on the card account
+                  properties:
+                    1Day:
+                      type: string
+                      description: Daily pull limits on the card account
+                    3Day:
+                      type: string
+                      description: 3 day pull limits on the card account
+                    7Day:
+                      type: string
+                      description: 7 day pull limits on the card account
+                    30Day:
+                      type: string
+                      description: 30 day pull limits on the card account
+            user:
+              type: string
+              description: User limit details for push and pull
+              properties:
+                push:
+                  type: string
+                  description: Push limits on the user's account
+                  properties:
+                    1Day:
+                      type: string
+                      description: Daily push limits on the user's account
+                    3Day:
+                      type: string
+                      description: 3 day push limits on the user's account
+                    7Day:
+                      type: string
+                      description: 7 day push limits on the user's account
+                    30Day:
+                      type: string
+                      description: 30 push limits on the user's account
+                pull:
+                  type: string
+                  description: Pull limits on the user's account
+                  properties:
+                    1Day:
+                      type: string
+                      description: Daily pull limits on the user's account
+                    3Day:
+                      type: string
+                      description: 3 day pull limits on the user's account
+                    7Day:
+                      type: string
+                      description: 7 day pull limits on the user's account
+                    30Day:
+                      type: string
+                      description: 30 day pull limits on the user's account
+        RTM:
+          type: string
+          description: '(Coming Soon)
+
+
+            Real-Time Monitoring (RTM) & Blocking details on the card'
+          properties:
+            status:
+              type: string
+              description: Current RTM status on the card account
+            transactDate:
+              type: string
+              description: Last transacted to trigger an RTM rule
+        subClientID:
+          type: string
+          description: Unique subClientID of the merchant or subClient
+    keyID:
+      type: string
+      pattern: ^[a-zA-Z0-9_-]{22}$
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        22 character KeyID. Ensure the RSA key you''re using to encrypt the card data is consistent with this keyID
+
+
+        Compatible with `data` and nothing else.'
+    mobilePay:
+      type: object
+      required:
+      - accountNumber
+      - expirationDate
+      - cryptogram
+      - transactionID
+      - network
+      - type
+      description: A Decrypted [Apple Pay](https://developers.tabapay.com/docs/apple-pay) Token
+      properties:
+        accountNumber:
+          type: string
+          description: Pseudo Payment Card Account Number
+          pattern: ^[0-9]{13,19}$
+        expirationDate:
+          $ref: '#/components/schemas/expirationDateMobilePay'
+        cryptogram:
+          type: string
+          format: byte
+          description: Payment Data Cryptogram
+          pattern: ^[A-Za-z0-9_+=/-]{28}$
+        transactionID:
+          type: string
+          format: byte
+          description: Transaction Identifier in Hex
+          pattern: ^[A-Za-z0-9]{64}$
+        eciIndicator:
+          type: string
+          description: '1-digit <<glossary:ECI>> Indicator. Remove any leading `0`s.
+
+
+            For example if received ECI is `05` convert to `5` and populate this field
+
+
+            Usually only present when `network` is `Visa`'
+          pattern: ^[0-9]$
+          example: '5'
+        network:
+          type: string
+          description: 'Card Network.
+
+            - `Visa`
+
+            - `MasterCard`
+
+            - `Discover`
+
+            - `Amex`
+
+            - etc...'
+          pattern: ^[A-Za-z]+$
+          example: Visa
+        type:
+          type: string
+          description: "Card Type. Either\n- `Debit`\n- `Credit`\n- `PrePaid`\n etc..."
+          pattern: ^[A-Za-z]+
+          example: Debit
+    tokeniFrame:
+      type: string
+      pattern: ^[A-Za-z0-9_+=-]{344}$
+      format: byte
+      description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
+
+
+        Incompatible with any other `card` field.'
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    blob:
+      type: string
+      description: URL-safe, Base64 encoded card data
+      pattern: ^[A-Za-z0-9_+=-]{1500}$
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    device:
+      type: object
+      description: 'Card Data
+
+        - From a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions)
+
+        - From a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/y)
+
+
+        Incompatible with any other `card` object(s) or field(s)'
+      required:
+      - id
+      - blob
+      properties:
+        id:
+          type: string
+          description: 'Either a:
+
+            - TabaPay-assigned device ID
+
+            - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
+        blob:
+          $ref: '#/components/schemas/blob'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    expirationDateMobilePay:
+      type: string
+      pattern: ^[0-9]{6}$
+      description: "\nExpiration Date in YYYYMM.\n\n Note: Convert YYMMDD format to YYYYMM."
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    data:
+      type: string
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
+
+
+        Compatible with `keyID` and nothing else'
+    queryCard:
+      type: object
+      required:
+      - owner
+      properties:
+        account:
+          type: object
+          description: 'TabaPay Account Details
+
+
+            Incompatible with `card`. Exclusively use `account` or `card`.'
+          required:
+          - accountID
+          properties:
+            accountID:
+              type: string
+              description: 22-character <<glossary:Account ID>>.
+              example: 22CharacterTabaPayID12
+            securityCode:
+              type: string
+              pattern: ^[0-9]{3,4}$
+              description: "3-4 digit <<glossary:Security Code>>, <<glossary:CVV>>, or <<glossary:CVV2>>. \n\nOptional. Include to request the verification of the security code."
+        card:
+          type: object
+          description: 'Payment Card Data.
+
+
+            Choose ***exactly ONE*** of the following:
+
+            - [Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)
+
+            - <<glossary:Payment Card Encrypted>>
+
+            - `token`
+
+            - `device` *object*
+
+            - `mobilePay` *object*
+
+
+            Incompatible with `account`. Exclusively use: `card` or `account`.'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: 'Required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                13-19 digit Primary Account Number (PAN/Card Number)
+
+
+                Compatible with `expirationDate` and `securityCode`, nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: 'Conditionally required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                Expiration Date in YYYYMM format.
+
+
+                Compatible with `accountNumber` and `securityCode`, nothing else.'
+              example: '202906'
+            securityCode:
+              type: string
+              pattern: ^[0-9]{3,4}$
+              description: 'Optional field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                3-4 digit <<glossary:Security Code>>. Coorelates with <<glossary:CVV>>, or <<glossary:CVV2>>.
+
+
+                Optional. Include to request the verification of the security code.
+
+
+                Compatible with `accountNumber` and `expirationDate`, nothing else.'
+            keyID:
+              $ref: '#/components/schemas/keyID'
+            data:
+              $ref: '#/components/schemas/data'
+            token:
+              $ref: '#/components/schemas/tokeniFrame'
+            device:
+              $ref: '#/components/schemas/device'
+            mobilePay:
+              $ref: '#/components/schemas/mobilePay'
+        owner:
+          type: object
+          required:
+          - name
+          description: Owner Details
+          properties:
+            name:
+              $ref: '#/components/schemas/name'
+            address:
+              type: object
+              description: 'Address.
+
+
+                *All fields optional.* However, if you''re planning on using <<glossary:AVS>> in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
+              properties:
+                line1:
+                  $ref: '#/components/schemas/line1'
+                line2:
+                  type: string
+                  description: Address Line 2
+                  pattern: ^[ a-zA-Z0-9._-]+$
+                city:
+                  $ref: '#/components/schemas/city'
+                state:
+                  $ref: '#/components/schemas/state'
+                zipcode:
+                  $ref: '#/components/schemas/zipcode'
+                country:
+                  $ref: '#/components/schemas/country'
+  parameters:
+    AU:
+      name: AU
+      in: query
+      description: Use to send the card number and expiration date to network's Account Updater, and apply any card changes.
+      required: false
+      schema:
+        type: string
+    ANI:
+      name: ANI
+      in: query
+      description: "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    Fees:
+      name: Fees
+      in: query
+      description: 'Use to check fees.
+
+
+        If using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.'
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    AVS:
+      name: AVS
+      in: query
+      description: "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

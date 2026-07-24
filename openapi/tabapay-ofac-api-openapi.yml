@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure OFAC API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: OFAC
+  description: This resource represents a Name on the OFAC Sanctions List.
+paths:
+  /v1/clients/{ClientID}/ofac:
+    post:
+      tags:
+      - OFAC
+      summary: Query OFAC
+      description: Returns the OFAC Match Codes.
+      operationId: ofacQuery
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryOfac'
+            examples:
+              OFAC Example:
+                value:
+                  name:
+                    first: string
+                    last: string
+                  requestID: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  birthYear: '1985'
+                  country: '840'
+        required: true
+      responses:
+        '200':
+          description: The OFAC Match Codes are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryOfacResponse'
+              examples:
+                Entity Hit:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    ofacMatchCodes: H
+                    ofacValue: 7nGfHHedKNelaw
+                Entity No Hit:
+                  value:
+                    SC: 200
+                    EC: '0'
+                    ofacMatchCodes: N
+                    ofacValue: 7nGfHHedKNelaw
+        '207':
+          description: Unable to contact WatchDog.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+              example:
+                SC: 207
+                EC: InternalErrorCode
+components:
+  schemas:
+    queryOfac:
+      type: object
+      required:
+      - name
+      - requestID
+      properties:
+        name:
+          type: object
+          required:
+          - first
+          - last
+          description: Name of Entity
+          properties:
+            first:
+              type: string
+              description: First Name
+              pattern: ^[ a-zA-Z0-9_-]+$
+            last:
+              type: string
+              description: Last Name
+              pattern: ^[ a-zA-Z0-9_-]+$
+        requestID:
+          type: string
+          format: uuid
+          description: WatchDog Request Identifier. 1-32 characters.
+          pattern: ^[a-zA-Z0-9_-]{1,32}$
+        birthYear:
+          type: string
+          pattern: ^[0-9][0-9][0-9][0-9]$
+          description: Birth Year. YYYY format.
+          example: '1985'
+        country:
+          type: string
+          description: '[3-digit Country Code](https://developers.tabapay.com/reference/country-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    queryOfacResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        ofacMatchCodes:
+          type: string
+          description: '`N` for No Hit. `H` for Hit.'
+          example: H
+        ofacValue:
+          type: string
+          description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
+          example: 7nGfHHedKNelaw
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header

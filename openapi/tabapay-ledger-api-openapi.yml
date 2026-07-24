@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: TabaPay APIs 3D Secure Ledger API
+  description: TabaPay Resource and Service Operations
+  version: 1.0.0
+  license:
+    name: All rights reserved
+servers:
+- url: https://{FQDN}:{PORT}
+  description: TabaPay APIs
+  variables:
+    FQDN:
+      default: FQDN
+      description: Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.
+    PORT:
+      default: PORT
+      description: Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.
+security:
+- bearerAuth: []
+tags:
+- name: Ledger
+  description: This resource represents a Client's Ledger.
+paths:
+  /v2/clients/{ClientID}/ledgers:
+    post:
+      tags:
+      - Ledger
+      summary: Create Ledger
+      description: "Creates a ledger.  \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      operationId: createledger
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ledgerCreate'
+            example:
+              type: BalanceHolding
+              referenceID: 1234reference
+              userID: 22CharacterTabaPayID12
+              bank: CRB
+              currency: '840'
+        required: true
+      responses:
+        '200':
+          description: Ledger created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createLedgerResponse'
+              example:
+                SC: 200
+                EC: '0'
+                ledgerID: 22characterledgerID123
+        '207':
+          description: One or more failures occurred while processing the Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+  /v2/clients/{ClientID}/ledgers/{LedgerID}:
+    delete:
+      tags:
+      - Ledger
+      summary: Delete Ledger
+      description: Deletes a ledger.
+      operationId: deleteledger
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/LedgerID'
+      responses:
+        '200':
+          description: Ledger deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCEC'
+        '404':
+          description: Ledger not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+    get:
+      tags:
+      - Ledger
+      summary: Retrieve Ledger
+      description: Retrieves a ledger by ledgerID.
+      operationId: retrieveledger
+      parameters:
+      - $ref: '#/components/parameters/ClientID'
+      - $ref: '#/components/parameters/LedgerID'
+      - $ref: '#/components/parameters/ReferenceIDQuery'
+      responses:
+        '200':
+          description: Ledger retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveLedgerResponse'
+        '404':
+          description: Ledger not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiResponseSCECEM'
+components:
+  schemas:
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    tpUserID:
+      type: string
+      description: TabaPay user identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    ledgerCreate:
+      type: object
+      required:
+      - referenceID
+      - userID
+      - bank
+      - type
+      - currency
+      properties:
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        bank:
+          type: string
+          description: Ledger backing bank identifier
+        type:
+          type: string
+          enum:
+          - BalanceHolding
+          - Passthrough
+        currency:
+          $ref: '#/components/schemas/tpISO4217Numeric'
+    createLedgerResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        ledgerID:
+          $ref: '#/components/schemas/tpLedgerID'
+    tpISO4217Numeric:
+      type: string
+      description: ISO-4217 numeric currency code
+      pattern: ^[0-9]{3}$
+      example: '840'
+    tpLedgerID:
+      type: string
+      description: TabaPay ledger identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    tpReferenceID:
+      type: string
+      description: Client-defined reference identifier
+      minLength: 1
+      maxLength: 15
+      pattern: ^[A-Za-z0-9._-]+$
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    retrieveLedgerResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        ledgerID:
+          $ref: '#/components/schemas/tpLedgerID'
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        bank:
+          type: string
+        type:
+          type: string
+          enum:
+          - BalanceHolding
+          - Passthrough
+        routingNumber:
+          type: string
+          pattern: ^[0-9]{9}$
+        accountNumber:
+          type: string
+          pattern: ^[0-9]{0,17}$
+        currency:
+          $ref: '#/components/schemas/tpISO4217Numeric'
+        balance:
+          type: object
+          properties:
+            ledger:
+              type: number
+            available:
+              type: number
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+  parameters:
+    ReferenceIDQuery:
+      name: referenceID
+      in: query
+      description: Reference ID fallback lookup.
+      required: false
+      schema:
+        type: string
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    LedgerID:
+      name: LedgerID
+      in: path
+      description: 22-character LedgerID returned from Create Ledger.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    custom-header:
+      type: apiKey
+      name: Authorization
+      in: header
