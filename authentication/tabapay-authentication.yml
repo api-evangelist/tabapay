@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/tabapay-openapi.yml + https://developers.tabapay.com/reference/getting-started
+docs: https://developers.tabapay.com/reference/getting-started
+notes: TabaPay APIs are not publicly self-serve — a static bearer access token (API key) is
+  issued at boarding along with a client-specific FQDN, and requests must come from allowlisted
+  IPs (sandbox and production IPs must differ). Expired sandbox credentials are renewed via
+  help@tabapay.com. Card data may additionally be RSA-encrypted client-side using keys managed
+  through the Key API (keyCreate/keyRetrieve/keyDelete).
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/tabapay-openapi.yml
+- name: custom-header
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/tabapay-openapi.yml

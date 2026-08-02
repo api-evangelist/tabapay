@@ -1,0 +1,93 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/http-status-codes + openapi/tabapay-openapi.yml
+format: custom
+envelope:
+  description: Every JSON response carries SC (HTTP status code), EC (error code), and EM (error message) fields;
+    PCI requires TabaPay error messages to stay terse. 500-series errors should be reported to help@tabapay.com.
+  fields:
+    SC: HTTP status code (integer)
+    EC: error code (string)
+    EM: error message (string, present on errors)
+  error_messages_reference: https://developers.tabapay.com/reference/error-messages
+notes: 'HTTP 207 Multi-Status is TabaPay''s signature partial-failure signal: the request passed TabaPay checks
+  and a resource was created, but an upstream network process failed or timed out — reconcile with Retrieve Transaction
+  / Retrieve via ReferenceID. Spec-declared error responses across operations: 400, 404, 409, 410, 421, 423, 429,
+  503 (plus 207).'
+problems:
+- status: 207
+  title: Multi-Status
+  detail: 'One or more upstream processing failed. Causes include: A Network Timeout. The Resource is in an UNKNOWN
+    status. An upstream process'' response is corrupted or abnormal. If you receive a 207 while using any resource,
+    please contact help@tabapay.com for assistance.'
+- status: 400
+  title: Bad Request
+  detail: 'Causes include: The ResourceID is invalid Request Body is malformed (e.g. Not JSON or JSON contains not
+    packed/contains newlines) One or more request body parameters are incorrect or invalid'
+- status: 401
+  title: Unauthorized
+  detail: '401 Causes Include: The Bearer Token is invalid or incorrect. Make sure the Bearer Token is correct.
+    The IP Address has not been allowed. For Bearer Token renewals or help with IP whitelisting, contact help@tabapay.com
+    for assistance.'
+- status: 404
+  title: Not Found
+  detail: '404 Causes Include: The ResourceID does not point to a valid Resource. The URL is invalid The ClientID
+    in the URL is invalid The AccountID, TransactionID, ReferenceID, etc. is not found'
+- status: 405
+  title: Method Not Allowed
+  detail: 'HTTP Request Method Not Allowed for the Requested Resource. Examples Include: Using HTTP Method GET for
+    QueryCard API Using HTTP Method POST for DeleteTransaction API Please make sure you are using the right method
+    for this resource.'
+- status: 406
+  title: Not Acceptable
+  detail: 'Our Web Application Firewall (WAF) found something invalid in your request. Causes include: Invalid characters
+    in your request. JSON Formatting is invalid.'
+- status: 409
+  title: Conflict
+  detail: '409 Causes Include: ReferenceID has already been used in CreateTransaction CreateAccount API if using
+    ?RejectDuplicateCard. For more info, see Duplicate Card Check FAQ Conflicting request parameters. Reread the
+    API specifications to ensure you''re providing consistent and correct request parameters.'
+- status: 410
+  title: Gone
+  detail: '410 Causes Include: The Resource pointed to by the ResourceID has been marked for deletion. Calling DeleteAccount
+    API on an AccountID that has already been deleted. Calling DeleteKey API on a KeyID that has already been deleted.'
+- status: 415
+  title: Unsupported Media Type
+  detail: Content-type must be application/json.
+- status: 421
+  title: Misdirected Request
+  detail: Too late to Retrieve by ReferenceID, use AccountID or TransactionID.
+- status: 422
+  title: Unprocessable Entity
+  detail: '422 Causes Include: The Resource pointed to by the ResourceID is in an invalid state Request exceeds
+    your configured Transaction Limit. "EM" will contain "Transaction Limit". Perform RetrieveClient API to check
+    your Transaction Limits. The card you are trying to push to or pull from is inaccessible with your current configurations.
+    "EM" will include "Destination Disabled" or "Source Disabled". Perform a QueryCard API to check your if pushing
+    to or pulling from this card is enabled Please contact'
+- status: 423
+  title: Locked
+  detail: 'The Resource pointed to by the ResourceID is locked. Causes include: The ClientId Locked. Please contact
+    help@tabapay.com for more information as to why your Client account might be locked.'
+- status: 429
+  title: Too Many Requests
+  detail: '429 Causes Include: Polling. Please do not poll. Rate Limiting. Reduce the rate at which you send requests.
+    Over your Daily (24-hour rolling) Limit'
+- status: 431
+  title: Request Header Fields Too Large
+  detail: Too many HTTP Header Lines and/or HTTP Header Lines too big. Please correct your HTTP Header Lines.
+- status: 500
+  title: Server Error
+  detail: '500 Causes include: There was a problem processing the Request. Response Body will be in JSON format.
+    The IP Address is not allowed. Response Body will be in XML format Please contact help@tabapay.com for any 5XX
+    errors you experience.'
+- status: 502
+  title: Bad Gateway
+  detail: Problem connecting to an Application Server. Please contact help@tabapay.com for any 5XX errors you experience.
+- status: 503
+  title: Service Unavailable
+  detail: Your request cannot be processed, should be only a Temporary Condition. Please contact help@tabapay.com
+    for any 5XX errors you experience.
+- status: 504
+  title: Gateway Timeout
+  detail: Connection to an Application Server timed out. Please contact help@tabapay.com for any 5XX errors you
+    experience.

@@ -1,0 +1,412 @@
+# TabaPay Developers Documentation
+
+> Documentation, APIs, and guides on how to move money with TabaPay.
+
+## Guides
+- [About TabaPay](https://developers.tabapay.com/docs/learn-more.md): Accept payments or pay out funds with a unified API integration.
+- [Starter Guide](https://developers.tabapay.com/docs/starter-guide.md)
+- [Use Cases for Instant Payments](https://developers.tabapay.com/docs/use-cases-for-instant-payments.md): What it looks like to accept payments or pay out funds.
+- [How the Unified API Works](https://developers.tabapay.com/docs/how-unified-api-works.md): One Integration for your payments platform.
+- [Glossary](https://developers.tabapay.com/docs/glossary.md)
+- [Overview of Instant Pull Payments](https://developers.tabapay.com/docs/overview-of-instant-pull-payments.md): Accept single and recurring payments.
+- [Debt Repayment](https://developers.tabapay.com/docs/debt-repayment.md)
+- [Subscriptions](https://developers.tabapay.com/docs/subscriptions.md)
+- [Account Funding for Neobanks](https://developers.tabapay.com/docs/account-funding-for-neobanks.md)
+- [Best Practices for Instant Pull Payments](https://developers.tabapay.com/docs/best-practices-for-instant-account-funding.md): Product guidelines for accepting payments.
+- [Merchant Initiated Transactions (MIT)](https://developers.tabapay.com/docs/merchant-initiated-transactions-overview.md): Approval to charge customers' cards for ongoing payments without their active participation.
+- [CIT-MIT Indicators](https://developers.tabapay.com/docs/cit-mit-indicators.md)
+- [Partial Authorization Service](https://developers.tabapay.com/docs/partial-authorizations.md): Authorize what you can and reduce Non-Sufficient Funds (Card Network Response Code 51) declines
+- [Authorize & Capture](https://developers.tabapay.com/docs/overview-of-auth.md)
+- [Auth & Capture Best Practices](https://developers.tabapay.com/docs/best-practices-2.md)
+- [Auth & Capture FAQs](https://developers.tabapay.com/docs/faq-auth-and-capture.md)
+- [Level 2 and Level 3 Data](https://developers.tabapay.com/docs/cost-savings-with-lii-and-liii-data.md): Optimize B2B/B2G payment costs with detailed transaction data.
+- [Apple Pay](https://developers.tabapay.com/docs/apple-pay.md): A digital wallet for payments on iOS, macOS, and iPadOS.
+- [Google Pay](https://developers.tabapay.com/docs/google-pay.md): A digital wallet for payments through a Google Account, Google Play, Chrome, YouTube, or in-app using an Android device
+- [Processing American Express® OptBlue™](https://developers.tabapay.com/docs/processing-american-express-optblue.md)
+- [Multiple Reversals](https://developers.tabapay.com/docs/multiple-reversals.md)
+- [Network Tokens](https://developers.tabapay.com/docs/network-tokens.md): Accept network tokens from third party providers
+- [Overview of Instant Push Payments](https://developers.tabapay.com/docs/overview-of-instant-payouts.md): Pay out funds to a recipient.
+- [Push to Card Instantly](https://developers.tabapay.com/docs/overview-of-push-to-card.md): Pay out funds directly on to a recipient's card.
+- [Cross-Border Push to Cards](https://developers.tabapay.com/docs/cross-border-push-to-card.md): Send an international payout to a recipient's card.
+- [Cross-Border Considerations](https://developers.tabapay.com/docs/cross-border-considerations.md)
+- [Cross-Border Push to Card | General Data Requirements](https://developers.tabapay.com/docs/data-requirements.md)
+- [Canadian Cross-Border Transactions](https://developers.tabapay.com/docs/canadian-cross-border-transactions.md): International Payments to or from Canada.
+- [Best Practices for Instant Payouts](https://developers.tabapay.com/docs/best-practices-for-instant-payouts.md): Merchant/client requirements and fraud prevention practices for instant payouts.
+- [Account Takeover Prevention](https://developers.tabapay.com/docs/account-takeover-prevention.md): Always verify that the person providing card/account details is the intended recipient.
+- [Account Validation and Verification](https://developers.tabapay.com/docs/response-codes.md): Ensure payment to intended recipient.
+- [Developing Terms and Conditions for Push Payments](https://developers.tabapay.com/docs/developing-terms-and-conditions-for-push-payments.md)
+- [Exceptions Handling for Push Payments](https://developers.tabapay.com/docs/exceptions-handling-for-push-payments.md)
+- [Overview of RTP by TCH](https://developers.tabapay.com/docs/overview-of-rtp.md): A way to send funds to other US bank accounts instantly.
+- [RTP by TCH for TabaPay Clients](https://developers.tabapay.com/docs/rtp-for-non-bank-clients.md): Accept real-time payments on your platform.
+- [Request for Payment (RfP) via RTP by TCH](https://developers.tabapay.com/docs/request-for-payment-via-rtp-by-tch.md)
+- [Receive Instantly via RTP](https://developers.tabapay.com/docs/rtp-receive.md)
+- [Send Instantly via RTP](https://developers.tabapay.com/docs/rtp-send.md)
+- [RTP by TCH for Sponsor Banks](https://developers.tabapay.com/docs/rtp-for-sponsor-banks.md): Include real-time payments for your account holders.
+- [RTP - Inbound or Receive](https://developers.tabapay.com/docs/rtp-inbound.md)
+- [RTP - Outbound or Send](https://developers.tabapay.com/docs/rtp-outbound-or-send.md)
+- [RTP Edge Cases](https://developers.tabapay.com/docs/rtp-edge-cases.md)
+- [RTP Bank Statement](https://developers.tabapay.com/docs/rtp-bank-statement.md): Real time payment details for the customer.
+- [Overview of ACH](https://developers.tabapay.com/docs/overview-of-ach.md): Learn about ACH Payments and review example ACH files.
+- [ACH via API](https://developers.tabapay.com/docs/ach-via-api.md): Integrate ACH into your payment flow.
+- [ACH Returns](https://developers.tabapay.com/docs/ach-returns.md)
+- [ACH via Batch File Exchange](https://developers.tabapay.com/docs/ach-via-file.md): Compile and send a next day US bank batch payment
+- [ACH FAQs](https://developers.tabapay.com/docs/ach-faq.md): ACH FAQs for TabaPay Developers.
+- [About BPSP](https://developers.tabapay.com/docs/about-bpsp.md): Supporting bill payment aggregators to easily facilitate commercial / B2B bill payments between buyers and suppliers.
+- [Processor Tokens](https://developers.tabapay.com/docs/processor-tokens.md)
+- [Processor Tokens FAQs](https://developers.tabapay.com/docs/processor-tokens-faqs.md)
+- [Using Multiple Processors](https://developers.tabapay.com/docs/using-multiple-processors.md)
+- [Cybersource](https://developers.tabapay.com/docs/cybersource.md)
+- [Galileo](https://developers.tabapay.com/docs/galileo.md)
+- [Helix by Q2](https://developers.tabapay.com/docs/q2byhelix.md)
+- [Plaid](https://developers.tabapay.com/docs/plaid.md): Got Plaid accounts? You can process ACH, RTP, and FedNow* with TabaPay
+- [Stripe](https://developers.tabapay.com/docs/stripe.md)
+- [Unit](https://developers.tabapay.com/docs/unit.md)
+- [Migration of Token Vault](https://developers.tabapay.com/docs/token-vault.md)
+- [Cybersource](https://developers.tabapay.com/docs/cybersource-vault.md)
+- [IxoPay TokenEx](https://developers.tabapay.com/docs/tokenex.md)
+- [Stripe](https://developers.tabapay.com/docs/stripe-vault.md)
+- [VGS](https://developers.tabapay.com/docs/vgs.md)
+- [Bill Payments using RPPS](https://developers.tabapay.com/docs/bill-payments-using-rpps.md)
+- [Bill Pay RPPS FAQs](https://developers.tabapay.com/docs/bill-pay-rpps-faqs.md)
+- [EMV Card Present Transactions](https://developers.tabapay.com/docs/card-present-transactions.md): Accept payments with a swipe, tap, or contactless payment.
+- [Terminal Integration](https://developers.tabapay.com/docs/terminal-integration.md): TabaPay offers terminals for your in-person card acceptance use cases.
+- [TabaPay Tokens](https://developers.tabapay.com/docs/overview-of-tabapay-tokens.md): Store and manage bank accounts and payment cards.
+- [Browser SDK](https://developers.tabapay.com/docs/browser-sdk-guide.md): Accept payments securely on your platform with full customization options.
+- [Overview of Risk & Fraud](https://developers.tabapay.com/docs/overview-of-tabapay-shield.md): Fraud protection for your business and customers.
+- [Real Time Monitoring & Blocking](https://developers.tabapay.com/docs/rtm.md)
+- [RTM Response Object ](https://developers.tabapay.com/docs/rtm-response-object.md)
+- [Account Name Inquiry (ANI)](https://developers.tabapay.com/docs/account-name-inquiry-ani.md): Verify the account holder.
+- [Account Name Inquiry FAQ](https://developers.tabapay.com/docs/account-name-inquiry-faq.md): ANI Frequently Asked Questions for Developers
+- [3DS](https://developers.tabapay.com/docs/overview-of-3ds.md): Card payments with verification.
+- [Address Verification Service (AVS)](https://developers.tabapay.com/docs/address-verification.md): Protect against fraudulent transactions. Available worldwide.
+- [Card Verification and Eligibility Check](https://developers.tabapay.com/docs/eligibility-check.md): Verify card for specific payments.
+- [CVV2 Verification](https://developers.tabapay.com/docs/cvv2-verification.md): Payment verification for card-not-present transactions
+- [Duplicate Card Check](https://developers.tabapay.com/docs/duplicate-card-check.md): Confirm a card token is already added to reduce fraud.
+- [OFAC Screening | Watchdog](https://developers.tabapay.com/docs/ofac-screening.md): Check for payment sanctions.
+- [Enriched TabaPay Shield Attributes](https://developers.tabapay.com/docs/enriched-tabapay-shield-attributes.md): Make smarter risk, security, payment, and compliance decisions using enriched data in the Create Transaction and Query Card API flows
+- [Payment Account Reference (PAR)](https://developers.tabapay.com/docs/payment-account-reference-par.md)
+- [Network Identifier (Network ID)](https://developers.tabapay.com/docs/network-identifier-network-id.md)
+- [Mastercard Merchant Advice Code (MAC)](https://developers.tabapay.com/docs/merchant-advice-code-mac.md)
+- [codeUCAF Response Field](https://developers.tabapay.com/docs/codeucaf.md): Contains both Visa CAVV Response Codes and Mastercard AAV Response Codes
+- [Visa CAVV Results Code](https://developers.tabapay.com/docs/visa-cavv-results-code.md)
+- [Mastercard UCAF Collection Downgrade Indicator](https://developers.tabapay.com/docs/mastercard-ucaf-collection-downgrade-indicator.md)
+- [Visa Authorization Characteristics Indicator (ACI)](https://developers.tabapay.com/docs/visa-authorization-characteristics-indicator-aci.md)
+- [Visa ECI Response](https://developers.tabapay.com/docs/visa-eci-response.md)
+- [Chargeback Management](https://developers.tabapay.com/docs/chargeback-management.md): Customers can dispute a transaction resulting in a chargeback.
+- [Compelling Evidence](https://developers.tabapay.com/docs/compelling-evidence.md)
+- [Network Monitoring Programs](https://developers.tabapay.com/docs/network-monitoring-programs.md): Learn about the network monitoring programs for both Visa and Mastercard and what to do if you're placed in one.
+- [3D Secure Liability Shift](https://developers.tabapay.com/docs/3d-secure-liability-shift.md)
+- [Discover Chargeback Reason Codes](https://developers.tabapay.com/docs/discover-1.md)
+- [Mastercard Chargeback Reason Codes](https://developers.tabapay.com/docs/mastercard-2.md)
+- [PULSE Chargeback Reason Codes](https://developers.tabapay.com/docs/pulse.md)
+- [STAR Chargeback Reason Codes](https://developers.tabapay.com/docs/star.md)
+- [Visa Chargeback Reason Codes](https://developers.tabapay.com/docs/visa-2.md)
+- [TabaPay Account Updater (TAU)](https://developers.tabapay.com/docs/tabapay-account-updater.md): Automatically update details for stored cards on file.
+- [Account Updater Best Practices](https://developers.tabapay.com/docs/account-updater-best-practices.md): Improve recurring payment approval rates and decrease operational costs with current credentials.
+- [TabaPay Portal](https://developers.tabapay.com/docs/tabapay-portal.md): Critical business functions for TabaPay clients in one place.
+- [Navigating the Portal](https://developers.tabapay.com/docs/navigating-the-portal.md): Learn how to navigate different areas of the TabaPay Portal.
+- [Client/Sub-Client Selection](https://developers.tabapay.com/docs/clientsub-client-selection.md)
+- [Log in to the TabaPay Portal](https://developers.tabapay.com/docs/log-in-to-the-tabapay-portal.md): Sign in to your TabaPay Portal production account.
+- [Log in with SSO](https://developers.tabapay.com/docs/log-in-with-sso.md): Single sign-on (SSO) Integration Guide for the TabaPay Portal.
+- [Log in with MFA](https://developers.tabapay.com/docs/log-in-with-mfa.md)
+- [Portal Overview](https://developers.tabapay.com/docs/portal-overview.md): The Portal Overview is a page on the TabaPay portal displaying a high level overview of your settlement and transactions.
+- [Viewing Push and Pull Limits](https://developers.tabapay.com/docs/viewing-push-and-pull-limits.md)
+- [Receiving a User Invitation](https://developers.tabapay.com/docs/receiving-a-user-invitation.md): Sign Up after you have received an invite to the TabaPay Portal
+- [Transactions](https://developers.tabapay.com/docs/portal-transactions.md): The transactions section contains information about all your push and pull payments in one place.
+- [Viewing Transaction Details](https://developers.tabapay.com/docs/viewing-transaction-details.md)
+- [Viewing Chargeback Details](https://developers.tabapay.com/docs/viewing-chargeback-details.md)
+- [Viewing Adjustment Details](https://developers.tabapay.com/docs/viewing-adjustment-details.md)
+- [Viewing AVS Details](https://developers.tabapay.com/docs/viewing-avs-details.md)
+- [Viewing Reversal Details](https://developers.tabapay.com/docs/viewing-reversal-details.md)
+- [Balances](https://developers.tabapay.com/docs/balances.md)
+- [Manage Users](https://developers.tabapay.com/docs/manage-users.md)
+- [Creating a New User](https://developers.tabapay.com/docs/creating-a-new-user.md)
+- [Viewing a User](https://developers.tabapay.com/docs/viewing-a-user.md)
+- [User Permissions](https://developers.tabapay.com/docs/user-permissions.md)
+- [Managing User Actions](https://developers.tabapay.com/docs/managing-user-actions.md)
+- [Deleting a User](https://developers.tabapay.com/docs/deleting-a-user.md)
+- [Downloading User List](https://developers.tabapay.com/docs/downloading-user-list.md)
+- [Reporting](https://developers.tabapay.com/docs/portal-reporting.md)
+- [Switching Different Banks and ISOs](https://developers.tabapay.com/docs/switching-different-banks-and-isos.md)
+- [Downloading Reports](https://developers.tabapay.com/docs/downloading-reports.md)
+- [Invoices](https://developers.tabapay.com/docs/portal-invoices.md)
+- [My Account](https://developers.tabapay.com/docs/my-account.md)
+- [Changing Your Password](https://developers.tabapay.com/docs/changing-your-password.md)
+- [PCI-Compliant Payment Links](https://developers.tabapay.com/docs/pci-compliant-payment-links.md): Send a link to collect a payment!
+- [Boarding Direct TabaPay Customers](https://developers.tabapay.com/docs/merchant-compliance-requirements.md): Steps to go live with TabaPay.
+- [Milestone 1: TabaPay Review](https://developers.tabapay.com/docs/basic-boarding-requirements.md): Set up all your requirements.
+- [Milestone 2: Sponsor Bank Approval](https://developers.tabapay.com/docs/milestone-2-bank-review-and-approval.md): Get approved to accept payments, hold and payout funds.
+- [Milestone 3: Network Approval and Implementation](https://developers.tabapay.com/docs/milestone-3-network-approvals-and-implementations.md): Build your fintech integration.
+- [Milestone 4: Program Launch](https://developers.tabapay.com/docs/milestone-4-program-launch.md): Move into production and go live with TabaPay.
+- [KYB for boarding Sub-Merchants](https://developers.tabapay.com/docs/boarding-aggregator-sub-merchants.md)
+- [Verification Flow](https://developers.tabapay.com/docs/verification-flow.md)
+- [Network Compliance Requirements](https://developers.tabapay.com/docs/network-checkout-compliance.md): Overview of card network and The Clearing House requirements that you are responsible for applying appropriately.
+- [Boarding Bank or ISO Customers](https://developers.tabapay.com/docs/boarding-sub-merchants.md): Submit a boarding request
+- [Program FAQs](https://developers.tabapay.com/docs/program-changes-faqs.md): Common questions on adding or making changes to my program.
+- [Boarding Checklist](https://developers.tabapay.com/docs/onboarding.md): Checklist to go live with TabaPay and begin accepting transactions.
+- [PCI DSS Compliance with TabaPay Card Processing](https://developers.tabapay.com/docs/pci-dss-compliance-with-tabapay-card-processing.md)
+- [Comprehensive PCI DSS Merchant Training Guide](https://developers.tabapay.com/docs/comprehensive-pci-dss-merchant-training-guide.md)
+- [TabaPay Reporting](https://developers.tabapay.com/docs/reporting.md)
+- [Merchants](https://developers.tabapay.com/docs/merchants.md)
+- [AML Transactions (Daily)](https://developers.tabapay.com/docs/aml-transactions.md): This report is generated based on desired thresholds configured by the merchant.
+- [Chargebacks (Daily)](https://developers.tabapay.com/docs/chargebacks.md)
+- [Config (Daily)](https://developers.tabapay.com/docs/config.md)
+- [Exceptions (Daily)](https://developers.tabapay.com/docs/exceptions.md)
+- [FX Rates (Daily)](https://developers.tabapay.com/docs/fx-rates.md): Applicable to programs that originate cross-border transactions.
+- [Interchange (Daily)](https://developers.tabapay.com/docs/interchange.md)
+- [Reported Fraud (Daily)](https://developers.tabapay.com/docs/reported-fraud.md)
+- [Real Time Monitoring & Blocking (Daily)](https://developers.tabapay.com/docs/real-time-monitoring-and-blocking.md): ISO_MID_YYYYMMDD_RealTimeMonitoring.csv
+- [Summary (Daily)](https://developers.tabapay.com/docs/summary.md)
+- [Transactions (Daily)](https://developers.tabapay.com/docs/transactions.md): The daily transaction report is available by 9am PT.
+- [Updated Accounts (Daily, Updated Weekly)](https://developers.tabapay.com/docs/updated-accounts-daily-updated-weekly.md): Applicable to programs leveraging account updater services.
+- [Invoices](https://developers.tabapay.com/docs/invoices.md)
+- [Invoice (Monthly)](https://developers.tabapay.com/docs/invoice-monthly.md)
+- [Monthly Account Summary (Monthly)](https://developers.tabapay.com/docs/bank-monthly-summary-report.md)
+- [Transactions (Monthly)](https://developers.tabapay.com/docs/transactions-monthly.md)
+- [Value Added Services (Monthly)](https://developers.tabapay.com/docs/value-added-services-monthly.md): This report provides a breakdown of network fees related to value-added services, including AVS, account updater, and Account Name Inquiry.
+- [Sponsor Banks](https://developers.tabapay.com/docs/sponsor-banks.md)
+- [AML Transaction Summary (Daily)](https://developers.tabapay.com/docs/banks-aml-transaction-summary.md)
+- [Chargebacks (Daily)](https://developers.tabapay.com/docs/banks-chargebacks-daily.md): The Chargebacks Report lists all cases opened in the past 150 days and their current status. The chargebacks report can be used by teams that handle dispute operations to view the current status of a chargeback case.
+- [Detail Settlement (Daily)](https://developers.tabapay.com/docs/banks-detail-settlement-daily.md)
+- [Exceptions (Daily)](https://developers.tabapay.com/docs/banks-exceptions-daily.md): The exceptions files can be used by treasury and accounting teams to reconcile funds movement associated with exception items. Chargebacks, returns, and adjustments are included in this file.
+- [Merchants (Daily)](https://developers.tabapay.com/docs/banks-daily-account-summary.md)
+- [MTD Summary (Daily)](https://developers.tabapay.com/docs/banks-mtd-summary.md)
+- [Reported Fraud (Daily)](https://developers.tabapay.com/docs/banks-reported-fraud-daily.md)
+- [Settlement (Daily)](https://developers.tabapay.com/docs/banks-settlement-daily.md)
+- [Transaction Detail (Daily)](https://developers.tabapay.com/docs/banks-transactions-daily.md): The daily transaction report is available by 9am PT.
+- [Settlement](https://developers.tabapay.com/docs/settlement.md)
+- [Settlement Options and Configuration](https://developers.tabapay.com/docs/merchant-support-guide.md)
+- [Daily Settlement Operations](https://developers.tabapay.com/docs/daily-settlement-operations.md): Daily settlement is for prior cutoff activity. The daily settlement reports are available by 9am PT.
+- [Billing and Invoices](https://developers.tabapay.com/docs/billing-and-invoices.md)
+- [Treasury and Reconciliation](https://developers.tabapay.com/docs/treasury-and-reconciliation.md)
+- [BIN Files and Headers](https://developers.tabapay.com/docs/published-bin-files.md): A list of Bank Identification Numbers (BINs) on your platform.
+- [Visa Category Codes](https://developers.tabapay.com/docs/visa-product-category-codes.md)
+- [Mastercard Category Codes](https://developers.tabapay.com/docs/mc-product-category-codes.md)
+- [Convenience Fee Calculations](https://developers.tabapay.com/docs/convenience-fee-calculations.md): Set convenience fees to charge on your transactions.
+- [Business Application Indicator (BAI)](https://developers.tabapay.com/docs/business-application-indicator.md)
+- [SubClient Boarding Fees](https://developers.tabapay.com/docs/fees-for-sub-clients-during-boarding.md)
+- [TabaPay 1099k Procedures](https://developers.tabapay.com/docs/tabapay-1099k-procedures.md)
+- [Adjusting Limits](https://developers.tabapay.com/docs/adjusting-limits.md): A proactive limit increase request is always the best approach to minimize negative consumer experience.
+- [Holiday Support](https://developers.tabapay.com/docs/holiday-support-and-important-dates.md)
+- [Transaction Integrity - Network Fees](https://developers.tabapay.com/docs/network-authorization-best-practices.md)
+- [Merchant Address](https://developers.tabapay.com/docs/merchant-address.md)
+- [Network Transaction ID](https://developers.tabapay.com/docs/network-transaction-id.md)
+- [Sender Data](https://developers.tabapay.com/docs/sender-name.md): Learn how a payment sender relates to the API.
+- [Source of Funds](https://developers.tabapay.com/docs/source-of-funds.md)
+- [Recipient Data](https://developers.tabapay.com/docs/recipient-data-requirements-1.md): Learn how a payment receiver relates to the API
+- [Purpose of Payment](https://developers.tabapay.com/docs/purpose-of-payment.md): Codes related to the nature of the transaction.
+- [Soft Descriptor](https://developers.tabapay.com/docs/soft-descriptor.md): Description that appears on the cardholder's statement.
+
+## API Reference
+- [Getting Started with the API](https://developers.tabapay.com/reference/getting-started.md): Get started with the TabaPay API to accept payments, and payout funds.
+- [Make Your First API Call](https://developers.tabapay.com/reference/make-your-first-api-call.md)
+- [Client](https://developers.tabapay.com/reference/client.md)
+- [Retrieve Client](https://developers.tabapay.com/reference/clientretrieve.md): Retrieves the attributes and status of a Client.
+- [Key](https://developers.tabapay.com/reference/key.md)
+- [Create Key](https://developers.tabapay.com/reference/keycreate.md): Creates a Key.
+- [Retrieve Key](https://developers.tabapay.com/reference/keyretrieve.md): Retrieves the Key.
+- [Delete Key](https://developers.tabapay.com/reference/keydelete.md): Deletes a Key.
+- [Card](https://developers.tabapay.com/reference/card.md)
+- [Query Card](https://developers.tabapay.com/reference/cardquery.md): Returns the attributes for the requested Payment Card.  Request to enable <Glossary>ANI</Glossary> or <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [Bank](https://developers.tabapay.com/reference/bank.md)
+- [Query Bank](https://developers.tabapay.com/reference/bankquery.md): Returns the attributes for the requested Bank.
+- [OFAC](https://developers.tabapay.com/reference/ofac.md)
+- [Query OFAC](https://developers.tabapay.com/reference/ofacquery.md): Returns the OFAC Match Codes.
+- [Account](https://developers.tabapay.com/reference/account.md)
+- [Create Account](https://developers.tabapay.com/reference/accountcreate.md): Creates an Account.  In circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*
+- [Retrieve Account](https://developers.tabapay.com/reference/accountretrieve.md): Retrieves the Account.  In circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*
+- [Update Account](https://developers.tabapay.com/reference/updateaccount.md): Updates the Account. Use `v1` to replace all fields.
+- [Delete Account](https://developers.tabapay.com/reference/accountdelete.md): The Account is marked for Deletion.
+- [Update Account V2](https://developers.tabapay.com/reference/updateaccountv2.md): Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers ([Refer to v1](https://developers.tabapay.com/reference/updateaccount#/)).
+- [Transaction](https://developers.tabapay.com/reference/transaction.md)
+- [Capture Transaction](https://developers.tabapay.com/reference/transactioncapture.md): Captures the Authorized Transaction.
+- [Retrieve Transaction](https://developers.tabapay.com/reference/transactionretrieve.md): Retrieves the Transaction.  In circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*
+- [Delete Transaction](https://developers.tabapay.com/reference/transactiondelete.md): Tries to request a reverse of a previous Pull Transaction.  Note: Delete Transaction is NOT eligible to be used for an <<glossary:ACH>> Transaction.
+- [Delete RTP Transaction](https://developers.tabapay.com/reference/transactionrtpdelete.md): If using`?request`: Requests a return of a previously sent RTP push transaction. If using `?response`: Responds to a request of a previously received Request for Return of Funds (for a previously received RTP transaction).
+- [TransactionRequest](https://developers.tabapay.com/reference/transactionrequest.md)
+- [Create TransactionRequest](https://developers.tabapay.com/reference/createtransactionrequest.md): Creates a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>).
+- [FXRate](https://developers.tabapay.com/reference/fxrate.md)
+- [Query FX](https://developers.tabapay.com/reference/queryfx.md): ***Currently in sandbox only***  Returns the real-time FX-Rate and the amount in the beneficiary currency.
+- [SubClient](https://developers.tabapay.com/reference/subclient.md)
+- [Create SubClient](https://developers.tabapay.com/reference/createsubclient.md): Creates a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*    Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [Retrieve SubClient](https://developers.tabapay.com/reference/retrievesubclient.md): Retrieves a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+- [Update SubClient](https://developers.tabapay.com/reference/updatesubclient.md): Updates a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+- [Delete SubClient](https://developers.tabapay.com/reference/deletesubclient.md): Deletes a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+- [Create SubClient](https://developers.tabapay.com/reference/createsubclient2.md): Creates a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*    Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)  This endpoint is split from the original `/subclients` endpoint.
+- [Retrieve SubClient](https://developers.tabapay.com/reference/retrievesubclient2.md): Retrieves a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*  This endpoint is split from the original `/subclients` endpoint.
+- [Update SubClient](https://developers.tabapay.com/reference/updatesubclient2.md): Updates a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*  This endpoint is split from the original `/subclients` endpoint.
+- [Delete SubClient](https://developers.tabapay.com/reference/deletesubclient2.md): Deletes a Client's SubClient Registration.  *For <<glossary:ISO>>s (Independent Sales Organization) only.*  This endpoint is split from the original `/subclients` endpoint.
+- [User](https://developers.tabapay.com/reference/user.md)
+- [Create User](https://developers.tabapay.com/reference/createuser.md): Creates a user for the client/subclient.   Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [Retrieve User](https://developers.tabapay.com/reference/retrieveuser.md): Retrieves a user by userID.
+- [Update User](https://developers.tabapay.com/reference/updateuser.md): Updates an existing user.
+- [Delete User](https://developers.tabapay.com/reference/deleteuser.md): Deletes (soft delete) an existing user.
+- [Ledger](https://developers.tabapay.com/reference/ledger.md)
+- [Create Ledger](https://developers.tabapay.com/reference/createledger.md): Creates a ledger.     Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [Retrieve Ledger](https://developers.tabapay.com/reference/retrieveledger.md): Retrieves a ledger by ledgerID.
+- [Delete Ledger](https://developers.tabapay.com/reference/deleteledger.md): Deletes a ledger.
+- [Verification](https://developers.tabapay.com/reference/verification.md)
+- [Create Verification](https://developers.tabapay.com/reference/createverification.md): Creates a KYB/KYC verification case.    Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [Retrieve Verification](https://developers.tabapay.com/reference/retrieveverification.md): Retrieves a verification by verificationID.
+- [3D Secure](https://developers.tabapay.com/reference/3d-secure.md)
+- [3D Secure Initialize](https://developers.tabapay.com/reference/3dsinit.md): Initializes a 3D Secure Card Authentication Request.   Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)
+- [3D Secure Lookup](https://developers.tabapay.com/reference/3dslookup.md): 3D Secure Card Lookup.
+- [3D Secure Authenticate](https://developers.tabapay.com/reference/3dsauthenticate.md): 3D Secure Card Authentication Request.
+- [Tag](https://developers.tabapay.com/reference/tag.md)
+- [Query Tag](https://developers.tabapay.com/reference/tagquery.md): Returns whether the last 4 of a phone number match what is on record. May also return the owner's name.
+- [TabaPay System Status](https://developers.tabapay.com/reference/tabapay-system-status.md)
+- [3D Secure | Cardinal Commerce System Status](https://developers.tabapay.com/reference/cardinal-system-status.md): Please note the details here are as published at https://cardinalcommercecorporation.statuspage.io/#
+- [Low-Code Tools](https://developers.tabapay.com/reference/low-code-tools.md)
+- [Using the Browser SDK](https://developers.tabapay.com/reference/browser-sdk.md)
+- [Browser SDK Reference](https://developers.tabapay.com/reference/browser-sdk-reference.md)
+- [Pre-Transaction Tools](https://developers.tabapay.com/reference/pre-transaction-tools.md)
+- [Are you PCI Compliant?](https://developers.tabapay.com/reference/making-sure-you-are-pci-compliant.md)
+- [Pre-Transaction Checks](https://developers.tabapay.com/reference/before-a-transaction.md)
+- [AVS with Card Query](https://developers.tabapay.com/reference/how-to-use-avs.md)
+- [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check.md)
+- [Duplicate Card Check Reference](https://developers.tabapay.com/reference/duplicate-card-check-reference.md)
+- [Transaction Features](https://developers.tabapay.com/reference/transaction-features.md)
+- [3DS Integration Overview](https://developers.tabapay.com/reference/3ds-integration-overview.md)
+- [3DS APIs Browser Flow (Starter Guide)](https://developers.tabapay.com/reference/how-to-use-the-3ds-apis.md)
+- [3DS SDK (Starter Guide)](https://developers.tabapay.com/reference/how-to-use-the-3ds-sdk-starter-guide.md)
+- [3DS - SDK Configuration Options](https://developers.tabapay.com/reference/3ds-configuration-options.md)
+- [3DS - ECI Values](https://developers.tabapay.com/reference/3ds-eci-values.md)
+- [3DS FAQs](https://developers.tabapay.com/reference/3ds-faq.md)
+- [3DS Transactions with TabaPay](https://developers.tabapay.com/reference/3ds-transactions-with-tabapay.md): How to perform a 3DS transaction
+- [3DS Integration References](https://developers.tabapay.com/reference/3ds-integration-references.md)
+- [3DS Challenge Results](https://developers.tabapay.com/reference/3ds-challenge-results.md)
+- [3DS API Updates](https://developers.tabapay.com/reference/3ds-api-updates.md)
+- [Device Data Collection](https://developers.tabapay.com/reference/device-data-collection.md): The Intermediary Step Between /init and /lookup
+- [Lookup Codes](https://developers.tabapay.com/reference/lookup.md)
+- [Browser Fields](https://developers.tabapay.com/reference/browser-fields.md): 3DS Browser Data Fields
+- [Apple Pay](https://developers.tabapay.com/reference/apple-pay-1.md): Set Up and Integrate Apple Pay with TabaPay's APIs
+- [Becoming an Apple Pay Merchant](https://developers.tabapay.com/reference/how-to-become-an-apple-pay-merchant.md)
+- [Integrate Apple Pay - Server Setup [Optional]](https://developers.tabapay.com/reference/integrate-apple-pay-server-setup.md)
+- [Integrate Apple Pay - Retrieve Encrypted Apple Pay Token](https://developers.tabapay.com/reference/integrate-apple-pay-retrieve-encrypted-apple-pay-token.md)
+- [Integrate Apple Pay - Decrypt the Apple Pay Payload - Front End Setup and Signature Verification](https://developers.tabapay.com/reference/integrate-apple-pay-decrypt-the-apple-pay-payload-frontend-backend-setup.md)
+- [Integrate Apple Pay - Decrypt the Apple Pay Payload - Decryption Step](https://developers.tabapay.com/reference/integrate-apple-pay-decrypt-the-apple-pay-payload-decryption-step.md)
+- [Google Pay](https://developers.tabapay.com/reference/googlepay.md)
+- [API Best Practices](https://developers.tabapay.com/reference/api-best-practices.md)
+- [Anti-Patterns to Avoid](https://developers.tabapay.com/reference/anti-patterns-and-best-practices.md)
+- [Expected Usage](https://developers.tabapay.com/reference/expected-usage.md)
+- [Coding Issues](https://developers.tabapay.com/reference/coding-issues.md)
+- [Retrieve Via ReferenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid.md)
+- [API Traffic and Throuput ](https://developers.tabapay.com/reference/api-traffic-and-throuput.md)
+- [SFTP Guide](https://developers.tabapay.com/reference/sftp-guide.md): Learn how to configure and connect to your SFTP server. For questions, email help@tabapay.com.
+- [Working in Sandbox](https://developers.tabapay.com/reference/working-in-sandbox.md)
+- [Domestic Test Cards (For US Originations Only)](https://developers.tabapay.com/reference/sandbox-test-cases-and-cards.md): Sandbox Test Cards
+- [International Test Cards](https://developers.tabapay.com/reference/international.md)
+- [3DS Test Cards](https://developers.tabapay.com/reference/3ds-test-cases-and-cards.md): Trigger Different 3DS Scenarios
+- [Tag Names](https://developers.tabapay.com/reference/tag-names.md): Tag Names to use in [QueryTag](ref:tagquery) and [CreateTransaction](ref:transactioncreate).
+- [Networks](https://developers.tabapay.com/reference/networks.md)
+- [Card Network Response Codes](https://developers.tabapay.com/reference/iso-network-codes.md): Network response codes returned when an authorization fails at the network or beyond.
+- [Accel Response Codes](https://developers.tabapay.com/reference/accel-network-codes.md)
+- [RTP Response Codes](https://developers.tabapay.com/reference/rtp-response-codes.md)
+- [RPPS Exception Codes](https://developers.tabapay.com/reference/rpps-exception-codes.md)
+- [ACH Return Codes](https://developers.tabapay.com/reference/ach-return-codes.md)
+- [AVS Response Codes](https://developers.tabapay.com/reference/avs-response-codes.md)
+- [CVV2 Response Codes](https://developers.tabapay.com/reference/cvv2-response-codes.md)
+- [ANI Response Codes](https://developers.tabapay.com/reference/ani-response-codes.md)
+- [TabaPay Account Updater](https://developers.tabapay.com/reference/account-updater.md)
+- [Canadian Province Codes](https://developers.tabapay.com/reference/canadian-province-codes.md)
+- [Country Codes](https://developers.tabapay.com/reference/country-codes.md)
+- [Currency Numbers](https://developers.tabapay.com/reference/currency-numbers.md)
+- [US State Codes](https://developers.tabapay.com/reference/us-state-codes.md)
+- [HTTP Status Codes](https://developers.tabapay.com/reference/http-status-codes.md): HTTP status codes are returned after a TabaPay API Request is made.
+- [Resource Status](https://developers.tabapay.com/reference/resource-status.md)
+- [Transaction Resource Status](https://developers.tabapay.com/reference/transaction-resource-status.md)
+- [Error Messages](https://developers.tabapay.com/reference/error-messages.md)
+- [ACH vs. RTP](https://developers.tabapay.com/reference/ach-rtp.md)
+- [Sandbox Credentials](https://developers.tabapay.com/reference/what-to-do-if-my-credentials-expire.md)
+- [UAT](https://developers.tabapay.com/reference/uat.md)
+- [Sandbox](https://developers.tabapay.com/reference/sandbox.md)
+- [Production](https://developers.tabapay.com/reference/production.md)
+- [Data](https://developers.tabapay.com/reference/data.md)
+- [Error Handling](https://developers.tabapay.com/reference/error-handling.md)
+- [PCI/SOC](https://developers.tabapay.com/reference/pcisoc.md)
+- [PCI Helper - RSA](https://developers.tabapay.com/reference/pci-helper-rsa.md)
+
+## Recipes
+- [1. Make Your First API Call - Retrieve Client](https://developers.tabapay.com/recipes/1-make-your-first-api-call-retreive-client.md)
+- [10. Visa+ Transaction](https://developers.tabapay.com/recipes/10-visa-transaction.md)
+- [11. Query Tag Name - Visa+](https://developers.tabapay.com/recipes/11-query-tag-name-visa.md)
+- [12. Create Pull Transaction with Card Info](https://developers.tabapay.com/recipes/12-create-pull-transaction-with-card-info.md)
+- [12.1 Partial Auth Pull Transaction](https://developers.tabapay.com/recipes/121-partial-auth-pull-transaction.md)
+- [13. Create Pull Transaction with Accounts](https://developers.tabapay.com/recipes/13-create-pull-transaction-with-accounts.md)
+- [14. Create Pull Transaction with RSA Token](https://developers.tabapay.com/recipes/14-create-pull-transaction-with-rsa-token.md)
+- [15. Create Transaction with iFrame Token](https://developers.tabapay.com/recipes/15-create-transaction-with-iframe-token.md)
+- [16. RTP RfP](https://developers.tabapay.com/recipes/16-rtp-rfp-1.md)
+- [17. ACH API](https://developers.tabapay.com/recipes/17-ach-api.md)
+- [17.1 ACH API Debit (Pull)](https://developers.tabapay.com/recipes/171-ach-api-debit-pull.md)
+- [18. P2P Pull Transaction](https://developers.tabapay.com/recipes/18-p2p-pull-transaction.md)
+- [19. P2P Push Transaction](https://developers.tabapay.com/recipes/19-p2p-push-transaction.md)
+- [2. Apple Pay 101](https://developers.tabapay.com/recipes/2-apple-pay-101.md)
+- [20. A2A Pull Transaction](https://developers.tabapay.com/recipes/20-a2a-pull-transaction.md)
+- [21. A2A Push Transaction](https://developers.tabapay.com/recipes/21-a2a-push-transaction.md)
+- [22. Cross-Border OCT](https://developers.tabapay.com/recipes/22-cross-border-oct.md)
+- [23. B2C Push Transaction](https://developers.tabapay.com/recipes/23-b2c-push-transaction.md)
+- [24. Mastercard CIT](https://developers.tabapay.com/recipes/24-mastercard-cit-1.md)
+- [25. Mastercard MIT](https://developers.tabapay.com/recipes/25-mastercard-mit-1.md)
+- [26. Visa CIT](https://developers.tabapay.com/recipes/26-visa-cit.md)
+- [27. Visa MIT](https://developers.tabapay.com/recipes/27-visa-mit.md)
+- [28. Visa CIT (No VMID)](https://developers.tabapay.com/recipes/28-visa-cit-no-vmid.md)
+- [29. Visa MIT (No VMID)](https://developers.tabapay.com/recipes/29-visa-mit-no-vmid.md)
+- [3. GooglePay 101](https://developers.tabapay.com/recipes/3-googlepay-101.md)
+- [30. CIT with Accounts](https://developers.tabapay.com/recipes/30-cit-with-accounts.md)
+- [31. MIT with Accounts](https://developers.tabapay.com/recipes/31-mit-with-accounts.md)
+- [36. Create SubClient](https://developers.tabapay.com/recipes/36-create-subclient.md)
+- [37. Authorize Payment (Auth & Capture)](https://developers.tabapay.com/recipes/37-authorize-payment-auth-capture.md)
+- [38. Visa Partial Auth, CIT, Authorize (Auth & Cap)](https://developers.tabapay.com/recipes/38-visa-partial-auth-cit-authorize-auth-cap.md)
+- [39. Visa Partial Auth, MIT, Authorize (Auth & Cap)](https://developers.tabapay.com/recipes/39-visa-partial-auth-mit-authorize-auth-cap.md)
+- [9.3. Canadian Cross Border Push Transaction](https://developers.tabapay.com/recipes/4-canadian-cross-border-push-transaction.md)
+- [40. Mastercard Partial Auth, CIT, Auth & Capture](https://developers.tabapay.com/recipes/40-mastercard-partial-auth-cit-auth-capture.md)
+- [41. Mastercard Partial Auth, MIT, Auth & Capture](https://developers.tabapay.com/recipes/41-mastercard-partial-auth-mit-auth-capture.md)
+- [42. Pull Transaction with a Galileo Token](https://developers.tabapay.com/recipes/42-pull-transaction-with-a-galileo-token.md)
+- [43. Push Transaction with Galileo Token](https://developers.tabapay.com/recipes/43-push-transaction-with-galileo-token.md)
+- [44. Pull with Helix by Q2 Token](https://developers.tabapay.com/recipes/44-pull-with-helix-by-q2-token.md)
+- [45. Push with Helix by Q2 Token](https://developers.tabapay.com/recipes/45-push-with-helix-by-q2-token.md)
+- [46. ACH Debit with Plaid Token](https://developers.tabapay.com/recipes/46-ach-debit-with-plaid-token.md)
+- [47. ACH Credit with Plaid Token](https://developers.tabapay.com/recipes/47-ach-credit-with-plaid-token.md)
+- [48. RTP with Plaid Token](https://developers.tabapay.com/recipes/48-rtp-with-plaid-token.md)
+- [49. 3D Secure Initialize](https://developers.tabapay.com/recipes/49-3d-secure-initialize.md)
+- [5. Query Bank](https://developers.tabapay.com/recipes/5-query-bank.md)
+- [50. 3D Secure Lookup](https://developers.tabapay.com/recipes/50-3d-secure-lookup.md)
+- [52. Create 3DS Transaction](https://developers.tabapay.com/recipes/51-create-3ds-transaction.md)
+- [51. 3D Secure Authenticate](https://developers.tabapay.com/recipes/52-3d-secure-authenticate.md)
+- [53. Visa Debt Repayment](https://developers.tabapay.com/recipes/53-visa-debt-repayment.md)
+- [54. Mastercard Debt Repayment](https://developers.tabapay.com/recipes/54-mastercard-debt-repayment-1.md)
+- [55. Debt Repayment with Accounts](https://developers.tabapay.com/recipes/55-debt-repayment-with-accounts.md)
+- [56. B2B Pull Transaction](https://developers.tabapay.com/recipes/56-b2b-pull-transaction.md)
+- [57.1 Retrieve Transaction - Multiple Reversals](https://developers.tabapay.com/recipes/571-delete-transaction-multiple-reversals.md)
+- [6. Query Card](https://developers.tabapay.com/recipes/6-query-card.md)
+- [6.1 ANI + AVS](https://developers.tabapay.com/recipes/61-ani-avs.md)
+- [6.2 AVS](https://developers.tabapay.com/recipes/62-avs.md)
+- [63. Create Verification](https://developers.tabapay.com/recipes/62-create-verification.md)
+- [64. Create Ledger](https://developers.tabapay.com/recipes/63-create-ledger.md)
+- [7. Create Account](https://developers.tabapay.com/recipes/7-create-account.md)
+- [7.1 Create Account with iFrame Token](https://developers.tabapay.com/recipes/71-create-account-with-iframe-token.md)
+- [7.3 Create Account Visa Card](https://developers.tabapay.com/recipes/73-create-account-visa-card.md)
+- [7.4 Create Account MC Card](https://developers.tabapay.com/recipes/74-create-account-mc-card.md)
+- [7.5 Create Account with Discover Card](https://developers.tabapay.com/recipes/75-create-account-with-discover-card.md)
+- [8. RTP Push Transaction](https://developers.tabapay.com/recipes/8-rtp-push-transaction.md)
+- [9. Example Push Transaction](https://developers.tabapay.com/recipes/9-example-push-transaction.md)
+- [9.1 Push to Card with Accounts](https://developers.tabapay.com/recipes/91-push-to-card-with-accounts.md)
+- [9.2 Push to Card with Card Info](https://developers.tabapay.com/recipes/92-push-to-card-with-card-info.md)
+- [17.2 ACH API with Accounts](https://developers.tabapay.com/recipes/ach-api-with-accounts.md)
+- [6.3 ANI/AVS MC](https://developers.tabapay.com/recipes/aniavs-mc.md)
+- [7.2 Create Account - Reject Duplicate Card](https://developers.tabapay.com/recipes/create-account-reject-duplicate-card.md)
+- [65. Create SubClient v2](https://developers.tabapay.com/recipes/create-subclient-v2.md)
+- [61. Create User](https://developers.tabapay.com/recipes/create-user.md)
+- [57. Delete Transaction - Reversal](https://developers.tabapay.com/recipes/delete-transaction-reversal.md)
+- [58. Delete Transaction - Void](https://developers.tabapay.com/recipes/delete-transaction-void.md)
+- [59. Real Time Monitoring & Blocking Example](https://developers.tabapay.com/recipes/real-time-monitoring-blocking-example.md)
+
+## Pages
+- [Community Forum Guidelines](https://developers.tabapay.com/community-forum-guidelines.md)
+
+## Changelog
+- [Changelog 5/31/26](https://developers.tabapay.com/changelog/changelog-53126.md)
+- [Changelog 4/30/26](https://developers.tabapay.com/changelog/changelog-43026.md)
+- [Changelog 3/31/26](https://developers.tabapay.com/changelog/changelog-3926.md)
+- [Changelog 2/27/26](https://developers.tabapay.com/changelog/changelog-22726.md)
+- [Changelog 12/29/25](https://developers.tabapay.com/changelog/changelog-122925.md)

@@ -1,0 +1,34 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TabaPay
+providerId: tabapay
+created: '2026-07-21'
+modified: '2026-07-21'
+generated: '2026-07-21'
+method: searched
+tags:
+- Rate Limiting
+- Payments
+description: TabaPay enforces no fixed per-endpoint rate caps under normal conditions; clients should target ~1
+  TPS and remain within 3-5 TPS unless coordinated. Bursts, batching, and polling trigger 503 (spike protection)
+  or 429 (polling / daily rolling limit); sandbox is explicitly rate limited and production may block abusive IPs.
+sources:
+- https://developers.tabapay.com/reference/api-traffic-and-throuput
+- https://developers.tabapay.com/reference/http-status-codes
+responseCodes:
+  throttled: 429
+  overload: 503
+limits:
+- name: Recommended sustained throughput
+  scope: client
+  metric: transactions_per_second
+  limit: 1
+  timeFrame: second
+  notes: Guidance, not a hard cap.
+- name: Coordinated ceiling
+  scope: client
+  metric: transactions_per_second
+  limit: 5
+  timeFrame: second
+  notes: Stay within 3-5 TPS unless a higher rate is coordinated with TabaPay.

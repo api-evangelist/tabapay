@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/changelog
+scheme: dated monthly changelog entries on the developer portal (no API version train)
+entries:
+- date: '2026-05-31'
+  url: https://developers.tabapay.com/changelog/changelog-53126
+  breaking: false
+  highlights:
+  - New create-account recipes (Visa, Mastercard, Discover) in cURL/JavaScript/Python
+  - Country and card-type restrictions now apply to mobile-wallet tokens (Apple Pay / Google Pay) — possible increase
+    in 422 Source Disabled errors
+  - Visa response-code reclassification (46, R0, R1, R3, 78) effective April 25, 2026 under the Generic Response
+    Codes System Integrity Fee
+- date: '2026-04-30'
+  url: https://developers.tabapay.com/changelog/changelog-43026
+  breaking: false
+  highlights:
+  - 3DS-to-CreateTransaction field reformatting documented (strip leading zero from ECI; version uses first digit)
+  - Portal transactions pages enhanced (chargeback/adjustment/AVS details); Real-Time Monitoring report + AVS invoice
+    downloads; Network Bulletins in portal help center
+- date: '2026-03-31'
+  url: https://developers.tabapay.com/changelog/changelog-3926
+  breaking: false
+  highlights:
+  - Example reports downloadable (chargebacks, reported fraud, RTM, summary, transactions)
+  - Mastercard Credential Continuity Program fee; Banque de France thresholds for non-3DS CITs from March 10
+- date: '2026-02-27'
+  url: https://developers.tabapay.com/changelog/changelog-22726
+  breaking: false
+  highlights:
+  - TabaPay Developers Postman Collection launched (public workspace tabapaydevs)
+  - Starter Guide published; codeUCAF response-field docs (Visa CAVV / Mastercard AAV / Discover)
+  - Visa+ paynames discontinued for new clients; multiple Visa/Mastercard network bulletins
+- date: '2025-12-29'
+  url: https://developers.tabapay.com/changelog/changelog-122925
+  breaking: false
+  highlights:
+  - Create Transaction response adds RTM.status (REJECTED / IN_REVIEW / ACCEPTED) and ruleIDs for Real-Time Monitoring
+    & Blocking
+  - RTM example recipe; end-of-year change freeze schedule

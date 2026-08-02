@@ -1,0 +1,82 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/tabapay-openapi.yml
+description: 'Entity graph of the TabaPay Unified API derived from resource paths and id-reference fields. Everything
+  hangs off the Client (the boarded platform): accounts tokenize payment instruments (cards / bank accounts), transactions
+  move money between accounts (push/pull), and 3DS/verification/OFAC services decorate the flow.'
+entities:
+- Client
+- SubClient
+- User
+- Account
+- Card
+- Bank
+- Transaction
+- TransactionRequest
+- Key
+- Ledger
+- Verification
+- FXRate
+- Tag
+- 3DS Authentication
+relationships:
+- from: Client
+  to: SubClient
+  type: has_many
+  via: SubClientID (ISO clients)
+- from: Client
+  to: Account
+  type: has_many
+  via: accountID
+- from: Client
+  to: Transaction
+  type: has_many
+  via: transactionID
+- from: Client
+  to: User
+  type: has_many
+  via: userID
+- from: Client
+  to: Ledger
+  type: has_many
+  via: ledgerID
+- from: Client
+  to: Key
+  type: has_many
+  via: keyID (RSA encryption keys)
+- from: Client
+  to: Verification
+  type: has_many
+  via: verificationID (KYB/KYC cases)
+- from: Transaction
+  to: Account
+  type: belongs_to
+  via: accounts.sourceAccountID
+- from: Transaction
+  to: Account
+  type: belongs_to
+  via: accounts.destinationAccountID
+- from: Transaction
+  to: Transaction
+  type: belongs_to
+  via: purchaseID (links original transaction for MIT/recurring)
+- from: Account
+  to: Card
+  type: has_one
+  via: card.accountNumber / tokenized card
+- from: Account
+  to: Bank
+  type: has_one
+  via: bank routing+account number
+- from: TransactionRequest
+  to: Transaction
+  type: has_one
+  via: OTPP completion
+- from: 3DS Authentication
+  to: Transaction
+  type: has_one
+  via: ECI/version fields passed into CreateTransaction
+id_conventions:
+  referenceID: client-supplied 1-15 char unique id (recovery key)
+  accountID: 22-char TabaPay token for a stored payment instrument
+  transactionID: TabaPay-issued 22-char transaction id

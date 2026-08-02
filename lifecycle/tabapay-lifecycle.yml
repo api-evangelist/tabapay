@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/tabapay-system-status + https://developers.tabapay.com/changelog
+  + https://developers.tabapay.com/reference/production
+versioning:
+  scheme: uri-path
+  detail: 'Version segment is per-resource: /v1 (clients, accounts, transactions, keys, cards, banks, ofac), /v2
+    (3DS, users, ledgers, verifications, tags, subclients split endpoints, transactionrequests), /v4 (subclients,
+    fxrate). Update Account has parallel v1 (full replace) and v2 (partial update) contracts.'
+  current: v1/v2/v4 (per resource)
+  docs: https://developers.tabapay.com/reference/getting-started
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation policy or Sunset/Deprecation header support. Legacy surfaces (legacy iFrame, original
+    /subclients endpoint, legacy Visa+ onboarding) are retired via changelog notices and support-assisted migration.
+sla:
+  url: null
+  notes: 'No public SLA. Production: no outage during normal maintenance, 24x7x365 activity; production changes
+    land Mondays (requests due Friday); end-of-year change freeze (soft + hard) published in the changelog. Sandbox
+    carries no SLA.'
+status_page: https://status.tabapay.com
+status_page_notes: Statuspage-hosted (also embedded at /reference/tabapay-system-status); 3DS dependency status
+  mirrored from cardinalcommercecorporation.statuspage.io.
+changelog: https://developers.tabapay.com/changelog
+deprecated_operations: []

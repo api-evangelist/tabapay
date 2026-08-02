@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/low-code-tools + https://developers.tabapay.com/reference/browser-sdk
+description: 'TabaPay''s client-side/embeddable surfaces: the Browser SDK custom iFrame for PCI-scope-free card
+  collection, its legacy iFrame predecessor, and the hosted One-Time Payment Portal created via the TransactionRequest
+  API.'
+families:
+- family: Browser SDK (Basic Custom iFrame)
+  kind: embeddable-iframe
+  loader: TabaPay-provided script + URL (tabaPaySdk.createIframe); requires sandbox/production client ID; Web Crypto
+    API + secure context (HTTPS) required
+  docs:
+  - https://developers.tabapay.com/reference/browser-sdk
+  - https://developers.tabapay.com/reference/browser-sdk-reference
+  capabilities:
+  - card number/expiration/CSC inputs
+  - customizable buttons + event listeners (focusChange/submit/cancel)
+  - returns tokenized card for Account/Transaction APIs
+- family: Legacy PCI-Compliant iFrame
+  kind: embeddable-iframe (deprecated)
+  docs:
+  - https://developers.tabapay.com/docs/pci-compliant-iframe
+  - https://developers.tabapay.com/reference/iframe-implementation-starter-guide
+  notes: Superseded by the Browser SDK — contact help@tabapay.com to migrate.
+- family: One-Time Payment Portal (OTPP)
+  kind: hosted-surface
+  docs:
+  - https://developers.tabapay.com/reference/createtransactionrequest
+  notes: Hosted one-time payment page created via Create TransactionRequest (/v2/clients/{ClientID}/transactionrequests).

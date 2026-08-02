@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/tabapay-openapi.yml + conventions/tabapay-conventions.yml + errors/
+skills:
+- file: tabapay-pull-payment.md
+  name: Accept a pull payment with TabaPay
+  api: openapi/tabapay-openapi.yml
+  operations: [cardQuery, accountCreate, transactionCreate, transactionRetrieve, transactionDelete]
+- file: tabapay-push-to-card.md
+  name: Send an instant payout (push to card) with TabaPay
+  api: openapi/tabapay-openapi.yml
+  operations: [cardQuery, accountCreate, transactionCreate, transactionRetrieve, queryfx]
+- file: tabapay-3ds-transaction.md
+  name: Run a 3D Secure card transaction with TabaPay
+  api: openapi/tabapay-openapi.yml
+  operations: [3dsinit, 3dslookup, 3dsauthenticate, transactionCreate, transactionCapture]

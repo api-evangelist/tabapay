@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: npm/PyPI/Maven/NuGet/RubyGems/Packagist/crates.io/pkg.go.dev searches + developers.tabapay.com docs
+notes: TabaPay publishes no first-party packages on public registries (npm, PyPI, Maven Central, NuGet, RubyGems,
+  Packagist, crates.io, pkg.go.dev all searched 2026-07-21). Its first-party client library is the Browser SDK,
+  a JavaScript iFrame SDK delivered as a script/URL to boarded clients rather than via a registry.
+packages:
+- language: javascript
+  registry: null
+  name: TabaPay Browser SDK
+  url: https://developers.tabapay.com/reference/browser-sdk
+  install: Script + URL provided by TabaPay at boarding (not on a public registry)
+  official: true
+  notes: PCI-scope-reducing iFrame SDK for collecting card details (createIframe); requires a client ID.
+- language: javascript
+  registry: npm
+  name: '@alliedpayment/tabapayjs'
+  url: https://www.npmjs.com/package/@alliedpayment/tabapayjs
+  install: npm install @alliedpayment/tabapayjs
+  official: false
+  notes: Third-party (Allied Payment) wrapper for the legacy TabaPay iFrame.
+- language: php
+  registry: packagist
+  name: tabapay/payment
+  url: https://packagist.org/packages/tabapay/payment
+  install: composer require tabapay/payment
+  official: false
+  notes: Community Laravel wrapper (github.com/tabapayco/laravel-tabapay-payment); not published by TabaPay Inc.

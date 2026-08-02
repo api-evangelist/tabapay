@@ -1,0 +1,812 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/iso-network-codes
+description: 'Card network response codes returned when an authorization fails at the network or beyond — TabaPay
+  surfaces the network''s ISO response code on the transaction (networkRC). Complements errors/tabapay-problem-types.yml
+  (API-level SC/EC/EM errors). Related references: Accel response codes, RTP response codes (P04/P11/...), RPPS
+  exception codes, ACH return codes, AVS/CVV2/ANI response codes.'
+envelope_field: networkRC (network response code on transaction responses); resource status e.g. COMPLETED/ERROR/UNKNOWN
+related:
+- https://developers.tabapay.com/reference/accel-network-codes
+- https://developers.tabapay.com/reference/rtp-response-codes
+- https://developers.tabapay.com/reference/rpps-exception-codes
+- https://developers.tabapay.com/reference/ach-return-codes
+- https://developers.tabapay.com/reference/avs-response-codes
+- https://developers.tabapay.com/reference/cvv2-response-codes
+- https://developers.tabapay.com/reference/ani-response-codes
+decline_codes:
+- code: '00'
+  meaning: Approved or completed successfully.
+  category: Approvals
+- code: '01'
+  meaning: 'Refer to card Issuer. For referral transactions/services, where the merchant/TabaPay is required to
+    call the issuer to complete the transaction:'
+  category: Referral Responses
+  detail: Referral transactions are rarely used as the probability of the merchant calling the issuer is very low.
+  action: Cardholder should contact the issuing bank
+- code: '02'
+  meaning: Refer to card issuers special conditions.
+- code: '03'
+  meaning: Invalid Merchant. The card is not valid to be used at this Merchant or MCC.
+  category: Policy Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used when the Issuer or cardholder has restricted the card or product definition to not allow usage at
+    Merchant Category Code (MCC). May be used for regulatory restrictions preventing transactions at certain types
+    of Merchants such as gambling, etc. Merchant restrictions may be temporary or permanent
+  action: Email TabaPay Support at help@tabapay.com to share your request & response. (Transaction should not be
+    immediately reattempted for this Merchant or MCC)
+- code: '04'
+  meaning: Pick-Up Card (No fraud). A card has been cancelled
+  category: Fraud/Security-related Details
+  visa_category: 1 - Issuer will never approve
+  detail: Use for scenarios where the account has been closed, typically for non-fraud reasons. Alocked/cancelled
+    cards due to confirmed previous fraudulent situation (other than lost stolen), Fraudulent activities at account
+    level (such as identity theft or Account Take Over).
+  action: Reattempt not permitted with the same PAN or token Request alternate payment method from customer and/or
+    advise the cardholder to contact their Issuer
+- code: '05'
+  meaning: Do not Honor.
+  category: Others
+  visa_category: 4 - Generic Response Code
+  detail: Issuers should use this response code only when no other response code applies.
+  action: Cardholder should contact the issuing bank
+- code: '06'
+  meaning: Error.
+  detail: General Issuer error.
+  action: Cardholder should contact the issuing bank. Merchant may reattempt.
+- code: '07'
+  meaning: Pick up Card, Special Condition (fraud account). Fraud-compromised account
+  visa_category: 1 - Issuer will never approve
+  detail: Use for accounts closed due to fraud or collections.
+  action: Reattempt not permitted with the same PAN or token Request alternate payment method from customer and/or
+    advise the cardholder to contact their Issuer
+- code: 08
+  meaning: Honor with identification.
+  category: Approvals
+  detail: When issuer needs to verify the identity of a cardholder for certain types of transactions, such as manual
+    cash disbursements.
+- code: 09
+  meaning: Request in progress.
+- code: '10'
+  meaning: Approved for partial amount.
+  category: Approvals
+  detail: Used for approvals of an amount that is less than requested. (TabaPay Internal Only) You should not receive
+    an networkRC:10 directly.
+  action: For partial auth you will still receive a 00. Check the status for PARTIAL_COMPLETED or PARTIAL_AUTHORIZED
+    and a partialAmount field with Retrieve Transaction.
+- code: '11'
+  meaning: Approved (VIP).
+- code: '12'
+  meaning: Invalid Transaction. The transaction is not authorized due to technical issues
+  category: Technical/Validation Details
+  visa_category: 1 - Issuer will never approve
+  detail: When a fatal technical error prevents approval including (e.g.-invalid POS entry mode for card type) May
+    be used when CVV validation was not successful. Can also be a network-triggered decline.
+  action: Reattempt not permitted Evaluate for potential fraud or issues with Merchant terminal. Review the following
+    fields for possible failure conditions - CVV or Card Authentication Results Code. Evaluate for potential fraud
+- code: '13'
+  meaning: Invalid amount
+  category: Policy Declines
+  detail: Amount is outside of the limits defined by issuer (general / policy limit). For individual credit limit,
+    response code 51 (Insufficient funds/over credit limit) must be used; or Amount is outside of limits defined
+    by rule or regulation (for example, an installment payment less than the minimum amount allowed or a Gaming
+    Payment Transaction exceeding the maximum amount allowed); or Transaction exce
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '14'
+  meaning: Invalid card number (no such number). Account number is not valid
+  category: Life-Cycle Declines
+  visa_category: 1 - Issuer will never approve
+  detail: Account number was never issued or has been permanently blocked or closed. OR Failed Mod-10 check OR Account
+    number is not a valid length for Issuer OR Type of transaction not allowed at the Issuer OR Card expiration
+    date does not match what is on the card.
+  action: Reattempt not permitted with the same PAN or token. Revalidate account number for accuracy Evaluate for
+    potential fraud Enable TabaPay Account Updater
+- code: '15'
+  meaning: No such issuer [first 8 digits of account number do not relate to an issuing identifier]). Generated
+    when the BIN, account range or network for the requested account number is not defined at the network
+  visa_category: 1 - Issuer will never approve
+  detail: Network generated Response, not used by Issuers
+  action: Reattempt not permitted with the same PAN or token Revalidate account number for accuracy Evaluate for
+    potential fraud.
+- code: '16'
+  meaning: Approved, update track 3.
+- code: '17'
+  meaning: Customer cancellation, reversal (unsupported).
+- code: '18'
+  meaning: Customer dispute, chargeback (future).
+- code: '19'
+  meaning: Re-enter transaction. Transaction temporarily cannot be processed.
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: 'Contact TabaPay. Used when the Issuer is temporarily unable to process a transaction due to: (1) A malfunction
+    with the issuer OR (2) An error in the message structure or field format OR (3) Used by network when a transaction
+    exceeds the Merchant fraud threshold OR (4) May be used for Address Verification failure'
+  action: 'If you receive a high volume of RC19, please reattmpt the transaction and contact TabaPay if a resolution
+    is not achieved within 24-48 hours to evaluate possible errors. Note: May also evaluate Address Verification
+    Failures'
+- code: '20'
+  meaning: Invalid response.
+- code: '21'
+  meaning: No action taken, reversal (unsupported).
+- code: '22'
+  meaning: Suspected malfunction, reversal (unsupported).
+- code: '23'
+  meaning: Unacceptable transaction fee.
+- code: '24'
+  meaning: File update not supported by receiver.
+- code: '25'
+  meaning: Unable to locate record on file.
+- code: '26'
+  meaning: Duplicate file update record, no action.
+- code: '27'
+  meaning: File update field edit error.
+- code: '28'
+  meaning: File update record locked out.
+- code: '29'
+  meaning: File update not successful, contact acquirer.
+- code: '30'
+  meaning: Format error (may also be a reversal).
+  category: Technical/Validation Details
+  detail: When the information in one or more data elements is not consistent or there is a failure in validation
+    among data elements and applicable subelements.
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '31'
+  meaning: Bank not supported by switch.
+  detail: Network Issue
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '32'
+  meaning: Completed partially, reversal (unsupported).
+- code: '33'
+  meaning: Expired card, pick-up.
+- code: '34'
+  meaning: Suspected fraud, pick-up.
+- code: '35'
+  meaning: Card acceptor contact acquirer, pick-up.
+- code: '36'
+  meaning: Restricted card, pick-up.
+- code: '37'
+  meaning: Card acceptor call acquirer security, pick-up.
+- code: '38'
+  meaning: Allowable PIN tries exceeded, pick-up.
+- code: '39'
+  meaning: No credit account.
+  visa_category: 2 - 2 - Issuer cannot approve at this time
+- code: '40'
+  meaning: Requested function not supported.
+  detail: Network Issue
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '41'
+  meaning: Lost Card, Pick-up. The cardholder has reported the card lost
+  category: Fraud/Security-related Details
+  visa_category: 1 - Issuer will never approve
+  detail: When a card has been marked as 'lost card'
+  action: Reattempt not permitted with the same payment credential Request alternate payment method from customer
+    and/or advise the cardholder to contact their Issuer
+- code: '42'
+  meaning: No universal account.
+- code: '43'
+  meaning: Stolen Card, Pick-up. The cardholder has reported the card stolen.
+  category: Fraud/Security-related Details
+  visa_category: 1 - Issuer will never approve
+  detail: Use when a card has been marked as 'stolen card'.
+  action: Reattempt not permitted with the same payment credential Request alternate payment method from customer
+    and/or advise the cardholder to contact their Issuer
+- code: '44'
+  meaning: No investment account.
+- code: '45'
+  meaning: Reserved for ISO use.
+- code: '46'
+  meaning: 'Deactivated token was used (updated for Visa). Use for authorization attempts on deactivated tokens.
+    MasterCard: When an issuer or cardholder permanently closes a credential or underlying account and no further
+    authorization requests will be approved.'
+  visa_category: 1 - Issuer will never approve
+  detail: Closed account
+  action: Reattempt not permitted with the same payment credential Request alternate payment method from customer
+    and/or advise the cardholder to contact their Issuer
+- code: '47'
+  meaning: Reserved for ISO use.
+- code: '48'
+  meaning: Reserved for ISO use.
+- code: '49'
+  meaning: Reserved for ISO use.
+- code: '50'
+  meaning: Reserved for ISO use.
+- code: '51'
+  meaning: Insufficient Funds. Transaction amount exceeds the cardholders available balance.
+  category: Credit-related Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: The card has insufficient funds to complete the purchase
+  action: 'Client can reattempt for a lesser amount or at a later date to allow the cardholder to fund their debit
+    account or pay down their credit account Note: Clients can reduce NSF declines by implementing the Partial Authorization
+    service. Watch out this space!!'
+- code: '52'
+  meaning: No checking account.
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Debit card tied to Only savings account
+  action: Customer should contact the issuing bank
+- code: '53'
+  meaning: No savings account.
+  visa_category: 2 - Issuer cannot approve at this time
+- code: '54'
+  meaning: Expired Card / Expiration Date Missing. Card is expired, expiration date is invalid or expiry date not
+    provided.
+  category: Life-Cycle Declines
+  visa_category: 3 - Data quality issues/Revalidate data
+  detail: Used when the authorization contains an expired or invalid or missing expiration date. (Not for recurring
+    transactions)
+  action: Validate the expiration date prior to reattempt. Monitor reattempts for potential fraud Enable TabaPay
+    Account Updater
+- code: '55'
+  meaning: Incorrect PIN. PIN has failed the PIN verification process or is not present.
+  category: Fraud/Security-related Details
+  visa_category: 3 - Data quality issues/Revalidate data
+  detail: Used when the PIN fails the PIN verification process or is not present in the transaction when required.
+  action: Reattempt with a valid value (re-enter PIN) POS transactions may be reattempted as a non-PIN transaction
+    if applicable
+- code: '56'
+  meaning: No card record.
+- code: '57'
+  meaning: Transaction not permitted to CardHolder. A permanent restriction is placed, most often at the Issuer
+    BIN level but may be applied at the account level
+  category: Policy Declines
+  visa_category: 1 - Issuer will never approve
+  detail: Used for unsupported transaction types or permanent restrictions not classified under other response codes.
+    Generated by networks for certain transaction typesnot supported by the Issuer Restriction at the product level
+    Restriction at the BIN level Restriction by internal policy (not related to merchants or MCC, in which case
+    Response Code 03 (Invalid merchant) must be used) Restricted countries (
+  action: Reattempt not permitted Request alternate payment method from customer and/or advise the cardholder to
+    contact their Issuer
+- code: '58'
+  meaning: Transaction not permitted to terminal (may also be a chargeback). Transaction not permitted to acquirer/terminal
+  category: Policy Declines
+  detail: When the transaction POS Entry Mode or the terminal capability does not match the transaction type according
+    to issuer’s policies. May be used in the case of fallback transactions. May also be used to indicate a merchant
+    restriction (for example, the merchant does not participate in a private label program or is not permitted to
+    offer installments).
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '59'
+  meaning: Suspected fraud. The transaction does not pass risk monitoring detection systems or controls.
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used when a transaction fails a fraud rule in the Issuers fraud detection system or at the network's
+  action: Advise the cardholder to contact their Issuer and do not reattempt the transaction until the cardholder
+    confirms.
+- code: '60'
+  meaning: Card acceptor contact acquirer.
+- code: '61'
+  meaning: Exceeds withdrawal amount limit. The AMOUNT activity limit for the card or account has been exceeded.-or-
+    The Issuer or TabaPay Settlement Risk Exposure Cap has been exceeded
+  category: Policy Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: 'Used when the defined amount activity limit for the account is exceeded. Used by network when: – The
+    Issuer or Acquirer settlement risk exposure cap has been exceeded – The Issuer defined velocity/amount limit
+    for OCT has been exceeded.'
+  action: Do not reattempt the transaction the same day to allow limits to reset. Merchant may advise the cardholder
+    to contact their Issuer
+- code: '62'
+  meaning: Restricted Card (Card invalid in Region or Country). A Restriction is placed at the BIN or cardholder
+    level to restrict usage in a particular country.
+  category: Policy Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used when a transaction is attempted from a country where transactions are restricted including OFAC or
+    embargoed countries. Restriction may be temporary or permanent Should not be used for non-geographic account
+    restrictions Restriction at card level (for product level, response code 57 must be used) Deceased cardholder
+    Account permanently blocked/cancelled due to high delinquency level Permanent
+  action: Do not immediately reattempt. Merchant may reattempt if the cardholder confirms the restriction has been
+    removed. (Merchant must not alter country code or other transaction data to gain approval)
+- code: '63'
+  meaning: Security violation (may also be a chargeback). Security Violation
+  category: Fraud/Security-related Details
+  detail: When suspected fraudulent transactions occur - as response to fraud prevention real-time declines or for
+    accounts/cards temporally blocked due to suspected fraudulent use.
+- code: '64'
+  meaning: Compliance-related decline.
+  category: Fraud/Security-related Details
+  detail: Usually when transaction does not fulfill Compliance requirements)
+- code: '65'
+  meaning: Exceeds withdrawal frequency limit. The COUNT activity limit for the card or account has been exceeded
+    (usually set daily).
+  category: Policy Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used when the defined count activity limit for the card or account (usually set daily) is exceeded. Used
+    for when the transaction exceeds the Original Credit Transaction (OCT) withdrawal frequency limit if Issuer
+    supports velocity checking.
+  action: Do not reattempt the transaction the same day to allow limits to reset. Merchant may advise the cardholder
+    to contact their Issuer
+- code: '66'
+  meaning: Card acceptor call acquirer security.
+- code: '67'
+  meaning: Hard Capture, Pick-Up.
+  detail: Fraud issue
+  action: Cardholder should contact the issuing bank
+- code: '68'
+  meaning: Response received too late, reversal (unsupported).
+- code: '69'
+  meaning: Reserved for ISO.
+- code: '70'
+  meaning: Reserved for ISO.
+- code: '71'
+  meaning: Reserved for ISO. PIN not changed
+  category: Technical/Validation Details
+  detail: When PIN change request was not successfully completed.
+- code: '72'
+  meaning: 'Reserved for ISO.MasterCard: When an authorization request is received but cannot be approved because
+    the account has not been activated, such as in the case of a newly issued account.'
+- code: '73'
+  meaning: Reserved for ISO.
+- code: '74'
+  meaning: Reserved for ISO.
+- code: '75'
+  meaning: Allowable number of PIN tries exceeded. Use when the system defined number of PIN entry tries is exceeded.
+  category: Policy Declines
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: This is an ATM Only Card. Used when cardholder has entered the incorrect PIN multiple times. Excessive
+    attempts may require additional risk investigations.
+  action: Do not reattempt the transaction the same day to allow limits to reset. POS transactions may be reattempted
+    as a non-PIN transaction if applicable
+- code: '76'
+  meaning: Key synchronization error (FIS).
+- code: '77'
+  meaning: Reserved for private use.
+- code: '78'
+  meaning: Visa. Used for suspended or deactivated pseudo Accounts. Blocked, first used or special condition (new
+    cardholder not activated, or card is temporarily blocked). New card that has not been activated -or- card has
+    been temporarily blocked due to a special condition (Updated)
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: This is an ATM Only Card. Used when a card has been issued but not yet activated (may trigger alert to
+    cardholder). May be used for when the account is temporarily blocked for all transactions due a special condition
+    (e.g.- delinquency or cardholder request)
+  action: Transaction should not be immediately reattempted. Merchant may reattempt if the cardholder confirms the
+    card has been activated or reactivated
+- code: '79'
+  meaning: Lifecycle declines.
+  detail: Lifecycle declines (Expired Card, Invalid Card Number, etc.)
+  action: Customer should contact the issuing bank
+- code: '80'
+  meaning: Stale dated transaction (Star SM ).
+- code: '81'
+  meaning: Issuer requested standin.
+- code: '82'
+  meaning: 'Issuer declines Visa: Negative Online CAM, dCVV, iCVV, CVV, CAVV, dCVV2, TAVV, or DTVV results. Or offline
+    PIN authentication interrupted MasterCard: Policy declines'
+  visa_category: 3 - Data quality issues/Revalidate data
+  detail: Issuer Policy declines (Restricted Card, Transaction Not Permitted, etc.) Used when a failure for CAM,
+    dCVV, iCVV, CVV or service code within Card Present transactions. Evaluate for potential fraud
+  action: Monitor reattempts for potential fraud and check verification values (CVV especially)
+- code: '83'
+  meaning: Fraud Card-Absent Environment..
+  detail: Fraud/Security declines (Lost/Stolen Card, Security Violation, etc.)
+  action: Customer should call the issuing bank
+- code: '84'
+  meaning: Time limit for pre-authorization reached (VISANet).
+- code: 85*
+  meaning: Issuer has no reason to decline the transaction (Account Verification).
+  category: Approvals
+  detail: For non-financial zero amount transactions.
+- code: '86'
+  meaning: Cannot verify PIN (VISANet). The PIN cannot be validated
+  category: Technical/Validation Details
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used for system malfunctions for ATM transactions including hardware or processing system errors. Used
+    in STIP when the Issuer has not provided Visa with PIN verification keys or values
+  action: Reattempt can occur within same day. POS transactions may be reattempted as a non-PIN transaction if applicable
+- code: '87'
+  meaning: Check already posted/Purchase Amount Only, No cashback allowed.
+  category: Approvals
+  detail: When it is a purchase-only approval of a purchase with cash back transaction (Processing Code 09) when
+    cash back is not allowed.
+- code: '88'
+  meaning: Information not on file. Cryptographic failure
+  category: Technical/Validation Details
+  detail: When cryptogram validation or related key processing is unsuccessful
+- code: '89'
+  meaning: Card verification value (CVV) verification failed (no pickup).
+  detail: Invalid CVV
+  action: Customer should contact the issuing bank
+- code: '90'
+  meaning: Cutoff is in progress.
+- code: '91'
+  meaning: Issuer or Switch is inoperative/unable to respond. STIP (Stand In Processing) not applicable or available
+    for this transaction
+  category: Technical/Validation Details
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: Used by the Issuer/Issuer processor/STIP if the authorization cannot be performed (issuer connectivity,
+    issuer system issue, etc).
+  action: DO NOT retry immediately.
+- code: '92'
+  meaning: Financial institution or intermediate network unknown for routing. Unable to route the transaction
+  category: Technical/Validation Details
+  detail: Network issue
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '93'
+  meaning: Transaction cannot be completed, violation of law. Due to government, central bank or financial institution
+    agreement, laws or regulations, the transaction cannot be authorized.
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: 'Used for regulatory restrictions which may be temporary or permanent. For example: Gambling transactions
+    Cardholder has not opted into CNP transactions No 2nd Factor Authentication on domestic ecommerce transactions.'
+  action: Do not immediately reattempt. Merchant may reattempt if the cardholder confirms the restriction has been
+    removed (e.g.- cardholder opts– in to transaction type) Merchants must not alter transaction information to
+    gain approval.
+- code: '94'
+  meaning: Duplicate transaction. Duplicate transaction
+  category: Technical/Validation Details
+  action: Advise the cardholder to contact their Issuer on why the transaction was flagged as a duplicate
+- code: '95'
+  meaning: Reconcile error.
+- code: '96'
+  meaning: System Malfunction. Transaction does not pass Issuer system checks on fields.
+  category: Technical/Validation Details
+  visa_category: 2 - Issuer cannot approve at this time
+  detail: May be used by the Issuer or Issuer processor to indicate that their system is unable perform the authorization
+    due to system malfunction or critical message failure. Used by Visa when errors in messaging are detected that
+    prevent the message from being processed. When used by the Issuer/Issuer processor, this code does not cause
+    STIP to be invoked. (use N0-Force STIP instead) (Also, received duri
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '97'
+  meaning: Reserved for national use.
+- code: '98'
+  meaning: Reserved for national use.
+- code: 99*
+  meaning: Card network fault error.
+- code: '100'
+  meaning: Do not Honor.
+  detail: Issuer rejecting for various reasons. Could be a card that is not supported for debt repayment
+  action: Cardholder should contact the issuing bank
+- code: '101'
+  meaning: Expired Card.
+  detail: Card has expired
+  action: Customer should contact issuing bank
+- code: '106'
+  meaning: Pin Exceeded
+  detail: Pin Exceeded
+- code: '107'
+  meaning: Refer to card issuer.
+  detail: Fraud Indicator - Stolen Card
+  action: Customer should contact issuing bank
+- code: '108'
+  meaning: Refer to card issuer's special condition.
+  detail: Fraud
+  action: Customer should contact issuing bank
+- code: '109'
+  meaning: Term ID Error.
+  detail: Invalid Merchant
+- code: '110'
+  meaning: Amount Error.
+  detail: Invalid Amount
+- code: '111'
+  meaning: No Account.
+  detail: Invalid Account
+- code: '114'
+  meaning: No account of type requested.
+  detail: No checking account associated to card
+  action: Customer should contact the issuing bank
+- code: '115'
+  meaning: Serv Not Allowed.
+  detail: Service not permitted
+- code: '116'
+  meaning: Insufficient funds.
+  detail: The customer does not have enough money in their accounts.
+  action: Customer should contact the issuing bank
+- code: '117'
+  meaning: Wrong Pin.
+  detail: Invalid Pin.
+- code: '119'
+  meaning: Transaction not permitted to cardholder.
+  detail: Transaction not approved by issuing bank
+  action: Customer should contact the issuing bank
+- code: '121'
+  meaning: Decline.
+  detail: Limit Exceeded
+- code: '123'
+  meaning: Exceeds withdawal limit frequency.
+  detail: Issuers do set limits for debit cards by customers.
+  action: Cardholder should contact the issuing bank
+- code: '125'
+  meaning: Expired Card.
+  detail: Invalid Effective Date.
+- code: '181'
+  meaning: Format Error.
+  detail: Format Error.
+- code: '183'
+  meaning: Decline.
+  detail: Invalid Currency Code.
+- code: '187'
+  meaning: Invalid ACCT NBR.
+  detail: Deny-New Card Issued.
+- code: '189'
+  meaning: Term ID Error.
+  detail: Deny-Cancelled or Closed Merchant.
+- code: '200'
+  meaning: Hold-Call.
+  detail: Deny-Pick up Card.
+- code: '209'
+  meaning: Stolen card .
+  detail: Fraud Indicator - Stolen Card
+  action: Customer should contact the issuing bank
+- code: '900'
+  meaning: System Error.
+  detail: ATC Synchronization
+- code: '908'
+  meaning: Transaction destination cannot be found for routing.
+  detail: Network issue
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: '909'
+  meaning: System Error.
+  detail: System Malfunction (CRYPTO ERROR)
+- code: '912'
+  meaning: No Reply.
+  detail: Issuer not available
+- code: Z1
+  meaning: Decline.
+  detail: Offline declined
+- code: Z3
+  meaning: Decline.
+  detail: Unable to go online
+- code: E1*
+  meaning: Invalid or unsupported SEC.
+- code: E2*
+  meaning: AVS data required.
+- code: E3*
+  meaning: CVV2 data required.
+- code: E4*
+  meaning: Service not allowed. Transaction not permitted to cardholder..
+- code: E5*
+  meaning: Service not allowed. Transaction not permitted to cardholder..
+- code: E6*
+  meaning: Issuer country is blocked.
+- code: E7*
+  meaning: Incorrect MAC was sent.
+- code: E8*
+  meaning: Standard Entry Class requirements were not met.
+- code: E9*
+  meaning: System time out.
+- code: EA*
+  meaning: Account length error.
+- code: EB*
+  meaning: Check digit error.
+- code: EC*
+  meaning: CID format error.
+- code: ED*
+  meaning: Authorization is too old to capture.
+- code: EE*
+  meaning: Card product code is blocked Card product code is blocked.
+- code: EF*
+  meaning: Attempt to process a BRIC transaction on a prior PIN based transaction.
+- code: EG*
+  meaning: CyberSource Time Out Connection to CyberSource timed out.
+- code: EH*
+  meaning: CARD_ENT_METH supplied is not valid or required additional data not provided as defined.
+- code: EI*
+  meaning: CARD_ID is not valid.
+- code: EJ*
+  meaning: Required PIN block not present.
+- code: EK*
+  meaning: BIN is not valid for pinless routing.
+- code: EL*
+  meaning: Signature store did not complete.
+- code: EM*
+  meaning: Debit PIN transactions must be swiped.
+- code: EN*
+  meaning: DB proxy response was not processed within the time out period.
+- code: EO*
+  meaning: Transaction was declined by merchant due to mismatch of CVV2 data.
+- code: EP*
+  meaning: Transaction not allowed as per a validation rule.
+- code: EQ*
+  meaning: There were no available gateway nodes to route transaction.
+- code: ES*
+  meaning: Decline.
+  detail: Transaction not allowed due to failure of internal validations
+- code: ET*
+  meaning: Format Error.
+  detail: EMV data is required for card entry method
+- code: EU*
+  meaning: No Reply .
+  detail: Network rejected the item
+- code: EV*
+  meaning: No Action Taken.
+  detail: Item Already Captured
+- code: EW*
+  meaning: Format Error.
+  detail: Failed REGEX Validation
+- code: EX*
+  meaning: Check NBR REQUIR.
+  detail: Check NBR REQUIR
+- code: EY*
+  meaning: Retry - DIP CARD.
+  detail: Retry - DIP CARD
+- code: N0
+  meaning: Authorization life cycle unacceptable.
+- code: N1
+  meaning: Authorization life cycle expired.
+- code: N2
+  meaning: Non-receipt of requested item (future).
+- code: N3
+  meaning: Non-receipt of requested item, illegible copy (future).
+- code: N4
+  meaning: Transaction exceeds floor limit (future).
+- code: N5
+  meaning: Declined authorization (future).
+- code: N6
+  meaning: Non-matching account numbers (future).
+- code: N7
+  meaning: Decline for CVV2 Failure / Error in addition (future) . Used to indicate that authorization request didn’t
+    pass CVV2 verification.
+  visa_category: 3 - Data quality issues/Revalidate data
+  detail: Used when a failure of CVV2 within CNP transactions. Do not decline CNP transactions for missing CVV2
+  action: Validate the CVV2 value prior to reattempt. Monitor reattempts for potential fraud
+- code: N8
+  meaning: Altered amount (future).
+- code: N9
+  meaning: Incorrect account number (future).
+- code: NR
+  meaning: No Debit Route.
+  detail: No valid debit network available to route
+- code: P0
+  meaning: Missing signature (future).
+- code: P1
+  meaning: Slip without card imprint (future).
+- code: P2
+  meaning: Imprinting of multiple slips (future).
+- code: P3
+  meaning: Canceled pre-authorization transaction (future).
+- code: P4
+  meaning: Delinquent settlement (future).
+- code: P5
+  meaning: Currency conversion error (future).
+- code: P6
+  meaning: Credit posted as a debit (sale) (future).
+- code: P7
+  meaning: Claim or defense (future).
+- code: P8
+  meaning: Non-receipt of goods (future).
+- code: P9
+  meaning: Defective merchandise (future).
+- code: Q1*
+  meaning: Card authentication failed.
+- code: R0
+  meaning: 'Recurring transactions only. Stop this Payment: merchant-level one time stop payment. (Updated)'
+  visa_category: 1 - Issuer will never approve
+  detail: Used when a Cardholder requested to stop a specific single reoccurring payment transaction
+  action: Reattempt not permitted Contact customer regarding cancellation of this transaction
+- code: R1
+  meaning: 'Recurring transactions only. Stop all Future Payments: merchant or MCC level recurring stop payment
+    (Updated)'
+  visa_category: 1 - Issuer will never approve
+  detail: Used when a Cardholder requested to stop all recurring payment transactions for a specific Merchant account.
+  action: Reattempt not permitted Contact customer regarding cancellation of all transactions from this Merchant
+- code: R2
+  meaning: Allowable PAN entries warning -- approved.
+- code: R3
+  meaning: 'Recurring transactions only. Stop all Merchants: PAN-level stop payment on VSPS eligible transactions
+    (Updated).'
+  visa_category: 1 - Issuer will never approve
+  detail: Used when a All recurring payments have been cancelled for the card number in the request.
+  action: Reattempt not permitted. Contact customer regarding cancellation of all recurring transaction
+- code: R4
+  meaning: Bad CVV3.
+- code: RR*
+  meaning: Unknown Backend Processing Error.
+- code: S0
+  meaning: Check not acceptable for cash.
+- code: S1
+  meaning: Check not acceptable.
+- code: S2
+  meaning: Check deposit limit exceeded.
+- code: S3
+  meaning: Cash back limit exceeded.
+- code: S4
+  meaning: Check amount does not match courtesy amount.
+- code: S5
+  meaning: PIN not selected.
+- code: S6
+  meaning: PIN already selected.
+- code: S7
+  meaning: Unmatched voucher information.
+- code: S8
+  meaning: Allowable PAN entries exceeded -- denial.
+- code: S9
+  meaning: Expiration date mismatch.
+- code: SA
+  meaning: Inactive card.
+- code: SB
+  meaning: Expiration date mismatch (card pickup).
+- code: SC
+  meaning: Item suspected for stop pay.
+- code: SD
+  meaning: Account closed.
+- code: SE
+  meaning: Ineligible account.
+- code: SF
+  meaning: Item submitted more than two times.
+- code: SG
+  meaning: No account on file - absolute.
+- code: SH
+  meaning: Unable to locate.
+- code: SI
+  meaning: General denial.
+- code: SJ
+  meaning: Item settled via ACH.
+- code: SK
+  meaning: Cross-reference card not found.
+- code: SL
+  meaning: Category limit exceeded.
+- code: SM
+  meaning: Transaction limit exceeded.
+- code: SN
+  meaning: Daily limit exceeded.
+- code: SO
+  meaning: Monthly limit exceeded.
+- code: SP
+  meaning: Invalid secret code.
+- code: SQ
+  meaning: PIN key sync error.
+- code: SR
+  meaning: Bad CVV2.
+- code: SS
+  meaning: Stop payment order.
+- code: ST
+  meaning: Revocation of authorization order.
+- code: SV
+  meaning: Stop reoccurring payments.
+- code: T3
+  meaning: Lost card (no pickup).
+- code: T4
+  meaning: Closed account.
+- code: T5
+  meaning: Dormant account.
+- code: T6
+  meaning: Special conditions (no pick-up).
+- code: T7
+  meaning: Purchase only approval for purchase with cash back transaction..
+- code: T9
+  meaning: Insufficient funds for fees.
+- code: TA
+  meaning: ARQC validation failed for chip card.
+- code: TB
+  meaning: Unsafe PIN.
+- code: Z5
+  meaning: Valid account but amount not supported.
+  visa_category: 2 - Issuer cannot approve at this time
+- code: ZB
+  meaning: Real-Time Fraud Intelligence Decline.
+  detail: Transaction was rejected by TabaPay's Real-Time Fraud Intelligence Engine.
+  action: Check your Fraud Intelligence report for the ruleIDs that triggered the rejection.
+- code: ZD
+  meaning: MasterCard Send (MoneySend) Error due to Expiration Date.
+- code: ZN
+  meaning: MasterCard MoneySend Decline due to Card was Declined.
+  detail: Various reasons for decline
+  action: Cardholder should contact the issuing bank
+- code: ZR
+  meaning: MasterCard MoneySend Decline due to Unsupported Card.
+  detail: BIN not supported.
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: ZU
+  meaning: MasterCard MoneySend Error due to an Unknown Reason.
+  detail: Unknown
+  action: Email TabaPay Support at help@tabapay.com to share your request & response
+- code: ZX
+  meaning: MasterCard Send (MoneySend) Decline due to an Unknown Reason.
+- code: ZY
+  meaning: MasterCard Send (MoneySend) Request in Unknown Status.
+- code: ZZ
+  meaning: MasterCard Send (MoneySend) Request in Unknown Status.
+- code: 1A*
+  meaning: Decline.
+  detail: Additional Customer Authentication Required
+- code: 6P*
+  meaning: Decline.
+  detail: Verification data failed
+- code: B1*
+  meaning: Decline.
+  detail: Surcharge amount not permitted on Visa cards
+- code: DA*
+  meaning: Invalid Fleet
+  detail: Required fleet prompts invalid or missing
+- code: 5C*
+  meaning: Transaction not supported/blocked by issuer. (Visa)
+  visa_category: 2 - Issuer cannot approve at this time
+  action: Advise the cardholder to call their issuer
+- code: 9G*
+  meaning: Blocked by cardholder/contact cardholder. (Visa)
+  visa_category: 2 - Issuer cannot approve at this time
+  action: Advise the cardholder to review their card account settings, or call their issuer

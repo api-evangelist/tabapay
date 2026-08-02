@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for TabaPay APIs
+  version: 1.0.0
+extends: openapi/tabapay-openapi.yml
+actions:
+- target: $.info
+  update:
+    contact:
+      name: TabaPay Support
+      email: help@tabapay.com
+      url: https://tabapay.zendesk.com/hc/en-us/requests/new
+    termsOfService: https://tabapay.com/terms-of-service
+    x-apievangelist:
+      enriched: '2026-07-21'
+      provider: tabapay
+    x-status-page: https://status.tabapay.com
+    x-postman-collection: https://www.postman.com/tabapaydevs/workspace/tabapay-developers
+    x-mcp-server: https://developers.tabapay.com/mcp
+- target: $.servers
+  description: Documented server template is https://{FQDN}:{PORT}; each client receives a dedicated FQDN in its
+    credentials file. The shared production edge resolves at api.tabapay.com / api.tabapay.net (tabapayapis ELB).
+  update:
+  - url: https://{FQDN}:{PORT}
+    description: TabaPay APIs — client-specific FQDN/PORT from your credentials file; shared production edge resolves
+      at api.tabapay.com (tabapayapis ELB).
+    variables:
+      FQDN:
+        default: api.tabapay.com
+      PORT:
+        default: '443'

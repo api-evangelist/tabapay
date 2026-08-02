@@ -1,0 +1,58 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/getting-started + api-best-practices + error-handling + api-traffic-and-throuput
+  + retrieve-via-referenceid + openapi/tabapay-openapi.yml
+description: 'Cross-cutting request/response semantics of the TabaPay Unified API: bearer-token auth on a client-specific
+  FQDN, compact-JSON request bodies, the SC/EC/EM error envelope, referenceID-based idempotent recovery, per-resource
+  URI versioning, and behavioral (not fixed-quota) rate limiting.'
+base_url: https://{FQDN}:{PORT} — client-specific FQDN/PORT issued in credentials; shared production edge resolves
+  at api.tabapay.com
+api_style: REST over HTTPS; compact JSON requests (whitespace-free payloads are required — pretty-printed JSON is
+  rejected with EM JSON NOT PACKED); JSON responses
+authentication:
+  scheme: Bearer access token (static API key issued at boarding); Authorization header
+  docs: https://developers.tabapay.com/reference/getting-started
+  detail: authentication/tabapay-authentication.yml
+  notes: APIs are not publicly self-serve — credentials come from TabaPay (help@tabapay.com); IP allowlisting is
+    enforced per environment and sandbox/production IPs must differ. Card data can be RSA-encrypted client-side
+    using keys from the Key API.
+idempotency:
+  supported: true
+  mechanism: Client-generated unique referenceID request field (1-15 chars, not case sensitive) on Create Transaction
+    / Create Account
+  applies_to: CreateTransaction, CreateAccount (and TransactionRequest)
+  conflict_behavior: Reusing a referenceID on CreateTransaction returns 409 Conflict
+  recovery: Retrieve via ReferenceID (GET with ?referenceID) reconstructs a lost response after HTTP timeout — allowed
+    up to 24 hours after the original request; after that a 421 Misdirected Request tells you to use the resource
+    ID.
+  docs: https://developers.tabapay.com/reference/retrieve-via-referenceid
+pagination:
+  style: null
+  notes: No list/collection endpoints in the published surface — resources are retrieved by ID (or referenceID);
+    no pagination convention exists.
+field_expansion: null
+metadata:
+  supported: false
+  notes: No free-form metadata object; memo/purchase fields (e.g. purchaseID linking a related transaction) serve
+    correlation.
+request_tracing:
+  notes: No documented request-id header; transactionID/accountID plus client referenceID are the correlation keys.
+    500-series errors should be reported to help@tabapay.com.
+versioning:
+  scheme: uri-path per resource (v1/v2/v4)
+  notes: See lifecycle/tabapay-lifecycle.yml — versions advance per resource (e.g. UpdateAccount v1 full-replace
+    vs v2 partial).
+  detail: lifecycle/tabapay-lifecycle.yml
+error_envelope:
+  shape: SC (HTTP status), EC (error code), EM (error message) on every JSON response
+  partial_failure: HTTP 207 Multi-Status signals upstream/network failure after TabaPay-side success — reconcile
+    via Retrieve Transaction / Retrieve via ReferenceID
+  detail: errors/tabapay-problem-types.yml
+  decline_codes: errors/tabapay-decline-codes.yml
+rate_limiting:
+  style: behavioral, not fixed quotas
+  guidance: Target ~1 TPS, stay within 3-5 TPS unless coordinated; no polling; exponential backoff on retries; 503
+    = slow down; 429 covers polling/daily rolling limits; sandbox is rate limited and production may block abusive
+    IPs.
+  docs: https://developers.tabapay.com/reference/api-traffic-and-throuput
+  detail: rate-limits/tabapay-rate-limits.yml

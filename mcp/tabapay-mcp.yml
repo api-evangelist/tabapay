@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/mcp (live initialize + tools/list probe, 2026-07-21)
+status: published
+server:
+  name: TabaPay Developers
+  transport: http
+  url: https://developers.tabapay.com/mcp
+  protocolVersion: '2025-03-26'
+  provider: ReadMe-hosted docs MCP server (serverInfo.version 74473)
+notes: 'Official hosted MCP server served from the TabaPay developer portal (ReadMe platform). Exposes the API reference
+  as tools: an agent can list/search endpoints and execute live HAR-shaped requests against the TabaPay API with
+  client credentials.'
+tools:
+- name: list-endpoints
+  description: Lists all API paths and their HTTP methods with summaries, organized by path.
+- name: get-endpoint
+  description: Gets detailed information about a specific API endpoint, including security schemes and servers.
+- name: search-endpoints
+  description: Deep search through paths, operations, and parameters to discover relevant API endpoints.
+- name: execute-request
+  description: Executes an API request with a given HAR request object.

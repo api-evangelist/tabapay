@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/pcisoc + openapi/tabapay-openapi.yml
+standards:
+- id: pci-dss
+  conforms: true
+  evidence: TabaPay is a PCI DSS Level 1 Service Provider (https://developers.tabapay.com/reference/pcisoc); listed
+    on the Visa Global Registry of Service Providers.
+- id: soc1-type2
+  conforms: true
+  evidence: SOC 1 Type II certified (https://developers.tabapay.com/reference/pcisoc).
+- id: soc2-type2
+  conforms: true
+  evidence: SOC 2 Type II certified (https://developers.tabapay.com/reference/pcisoc).
+- id: emv-3ds
+  conforms: true
+  evidence: 3D Secure API (/v2/clients/{ClientID}/3ds/init|lookup|authenticate) implements EMV 3-D Secure 2.x via
+    Cardinal Commerce; 3dsVersion 2.1.0/2.2.0 in responses.
+- id: nacha-ach
+  conforms: true
+  evidence: ACH origination via API and batch file per Nacha operating rules (https://developers.tabapay.com/docs/overview-of-ach;
+    ACH return codes reference).
+- id: rtp-tch
+  conforms: true
+  evidence: Real-Time Payments send/receive on RTP by The Clearing House (https://developers.tabapay.com/docs/overview-of-rtp;
+    RTP response codes).
+- id: tls-rfc7525
+  conforms: true
+  evidence: TLS 1.3 on all environments; cipher suites configured per RFC 7525 and Mozilla Server Side TLS (https://developers.tabapay.com/reference/pcisoc).
+- id: oauth2
+  conforms: false
+  evidence: 'Auth is a static bearer access token issued at boarding (securitySchemes: http bearer + apiKey Authorization
+    header); no OAuth 2.0 flows.'
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect surface; /.well-known/openid-configuration returns 404.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use TabaPay's SC/EC/EM JSON envelope, not application/problem+json.
+- id: json-api
+  conforms: false
+  evidence: Plain JSON resource envelopes; not JSON:API.
+- id: idempotency
+  conforms: true
+  evidence: Client-supplied unique referenceID (1-15 chars) on transactions/accounts with 24-hour Retrieve-via-ReferenceID
+    recovery; duplicate referenceID on CreateTransaction returns 409.
+- id: pagination
+  conforms: false
+  evidence: No list/collection endpoints in the published API surface; no pagination convention.

@@ -1,0 +1,147 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.tabapay.com/reference/sandbox + https://developers.tabapay.com/reference/sandbox-test-cases-and-cards
+  + https://developers.tabapay.com/reference/working-in-sandbox
+description: TabaPay's Sandbox is a client-provisioned test environment (request access via help@tabapay.com); credentials
+  include a client-specific FQDN and bearer token. Not PCI compliant — only published test cards may be used. Sandbox
+  and Production IPs must differ; sandbox is rate limited and performance tests are forbidden (IPs get blocked).
+  Errors are simulated by magic amounts, AVS/ANI trigger values, and RTP account numbers rather than test-mode key
+  prefixes.
+docs:
+- https://developers.tabapay.com/reference/sandbox
+- https://developers.tabapay.com/reference/working-in-sandbox
+- https://developers.tabapay.com/reference/sandbox-test-cases-and-cards
+- https://developers.tabapay.com/reference/international
+- https://developers.tabapay.com/reference/3ds-test-cases-and-cards
+- https://developers.tabapay.com/reference/what-to-do-if-my-credentials-expire
+- https://developers.tabapay.com/reference/uat
+modes:
+- name: sandbox
+  notes: Client-specific FQDN + bearer credentials issued by TabaPay; config changes land Mondays (requests due
+    Friday).
+- name: uat
+  notes: User-acceptance environment; like sandbox, not PCI compliant — test cards only.
+- name: production
+  notes: Separate FQDN + credentials and separate allowlisted IPs; sandbox certification required before go-live.
+test_cards:
+  reference: https://developers.tabapay.com/reference/sandbox-test-cases-and-cards
+  notes: 'Published domestic (US) test cards per network with per-card push/pull eligibility, regulated flag, and
+    payout availability (immediate/next-day/few-days). International and 3DS test cards published separately. Sample
+    of published numbers:'
+  cards:
+  - network: Visa
+    number: '4000056655665556'
+    type: debit
+    regulated: false
+    pull: true
+    push: immediate
+  - network: Visa
+    number: '4005519200000004'
+    type: debit
+    regulated: true
+    pull: true
+    push: immediate
+  - network: Visa
+    number: '4111111111111111'
+    type: credit
+    regulated: true
+    pull: true
+    push: immediate
+  - network: Visa
+    number: '4012000077777777'
+    type: prepaid
+    regulated: true
+    pull: true
+    push: immediate
+  - network: Visa
+    number: '4000000760000002'
+    type: debit
+    regulated: true
+    pull: true
+    push: next-business-day
+  - network: Visa
+    number: '4000001240000000'
+    type: credit
+    regulated: true
+    pull: true
+    push: next-business-day
+  - network: Visa
+    number: '4000004840008001'
+    type: prepaid
+    regulated: true
+    pull: true
+    push: next-business-day
+error_triggers:
+  create_transaction_amounts:
+  - amount: 0.01 or 11.00
+    result: SC 200, networkRC ZZ/999, status ERROR — Transaction Error
+  - amount: 0.02 or 12.00
+    result: SC 207, status UNKNOWN — Transaction Processing Failed
+  - amount: 0.03 or 13.00
+    result: SC 200, networkRC 00, COMPLETED — upstream processing delayed 30s
+  - amount: 0.04 or 14.00
+    result: SC 207 then COMPLETED — upstream processing delayed 40s
+  - amount: 0.09 or 19.00
+    result: Partial approval (Visa/Mastercard only)
+  delete_transaction_amounts:
+  - amount: '0.07'
+    result: Reversal request failed (reversal networkRC ZZ/999, status UNKNOWN)
+  - amount: '0.08'
+    result: Reversal failed — too late (networkRC 21); not on STAR/Accel routing
+  avs_zipcode_triggers:
+  - zipcode: '99990'
+    result: AVS U — information not available
+  - zipcode: '99991'
+    result: AVS R — AVS unavailable, retry
+  - zipcode: '99992'
+    result: AVS A or N depending on address — no zip match
+  - zipcode: '99993'
+    result: AVS request delayed 30 seconds
+  - zipcode: '99994'
+    result: AVS request timeout (use a Mastercard)
+  - zipcode: '99995'
+    result: AVS N (use a Visa card)
+  security_code_triggers:
+  - securityCode: '999'
+    result: CVV2 no-match (N), decline networkRC 5
+  ani_name_triggers:
+  - value: Ba
+    field: owner.name.first/middle/last
+    result: Partial match (P)
+  - value: Bad
+    field: owner.name.first/middle/last
+    result: No match (N)
+  - value: Not
+    field: owner.name.last
+    result: Name match not supported (U)
+  - value: 'No'
+    field: owner.name.last
+    result: No match (N)
+  - value: any other name
+    field: owner.name.*
+    result: Match (M)
+  rtp_account_number_triggers:
+  - accountNumber: 100000000-111111111
+    result: networkRC 000 COMPLETED
+  - accountNumber: '111111112'
+    result: P04 — Invalid Account
+  - accountNumber: '111111113'
+    result: P11 — Sender not authorized
+  - accountNumber: '111111114'
+    result: P07 — Participant blocked
+  - accountNumber: '111111115'
+    result: P02 — Invalid Account
+  - accountNumber: '111111116'
+    result: P11 — Transaction forbidden on this account
+  - accountNumber: '111111117'
+    result: P23 — Amount not as agreed/expected
+  - accountNumber: '111111118'
+    result: P23 — Amount exceeds limits
+  - accountNumber: '111111120'
+    result: P21 — Incorrect routing number
+  - accountNumber: '111111121'
+    result: P14 — Participant deceased
+fixtures:
+  postman: https://www.postman.com/tabapaydevs/workspace/tabapay-developers
+  recipes: https://developers.tabapay.com/recipes
+  queryfx: Query FX endpoint is currently sandbox-only.

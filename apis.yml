@@ -1,24 +1,347 @@
 aid: tabapay
 name: TabaPay
-description: 'TabaPay is a company surfaced as a portfolio company of softbank-vision-fund and added to
-  the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: 'TabaPay is an instant money movement platform for fintechs, banks, and payment
+  companies. One Unified API accepts payments (pull) and sends payouts (push) across debit and
+  credit card networks (Visa, Mastercard, Discover, American Express, Accel, STAR), RTP by The
+  Clearing House, and ACH, with cross-border push-to-card, 3D Secure, account verification (AVS,
+  ANI, OFAC), tokenized card storage, KYB/KYC verifications, ledgers, and real-time transaction
+  monitoring. TabaPay is a PCI DSS Level 1 service provider, SOC 1 and SOC 2 Type II certified,
+  and backed by SoftBank Vision Fund. APIs are not publicly self-serve: clients board through
+  TabaPay and receive a dedicated FQDN plus bearer credentials for sandbox and production.'
 url: https://raw.githubusercontent.com/api-evangelist/tabapay/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - softbank-vision-fund
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://cdn.prod.website-files.com/69d506915e199fb590336928/69efd4e2e784c73028ca53f7_Website.svg
 tags:
 - Company
 - Fintech
-apis: []
+- Payments
+- Instant Payments
+- Money Movement
+- Payouts
+- Cards
+- Real-Time Payments
+- ACH
+apis:
+- aid: tabapay:tabapay-3d-secure-api
+  name: TabaPay 3D Secure API
+  description: The 3D Secure API from TabaPay — 3 operation(s) for 3d secure.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - 3D Secure
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-3d-secure-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-account-api
+  name: TabaPay Account API
+  description: This resource represents a Client's Account.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-account-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-bank-api
+  name: TabaPay Bank API
+  description: This resource represents a Bank.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Bank
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-bank-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-card-api
+  name: TabaPay Card API
+  description: This resource represents a Payment Card (Debit Card, PrePaid Card, or Credit Card).
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Card
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-card-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-client-api
+  name: TabaPay Client API
+  description: This resource represents a Client.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Client
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-client-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-fxrate-api
+  name: TabaPay FXRate API
+  description: This resource represents an FX Rate.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - FXRate
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-fxrate-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-health-api
+  name: TabaPay Health API
+  description: The Health API from TabaPay — 2 operation(s) for health.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-health-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-key-api
+  name: TabaPay Key API
+  description: This resource represents an RSA Encryption Key.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Key
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-key-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-ledger-api
+  name: TabaPay Ledger API
+  description: This resource represents a Client's Ledger.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Ledger
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-ledger-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-ofac-api
+  name: TabaPay OFAC API
+  description: This resource represents a Name on the OFAC Sanctions List.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - OFAC
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-ofac-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-subclient-api
+  name: TabaPay SubClient API
+  description: This resource represents a Client's SubClient.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - SubClient
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-subclient-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-tag-api
+  name: TabaPay Tag API
+  description: The Tag API from TabaPay — 1 operation(s) for tag.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-tag-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-transaction-api
+  name: TabaPay Transaction API
+  description: This resource represents a Client's Transaction.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-transactionrequest-api
+  name: TabaPay TransactionRequest API
+  description: >-
+    This resource represents a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>)
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - TransactionRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-transactionrequest-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-user-api
+  name: TabaPay User API
+  description: This resource represents a Client's User.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-verification-api
+  name: TabaPay Verification API
+  description: This resource represents a Client's Verification.
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-verification-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+common:
+- type: DomainSecurity
+  url: security/tabapay-domain-security.yml
+- type: Authentication
+  url: authentication/tabapay-authentication.yml
+- type: Website
+  url: https://tabapay.com
+- type: DeveloperPortal
+  url: https://developers.tabapay.com/
+- type: Documentation
+  url: https://developers.tabapay.com/docs/learn-more
+- type: APIReference
+  url: https://developers.tabapay.com/reference/getting-started
+- type: GettingStarted
+  url: https://developers.tabapay.com/docs/starter-guide
+- type: Support
+  url: https://tabapay.zendesk.com/hc/en-us/requests/new
+- type: Blog
+  url: https://tabapay.com/blog
+- type: StatusPage
+  url: https://status.tabapay.com
+- type: TermsOfService
+  url: https://tabapay.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://tabapay.com/privacy
+- type: Login
+  url: https://clientcentral.tabapay.net/dashboard/authentication/
+- type: Postman
+  url: https://www.postman.com/tabapaydevs/workspace/tabapay-developers
+- type: ChangeLog
+  url: changelog/tabapay-changelog.yml
+- type: LLMsTxt
+  url: llms/tabapay-llms.txt
+- type: MCPServer
+  url: mcp/tabapay-mcp.yml
+  name: TabaPay Developers MCP Server
+  description: Official hosted MCP server at https://developers.tabapay.com/mcp (Streamable
+    HTTP) — list/search/get endpoints from the API reference and execute live requests.
+- type: Packages
+  url: packages/tabapay-packages.yml
+- type: SDKs
+  url: packages/tabapay-packages.yml
+- type: WellKnown
+  url: well-known/tabapay-well-known.yml
+- type: Conformance
+  url: conformance/tabapay-conformance.yml
+- type: Compliance
+  url: https://developers.tabapay.com/reference/pcisoc
+- type: ErrorCatalog
+  url: errors/tabapay-problem-types.yml
+- type: DeclineCodes
+  url: errors/tabapay-decline-codes.yml
+- type: Lifecycle
+  url: lifecycle/tabapay-lifecycle.yml
+- type: Sandbox
+  url: sandbox/tabapay-sandbox.yml
+- type: Conventions
+  url: conventions/tabapay-conventions.yml
+- type: Idempotency
+  url: conventions/tabapay-conventions.yml
+- type: RateLimits
+  url: rate-limits/tabapay-rate-limits.yml
+- type: Components
+  url: components/tabapay-components.yml
+- type: DataModel
+  url: data-model/tabapay-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
