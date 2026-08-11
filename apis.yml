@@ -296,7 +296,7 @@ common:
   url: https://tabapay.com/privacy
 - type: Login
   url: https://clientcentral.tabapay.net/dashboard/authentication/
-- type: Postman
+- type: PostmanCollection
   url: https://www.postman.com/tabapaydevs/workspace/tabapay-developers
 - type: ChangeLog
   url: changelog/tabapay-changelog.yml
@@ -335,7 +335,7 @@ common:
   url: components/tabapay-components.yml
 - type: DataModel
   url: data-model/tabapay-data-model.yml
-- type: AgentSkill
+- type: AgentSkills
   url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
