@@ -15,6 +15,18 @@ x-backed-by:
 - softbank-vision-fund
 x-tier: enriched
 x-tier-reason: enrichment-pipeline
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-11'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -268,6 +280,10 @@ apis:
   - type: APIReference
     url: https://developers.tabapay.com/reference/getting-started
 common:
+- type: AgentSkill
+  url: skills/tabapay-3ds-transaction.md
+- type: Overlay
+  url: overlays/tabapay-openapi-overlay.yaml
 - type: SDKs
   url: https://developers.tabapay.com/reference/client
 - type: DomainSecurity
