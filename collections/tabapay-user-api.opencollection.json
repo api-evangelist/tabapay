@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure User API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/users",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a user for the client/subclient.\n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+        },
+        {
+          "info": {
+            "name": "Retrieve User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/users/:UserID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "UserID",
+                "value": "",
+                "type": "path",
+                "description": "22-character UserID returned from Create User."
+              },
+              {
+                "name": "referenceID",
+                "value": "",
+                "type": "query",
+                "description": "Reference ID fallback lookup."
+              }
+            ]
+          },
+          "docs": "Retrieves a user by userID."
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/users/:UserID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "UserID",
+                "value": "",
+                "type": "path",
+                "description": "22-character UserID returned from Create User."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user."
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/users/:UserID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "UserID",
+                "value": "",
+                "type": "path",
+                "description": "22-character UserID returned from Create User."
+              }
+            ]
+          },
+          "docs": "Deletes (soft delete) an existing user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

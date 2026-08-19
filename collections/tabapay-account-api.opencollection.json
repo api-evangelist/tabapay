@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/accounts",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+              },
+              {
+                "name": "RejectDuplicateCard",
+                "value": "",
+                "type": "query",
+                "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+              },
+              {
+                "name": "OKToAddDuplicateCard",
+                "value": "",
+                "type": "query",
+                "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*"
+        },
+        {
+          "info": {
+            "name": "Retrieve Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/:Version/clients/:ClientID/accounts/:AccountID",
+            "params": [
+              {
+                "name": "Version",
+                "value": "",
+                "type": "path",
+                "description": "`v1` is the only accepted value."
+              },
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "AccountID",
+                "value": "",
+                "type": "path",
+                "description": "22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+              }
+            ]
+          },
+          "docs": "Retrieves the Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*"
+        },
+        {
+          "info": {
+            "name": "Update Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{FQDN}:{PORT}/:Version/clients/:ClientID/accounts/:AccountID",
+            "params": [
+              {
+                "name": "Version",
+                "value": "",
+                "type": "path",
+                "description": "`v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+              },
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "AccountID",
+                "value": "",
+                "type": "path",
+                "description": "22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+              },
+              {
+                "name": "RejectDuplicateCard",
+                "value": "",
+                "type": "query",
+                "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+              },
+              {
+                "name": "OKToAddDuplicateCard",
+                "value": "",
+                "type": "query",
+                "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the Account. Use `v1` to replace all fields."
+        },
+        {
+          "info": {
+            "name": "Delete Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/:Version/clients/:ClientID/accounts/:AccountID",
+            "params": [
+              {
+                "name": "Version",
+                "value": "",
+                "type": "path",
+                "description": "`v1` is the only accepted value."
+              },
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "AccountID",
+                "value": "",
+                "type": "path",
+                "description": "22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+              },
+              {
+                "name": "DeleteDuplicateCard",
+                "value": "",
+                "type": "query",
+                "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/)."
+              }
+            ]
+          },
+          "docs": "The Account is marked for Deletion."
+        },
+        {
+          "info": {
+            "name": "Update Account V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/accounts/:AccountID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "AccountID",
+                "value": "",
+                "type": "path",
+                "description": "22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers ([Refer to v1](https://developers.tabapay.com/reference/updateaccount#/))."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1723 @@
+{
+  "item": [
+    {
+      "id": "7701ece1-5398-4a85-bfcf-fb9f851c1e29",
+      "name": "SubClient",
+      "description": {
+        "content": "This resource represents a Client's SubClient.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d473315-5e77-4229-bc63-1b04c8206039",
+          "name": "Create SubClient",
+          "request": {
+            "name": "Create SubClient",
+            "description": {
+              "content": "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"phone\": {\n    \"number\": \"<string>\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"url\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"<string>\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"<string>\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5095c26e-601a-4e62-909a-1234993bf4a2",
+              "name": "Client's SubClient Registration Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"840\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"url\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"MDR\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"840\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1f863d9-00f4-4a10-a528-15bd2853e89e",
+              "name": "One or more failures occurred while processing the Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"840\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"url\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"MDR\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"840\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c3f0b2c-e24c-45e1-96be-7e274a67c514",
+          "name": "Delete SubClient",
+          "request": {
+            "name": "Delete SubClient",
+            "description": {
+              "content": "Deletes a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a3a171c-3ab6-41ce-a8ed-c8c0cedd6f2b",
+              "name": "The SubClient has been marked for deletion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73d72488-5d7d-4de4-b7e0-ffdda0dec194",
+              "name": "SubClient Registration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 404,\n  \"EC\": \"Internal Error Code\",\n  \"EM\": \"SubClient Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "194c2fe3-b95f-4d3b-a8d3-395527e4ee1a",
+          "name": "Retrieve SubClient",
+          "request": {
+            "name": "Retrieve SubClient",
+            "description": {
+              "content": "Retrieves a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca440462-07bb-4d3c-92bc-30cf963723bb",
+              "name": "The SubClient registration is retrieved..",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"name\": \"TabaPay\",\n  \"tin\": \"123456789\",\n  \"type\": \"L-Corp\",\n  \"url\": \"www.tabapay.com\",\n  \"email\": \"help@tabapay.com\",\n  \"address\": {\n    \"line1\": \"605 Ellis Street\",\n    \"line2\": \"Suite 110\",\n    \"city\": \"Mountain View\",\n    \"state\": \"CA\",\n    \"zipcode\": \"94043\"\n  },\n  \"phone\": {\n    \"number\": \"4159808222\"\n  },\n  \"mcc\": 1234,\n  \"mvv\": 1234,\n  \"maid\": 1234,\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"disbursement\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"fee\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"exception\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0567bc93-eba9-472e-aab6-f22152a36eab",
+              "name": "SubClient Registration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 404,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"SubClient Registration Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "656c4f2c-9b4e-45e7-9db0-ef6ecf008b89",
+          "name": "Update SubClient",
+          "request": {
+            "name": "Update SubClient",
+            "description": {
+              "content": "Updates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"phone\": {\n    \"number\": \"<string>\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"<string>\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"<string>\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13fdd5b8-707b-4fc5-9052-432443c4d2bb",
+              "name": "The SubClient Information has been updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"840\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"MDR\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"840\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab22cf22-2b8f-4634-8e67-3daaf56541e5",
+          "name": "Create SubClient",
+          "request": {
+            "name": "Create SubClient",
+            "description": {
+              "content": "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)\n\nThis endpoint is split from the original `/subclients` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"mcc\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<email>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"phone\": {\n    \"number\": \"<string>\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"evv\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"iso\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"transactionTypes\": {\n    \"push\": \"<boolean>\",\n    \"pull\": \"<boolean>\"\n  },\n  \"identification\": {\n    \"type\": \"<string>\",\n    \"country\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"cardTypes\": {\n    \"push\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    },\n    \"pull\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    }\n  },\n  \"visa\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"mastercard\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"discover\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"<string>\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"<string>\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\",\n    \"ledgerID\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  },\n  \"ipAddress\": \"<ipv4>\",\n  \"dbaName\": \"<string>\",\n  \"payoutSchedule\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bbd609de-0bf6-401e-9e3f-a4a264b5e785",
+              "name": "Client's SubClient Registration Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"NaturalPerson\",\n  \"settlement\": {\n    \"exception\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"purchase\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"disbursement\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"fee\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"serviceType\": \"N\"\n  },\n  \"userID\": \"22CharacterTabaPayID12\",\n  \"useCase\": \"CG\",\n  \"reserveAccount\": {\n    \"ledgerID\": \"22characterledgerID123\"\n  },\n  \"address\": {\n    \"line1\": \"123 Street\",\n    \"city\": \"San Francisco\",\n    \"state\": \"CA\",\n    \"zipcode\": \"94103\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\"\n  },\n  \"transactionTypes\": {\n    \"push\": true,\n    \"pull\": true\n  },\n  \"identification\": {\n    \"type\": \"SSN\",\n    \"number\": \"123456789\"\n  },\n  \"cardTypes\": {\n    \"push\": {\n      \"debit\": true,\n      \"credit\": true,\n      \"prepaid\": true\n    },\n    \"pull\": {\n      \"debit\": true,\n      \"credit\": true,\n      \"prepaid\": true\n    }\n  },\n  \"visa\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"mastercard\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"discover\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"fees\": {\n    \"type\": \"IPP\"\n  },\n  \"name\": \"Test Name\",\n  \"email\": \" test@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd1d6aee-8250-45b5-a632-69590f43d3b2",
+              "name": "One or more failures occurred while processing the Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"NaturalPerson\",\n  \"settlement\": {\n    \"exception\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"purchase\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"disbursement\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"fee\": {\n      \"ledgerID\": \"22characterledgerID123\"\n    },\n    \"serviceType\": \"N\"\n  },\n  \"userID\": \"22CharacterTabaPayID12\",\n  \"useCase\": \"CG\",\n  \"reserveAccount\": {\n    \"ledgerID\": \"22characterledgerID123\"\n  },\n  \"address\": {\n    \"line1\": \"123 Street\",\n    \"city\": \"San Francisco\",\n    \"state\": \"CA\",\n    \"zipcode\": \"94103\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\"\n  },\n  \"transactionTypes\": {\n    \"push\": true,\n    \"pull\": true\n  },\n  \"identification\": {\n    \"type\": \"SSN\",\n    \"number\": \"123456789\"\n  },\n  \"cardTypes\": {\n    \"push\": {\n      \"debit\": true,\n      \"credit\": true,\n      \"prepaid\": true\n    },\n    \"pull\": {\n      \"debit\": true,\n      \"credit\": true,\n      \"prepaid\": true\n    }\n  },\n  \"visa\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"mastercard\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"discover\": {\n    \"push\": {\n      \"enabled\": true\n    },\n    \"pull\": {\n      \"enabled\": true\n    }\n  },\n  \"fees\": {\n    \"type\": \"IPP\"\n  },\n  \"name\": \"Test Name\",\n  \"email\": \" test@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c643539-d2fb-4949-b5f8-d672ed5ad345",
+          "name": "Delete SubClient",
+          "request": {
+            "name": "Delete SubClient",
+            "description": {
+              "content": "Deletes a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "517cd5df-5fe0-4e63-9bfb-0005aec89464",
+              "name": "The SubClient has been marked for deletion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "730c756e-d0e1-4d6a-89b3-f6ab89e0ecef",
+              "name": "SubClient Registration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 404,\n  \"EC\": \"Internal Error Code\",\n  \"EM\": \"SubClient Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cde3e2f3-c854-446d-bdd2-9e7a39b011fe",
+          "name": "Retrieve SubClient",
+          "request": {
+            "name": "Retrieve SubClient",
+            "description": {
+              "content": "Retrieves a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e80031f6-939b-46a5-9e1a-c11b06ebf01a",
+              "name": "The SubClient registration is retrieved..",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"name\": \"TabaPay\",\n  \"tin\": \"123456789\",\n  \"type\": \"L-Corp\",\n  \"url\": \"www.tabapay.com\",\n  \"email\": \"help@tabapay.com\",\n  \"address\": {\n    \"line1\": \"605 Ellis Street\",\n    \"line2\": \"Suite 110\",\n    \"city\": \"Mountain View\",\n    \"state\": \"CA\",\n    \"zipcode\": \"94043\"\n  },\n  \"phone\": {\n    \"number\": \"4159808222\"\n  },\n  \"mcc\": 1234,\n  \"mvv\": 1234,\n  \"maid\": 1234,\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"disbursement\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"fee\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    },\n    \"exception\": {\n      \"routingNumber\": 121140399,\n      \"accountNumber\": 12345\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3c3b500-b6c2-4a37-8eba-77ed65281b28",
+              "name": "SubClient Registration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 404,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"SubClient Registration Not Found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b59c3aad-70fd-46c2-a85f-1505b2d734d7",
+          "name": "Update SubClient",
+          "request": {
+            "name": "Update SubClient",
+            "description": {
+              "content": "Updates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "subclients",
+                ":SubClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SubClientID",
+                  "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<email>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"phone\": {\n    \"number\": \"<string>\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"evv\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"iso\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"transactionTypes\": {\n    \"push\": \"<boolean>\",\n    \"pull\": \"<boolean>\"\n  },\n  \"identification\": {\n    \"type\": \"<string>\",\n    \"country\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"cardTypes\": {\n    \"push\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    },\n    \"pull\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    }\n  },\n  \"visa\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"mastercard\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"discover\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"<string>\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"<string>\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  },\n  \"ipAddress\": \"<ipv4>\",\n  \"dbaName\": \"<string>\",\n  \"payoutSchedule\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60a2f144-7e60-4607-bd64-d99414bc4a49",
+              "name": "The SubClient Information has been updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "subclients",
+                    ":SubClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SubClientID",
+                      "description": "(Required) 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tin\": \"<string>\",\n  \"type\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<email>\",\n  \"address\": {\n    \"line1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"country\": \"840\"\n  },\n  \"phone\": {\n    \"number\": \"5555555555\",\n    \"countryCode\": \"<string>\"\n  },\n  \"mcc\": \"<string>\",\n  \"mvv\": \"<string>\",\n  \"maid\": \"<string>\",\n  \"evv\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"iso\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"transactionTypes\": {\n    \"push\": \"<boolean>\",\n    \"pull\": \"<boolean>\"\n  },\n  \"identification\": {\n    \"type\": \"<string>\",\n    \"country\": \"840\",\n    \"number\": \"<string>\"\n  },\n  \"cardTypes\": {\n    \"push\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    },\n    \"pull\": {\n      \"debit\": \"<boolean>\",\n      \"credit\": \"<boolean>\",\n      \"prepaid\": \"<boolean>\"\n    }\n  },\n  \"visa\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"mastercard\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"discover\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"mccOverride\": \"<string>\"\n    }\n  },\n  \"settlement\": {\n    \"purchase\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"disbursement\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"fee\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"exception\": {\n      \"routingNumber\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"ledgerID\": \"<string>\"\n    },\n    \"serviceType\": \"<string>\"\n  },\n  \"fees\": {\n    \"type\": \"MDR\",\n    \"monthlyMinimumProcessingFee\": \"<string>\",\n    \"authorizationFee\": \"<string>\",\n    \"AVSFee\": \"<string>\",\n    \"deleteFee\": \"<string>\",\n    \"MIDFee\": \"<string>\",\n    \"purchaseFeeFixed\": \"<string>\",\n    \"purchaseFeeVariable\": \"<string>\",\n    \"purchaseFeeCap\": \"<string>\",\n    \"disbursementFeeFixed\": \"<string>\",\n    \"monthlySubClientFee\": \"<string>\",\n    \"chargebackFee\": \"<string>\",\n    \"retrievalFee\": \"<string>\",\n    \"batchFee\": \"<string>\",\n    \"ACHNextDayCreditFee\": \"<string>\",\n    \"ACHNextDayDebitFee\": \"<string>\",\n    \"ACHSameDayCreditFee\": \"<string>\",\n    \"ACHSameDayDebitFee\": \"<string>\",\n    \"ACH_NSFFee\": \"<string>\",\n    \"ACHFraudFee\": \"<string>\",\n    \"ACHAdminReturnFee\": \"<string>\",\n    \"RTPCreditFee\": \"<string>\",\n    \"RTP_RFPFee\": \"<string>\",\n    \"cardTypeFee\": {\n      \"intlCreditFixed\": \"<string>\",\n      \"intlCreditVariable\": \"<string>\",\n      \"intlDebitFixed\": \"<string>\",\n      \"intlDebitVariable\": \"<string>\",\n      \"creditSurchargeFixed\": \"<string>\",\n      \"creditSurchargeVariable\": \"<string>\",\n      \"amexFixed\": \"<string>\",\n      \"amexVariable\": \"<string>\"\n    },\n    \"3DSFee\": \"<string>\",\n    \"accountUpdaterFee\": \"<string>\"\n  },\n  \"reserveAccount\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"calculationsCurrencyCode\": \"840\",\n    \"calculationsVariable\": \"<string>\",\n    \"calculationsFixed\": \"<string>\",\n    \"calculationsNoOfDays\": \"<string>\"\n  },\n  \"businessOwners\": {\n    \"businessOwner1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner3\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"businessOwner4\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"middleName\": \"<string>\"\n    }\n  },\n  \"ipAddress\": \"<ipv4>\",\n  \"dbaName\": \"<string>\",\n  \"payoutSchedule\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7a80db9a-45b4-4438-b44e-74444803fd6a",
+    "name": "TabaPay APIs 3D Secure SubClient API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

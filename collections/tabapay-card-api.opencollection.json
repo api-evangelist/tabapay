@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure Card API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/cards",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "AU",
+                "value": "",
+                "type": "query",
+                "description": "Use to send the card number and expiration date to network's Account Updater, and apply any card changes."
+              },
+              {
+                "name": "AVS",
+                "value": "",
+                "type": "query",
+                "description": "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+              },
+              {
+                "name": "ANI",
+                "value": "",
+                "type": "query",
+                "description": "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+              },
+              {
+                "name": "Fees",
+                "value": "",
+                "type": "query",
+                "description": "Use to check fees.\n\nIf using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the attributes for the requested Payment Card.\n\nRequest to enable <Glossary>ANI</Glossary> or <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

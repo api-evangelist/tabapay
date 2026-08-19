@@ -1,0 +1,308 @@
+{
+  "item": [
+    {
+      "id": "8cc1b346-b480-4d0d-8c46-070062f94b7c",
+      "name": "Health",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9a22f8b-1c13-4202-a7e2-f67aac5b7638",
+          "name": "Health check",
+          "request": {
+            "name": "Health check",
+            "description": {},
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3081006a-e17b-4cb9-9e04-e9ffaed8166e",
+              "name": "The Health Check is successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"info\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  },\n  \"error\": {},\n  \"details\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ca5bf36-de03-4337-8ea5-4707c15d746c",
+              "name": "The Health Check is not successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"info\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  },\n  \"error\": {\n    \"redis\": {\n      \"status\": \"down\",\n      \"message\": \"Could not connect\"\n    }\n  },\n  \"details\": {\n    \"database\": {\n      \"status\": \"up\"\n    },\n    \"redis\": {\n      \"status\": \"down\",\n      \"message\": \"Could not connect\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac77fd2c-684b-4e99-a31f-88e00daae32d",
+          "name": "Liveness check",
+          "request": {
+            "name": "Liveness check",
+            "description": {},
+            "url": {
+              "path": [
+                "health",
+                "live"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d3bd3bd-c32f-4d8f-8b52-045cc00d0cc5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "live"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd4559d6-065a-49d6-a0e9-6bfb49bc99a9",
+    "name": "TabaPay APIs 3D Secure Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

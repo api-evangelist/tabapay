@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "3D Secure",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "3D Secure Authenticate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/3ds/authenticate",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "3D Secure Card Authentication Request."
+        },
+        {
+          "info": {
+            "name": "3D Secure Initialize",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/3ds/init",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initializes a 3D Secure Card Authentication Request. \n\nRequest to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+        },
+        {
+          "info": {
+            "name": "3D Secure Lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/3ds/lookup",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "enhancedResponse",
+                "value": "",
+                "type": "query",
+                "description": "Provides more granular detail in 3DS responses."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "3D Secure Card Lookup."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

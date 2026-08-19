@@ -1,0 +1,311 @@
+{
+  "item": [
+    {
+      "id": "9e033310-178a-49da-b36c-dc7ea1957e20",
+      "name": "Client",
+      "description": {
+        "content": "This resource represents a Client.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "558c3562-610e-4af4-8872-55fe3e1bdcd6",
+          "name": "Retrieve Client",
+          "request": {
+            "name": "Retrieve Client",
+            "description": {
+              "content": "Retrieves the attributes and status of a Client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character ClientID. Present in your credential file."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1229be19-dcbf-4420-91e9-c2cb8e10b1fc",
+              "name": "Client's attributes are returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character ClientID. Present in your credential file."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"label\": \"ClientLabel\",\n  \"networks\": {\n    \"pull\": [\n      \"STAR\",\n      \"Visa\"\n    ],\n    \"push\": [\n      \"STAR\",\n      \"CU24\",\n      \"Visa\"\n    ]\n  },\n  \"limits\": {\n    \"currency\": \"840\",\n    \"pull\": {\n      \"transaction\": \"0.25\",\n      \"daily\": \"1.00\"\n    },\n    \"push\": {\n      \"transaction\": \"0.25\",\n      \"daily\": \"1.00\",\n      \"networks\": [\n        {\n          \"network\": \"CU24\",\n          \"transaction\": \"0.20\",\n          \"daily\": \"1.00\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d56fe255-f3bb-4343-af1d-6dd1c630cf58",
+              "name": "Client not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character ClientID. Present in your credential file."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 404,\n  \"EC\": \"3A1000000\",\n  \"EM\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78b05435-c2f7-4390-b172-8a977cf22c8a",
+              "name": "Client locked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character ClientID. Present in your credential file."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 423,\n  \"EC\": \"3A1000000\",\n  \"EM\": \"Locked\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4ee60cdf-a68f-4872-9033-0025be33682d",
+    "name": "TabaPay APIs 3D Secure Client API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "d6ba5b62-7a3d-488d-8750-faed2c976474",
+      "name": "OFAC",
+      "description": {
+        "content": "This resource represents a Name on the OFAC Sanctions List.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac53a224-5a9c-45d3-a579-24e5fb12ae07",
+          "name": "Query OFAC",
+          "request": {
+            "name": "Query OFAC",
+            "description": {
+              "content": "Returns the OFAC Match Codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "ofac"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"requestID\": \"<uuid>\",\n  \"birthYear\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2eeac95-25f9-4eaa-a5c7-cde17e28bb62",
+              "name": "The OFAC Match Codes are returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "ofac"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"first\": \"string\",\n    \"last\": \"string\"\n  },\n  \"requestID\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"birthYear\": \"1985\",\n  \"country\": \"840\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"ofacMatchCodes\": \"H\",\n  \"ofacValue\": \"7nGfHHedKNelaw\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "338a1caf-08f2-4b8f-a292-21ad699c7f5a",
+              "name": "Unable to contact WatchDog.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "ofac"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\n    \"first\": \"string\",\n    \"last\": \"string\"\n  },\n  \"requestID\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"birthYear\": \"1985\",\n  \"country\": \"840\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a77b9c53-8d64-4152-a1b1-53e186167cee",
+    "name": "TabaPay APIs 3D Secure OFAC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1432 @@
+{
+  "item": [
+    {
+      "id": "abdfadeb-c06f-4b3b-a5c0-998a9209f882",
+      "name": "Account",
+      "description": {
+        "content": "This resource represents a Client's Account.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d82031f-a601-45dd-aa9a-68d3029df019",
+          "name": "Create Account",
+          "request": {
+            "name": "Create Account",
+            "description": {
+              "content": "Creates an Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "RejectDuplicateCard",
+                  "value": "<string>",
+                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+                },
+                {
+                  "disabled": false,
+                  "key": "OKToAddDuplicateCard",
+                  "value": "<string>",
+                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"countryCode\": \"<string>\",\n      \"number\": \"<string>\"\n    }\n  },\n  \"referenceID\": \"<string>\",\n  \"bank\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountType\": \"<string>\"\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b046ec8-b2bb-43f6-8aef-7e60aa85a6cd",
+              "name": "An Account is Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"accountID\": \"TabaPay_AccountID_22ch\",\n  \"card\": {\n    \"last4\": \"1234\",\n    \"expirationDate\": \"202502\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acaa7666-59b5-4d83-a7c4-e8ae26257f8a",
+              "name": "Account created, but Duplicate Card Check Failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9722976f-960a-4bfd-b139-edb58ace4312",
+              "name": "Duplicate Card Check Matched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 409,\n  \"EC\": \"3C463000\",\n  \"EM\": \"Duplicate\",\n  \"duplicateAccountIDs\": [\n    \"ih0V8HSE2S6gAUqCkG29uw\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c262dbdd-bb3c-4a23-8293-1238279da176",
+          "name": "Delete Account",
+          "request": {
+            "name": "Delete Account",
+            "description": {
+              "content": "The Account is marked for Deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":Version",
+                "clients",
+                ":ClientID",
+                "accounts",
+                ":AccountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "DeleteDuplicateCard",
+                  "value": "<string>",
+                  "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "Version",
+                  "description": "(Required) `v1` is the only accepted value."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "AccountID",
+                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "073b1949-ee6e-4d2e-9fd5-d90e894b0166",
+              "name": "Account is marked for deletion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "DeleteDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` is the only accepted value."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad3b11a1-7c33-4896-9861-965dcd1323f6",
+              "name": "Account marked for deletion, but Delete Duplicate Card Check Failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "DeleteDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` is the only accepted value."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c69fefb9-d217-4282-a0be-714a737f8565",
+          "name": "Retrieve Account",
+          "request": {
+            "name": "Retrieve Account",
+            "description": {
+              "content": "Retrieves the Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":Version",
+                "clients",
+                ":ClientID",
+                "accounts",
+                ":AccountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "Version",
+                  "description": "(Required) `v1` is the only accepted value."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "AccountID",
+                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb6deec4-d280-4b70-8360-9dcc3d143f7b",
+              "name": "Account retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` is the only accepted value."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"referenceID\": \"1\",\n  \"card\": {\n    \"last4\": \"9990\",\n    \"expirationDate\": \"202012\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"John\",\n      \"last\": \"Customer\"\n    },\n    \"address\": {\n      \"line1\": \"465 Fairchild Drive\",\n      \"line2\": \"Suite #222\",\n      \"city\": \"Mountain View\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94043\"\n    },\n    \"phone\": {\n      \"number\": \"4159808222\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ea7229c-0feb-4c91-8153-27a8be4200c9",
+              "name": "Too late to retrieve account by referenceId. Use accountId.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` is the only accepted value."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 421,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 421,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"ReferenceID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "618f69be-02a1-4fe3-bf81-443dff35adc0",
+          "name": "Update Account",
+          "request": {
+            "name": "Update Account",
+            "description": {
+              "content": "Updates the Account. Use `v1` to replace all fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":Version",
+                "clients",
+                ":ClientID",
+                "accounts",
+                ":AccountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "RejectDuplicateCard",
+                  "value": "<string>",
+                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+                },
+                {
+                  "disabled": false,
+                  "key": "OKToAddDuplicateCard",
+                  "value": "<string>",
+                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "Version",
+                  "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "AccountID",
+                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"number\": \"<string>\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a9fe555-092f-4993-809f-c04fa5147ad8",
+              "name": "Account is updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b084dfc-7e18-4de6-af13-2bd38efcbbdd",
+              "name": "Account updated, but update duplicate card check failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29684267-64c1-4ced-acf1-3415e5ede3f2",
+              "name": "Duplicate card check matched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":Version",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RejectDuplicateCard",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OKToAddDuplicateCard",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "Version",
+                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 409,\n  \"EC\": \"3C463000\",\n  \"EM\": \"Duplicate\",\n  \"duplicateAccountIDs\": [\n    \"ih0V8HSE2S6gAUqCkG29uw\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd0f04da-4826-4777-a34f-ddc6f01ce50b",
+          "name": "Update Account V2",
+          "request": {
+            "name": "Update Account V2",
+            "description": {
+              "content": "Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers ([Refer to v1](https://developers.tabapay.com/reference/updateaccount#/)).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "accounts",
+                ":AccountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "AccountID",
+                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"number\": \"<string>\",\n      \"countryCode\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ea7c2d6-bb60-4b6d-986c-b3c134e70f6a",
+              "name": "Account is updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "accounts",
+                    ":AccountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "AccountID",
+                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22840146-016f-48f3-af6e-55f78fb80c3c",
+    "name": "TabaPay APIs 3D Secure Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

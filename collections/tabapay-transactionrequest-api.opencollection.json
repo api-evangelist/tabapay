@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure TransactionRequest API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TransactionRequest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create TransactionRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/transactionrequests",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

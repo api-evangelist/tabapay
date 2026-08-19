@@ -1,0 +1,1470 @@
+{
+  "item": [
+    {
+      "id": "9987cb96-f344-4e23-882c-5bab71da55cd",
+      "name": "Transaction",
+      "description": {
+        "content": "This resource represents a Client's Transaction.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c14b2d3-77cb-49cc-ac80-4b1474bcabf3",
+          "name": "Capture Transaction",
+          "request": {
+            "name": "Capture Transaction",
+            "description": {
+              "content": "Captures the Authorized Transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "transactions",
+                ":TransactionID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TransactionID",
+                  "description": "(Required) 22-character Transaction ID"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1708712b-83d7-48c2-96d6-9518234af9ec",
+              "name": "The Transaction is Captured.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    ":TransactionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TransactionID",
+                      "description": "(Required) 22-character Transaction ID"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"status\": \"CAPTURED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e53fe890-134a-4e52-9a33-907c721c1583",
+          "name": "Delete Transaction",
+          "request": {
+            "name": "Delete Transaction",
+            "description": {
+              "content": "Tries to request a reverse of a previous Pull Transaction.\n Note: Delete Transaction is NOT eligible to be used for an <<glossary:ACH>> Transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "transactions",
+                ":TransactionID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reversal",
+                  "value": "<string>",
+                  "description": "Use for reversing a transaction. (i.e. if Delete Transaction Request is *after* settlement of original *pull* transaction.)\n\nRequired to use `void` or `reversal` on every pull transaction DELETE request (non RTP).\n\nRequest to enable [Multiple Reversals](/docs/multiple-reversals#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+                },
+                {
+                  "disabled": false,
+                  "key": "void",
+                  "value": "<string>",
+                  "description": "Use for voiding a transaction. (i.e. if Delete Transaction request is *before* settlement of original *pull* transaction.)<br><br> **Note**: When reversing a transaction with status: `AUTHOIRZED`, you must use the `?void` parameter.\n\nRequired to use `void` or `reversal` on every pull transaction DELETE request (non RTP)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TransactionID",
+                  "description": "(Required) 22-character Transaction ID"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87bfb858-3511-4297-80ce-140d4791d720",
+              "name": "A Request for a Reversal of the previous Transaction is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    ":TransactionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reversal",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "void",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TransactionID",
+                      "description": "(Required) 22-character Transaction ID"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"840\",\n  \"amount\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"status\": \"COMPLETED\",\n  \"reversal\": {\n    \"networkRC\": \"00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "770f36a7-9d0b-4dec-9f43-cc3d39cd9693",
+              "name": "One or more Failures occurred while processing the Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    ":TransactionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reversal",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "void",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TransactionID",
+                      "description": "(Required) 22-character Transaction ID"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"840\",\n  \"amount\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"Internal Error Code\",\n  \"status\": \"UNKNOWN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff8ed1cb-6db9-4369-ab4a-221a368ffb38",
+          "name": "Retrieve Transaction",
+          "request": {
+            "name": "Retrieve Transaction",
+            "description": {
+              "content": "Retrieves the Transaction.\n\nIn circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "transactions",
+                ":TransactionID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TransactionID",
+                  "description": "(Required) 22-character Transaction ID"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69d485d1-cafc-4200-a7ca-f7e8aafdeaa4",
+              "name": "The Transaction is retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    ":TransactionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TransactionID",
+                      "description": "(Required) 22-character Transaction ID"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"referenceID\": \"1\",\n  \"network\": \"Visa\",\n  \"networkRC\": \"00\",\n  \"status\": \"COMPLETED\",\n  \"approvalCode\": \"000000\",\n  \"amount\": \"0.10\",\n  \"fees\": {\n    \"interchange\": \"0.50\",\n    \"network\": \"0.50\",\n    \"tabapay\": \"0.25\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b09cd573-b0b5-4712-88ec-ea0da2624563",
+              "name": "Too late to Retrieve Transaction by ReferenceID. Use TransactionID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    ":TransactionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TransactionID",
+                      "description": "(Required) 22-character Transaction ID"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 421,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 421,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"ReferenceID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d866f03a-9005-4c7a-a517-013666ad237f",
+          "name": "Create Transaction",
+          "request": {
+            "name": "Create Transaction",
+            "description": {
+              "content": "Creates a Transaction.\n\nIn circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "clients",
+                ":ClientID",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "authorize",
+                  "value": "<string>",
+                  "description": "Note the query string, `?authorize`, will create an authorization only. For `pull` payments. To settle the transaction, you must call [Capture Transaction](/reference/transactioncapture). \n\n Request to enable [Auth & Capture](/docs/overview-of-auth#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"referenceID\": \"<string>\",\n  \"type\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"accounts\": {\n    \"sourceAccountID\": \"<string>\",\n    \"sourceAccount\": {\n      \"owner\": {\n        \"name\": {\n          \"company\": \"<string>\",\n          \"first\": \"<string>\",\n          \"middle\": \"<string>\",\n          \"last\": \"<string>\",\n          \"suffix\": \"<string>\"\n        },\n        \"address\": {\n          \"line1\": \"<string>\",\n          \"line2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipcode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        \"phone\": {\n          \"number\": \"<string>\",\n          \"countryCode\": \"<string>\"\n        }\n      },\n      \"card\": {\n        \"accountNumber\": \"<string>\",\n        \"expirationDate\": \"<string>\",\n        \"securityCode\": \"<string>\",\n        \"keyID\": \"<string>\",\n        \"data\": \"<string>\",\n        \"token\": \"<byte>\",\n        \"device\": {\n          \"id\": \"<string>\",\n          \"blob\": \"<string>\"\n        },\n        \"mobilePay\": {\n          \"accountNumber\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"cryptogram\": \"<byte>\",\n          \"transactionID\": \"<byte>\",\n          \"network\": \"<string>\",\n          \"type\": \"<string>\",\n          \"eciIndicator\": \"<string>\"\n        },\n        \"processor\": {\n          \"name\": \"<string>\",\n          \"token\": \"<string>\",\n          \"customerID\": \"<string>\"\n        }\n      },\n      \"bank\": {\n        \"routingNumber\": \"<string>\",\n        \"accountNumber\": \"<string>\",\n        \"accountType\": \"<string>\"\n      },\n      \"link\": {\n        \"name\": \"<string>\",\n        \"token\": \"<string>\"\n      }\n    },\n    \"destinationAccountID\": \"<string>\",\n    \"destinationAccount\": {\n      \"owner\": {\n        \"name\": {\n          \"company\": \"<string>\",\n          \"first\": \"<string>\",\n          \"middle\": \"<string>\",\n          \"last\": \"<string>\",\n          \"suffix\": \"<string>\"\n        },\n        \"address\": {\n          \"line1\": \"<string>\",\n          \"line2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipcode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        \"phone\": {\n          \"number\": \"<string>\",\n          \"countryCode\": \"<string>\"\n        }\n      },\n      \"card\": {\n        \"accountNumber\": \"<string>\",\n        \"expirationDate\": \"<string>\",\n        \"securityCode\": \"<string>\",\n        \"keyID\": \"<string>\",\n        \"data\": \"<string>\",\n        \"token\": \"<byte>\",\n        \"device\": {\n          \"id\": \"<string>\",\n          \"blob\": \"<string>\"\n        },\n        \"processor\": {\n          \"name\": \"<string>\",\n          \"token\": \"<string>\",\n          \"customerID\": \"<string>\"\n        }\n      },\n      \"bank\": {\n        \"routingNumber\": \"<string>\",\n        \"accountNumber\": \"<string>\",\n        \"accountType\": \"<string>\"\n      },\n      \"link\": {\n        \"name\": \"<string>\",\n        \"token\": \"<string>\"\n      },\n      \"tag\": {\n        \"network\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    }\n  },\n  \"correspondingID\": \"<string>\",\n  \"corresponding\": {\n    \"name\": {\n      \"first\": \"<string>\",\n      \"last\": \"<string>\"\n    },\n    \"ofacValue\": \"<string>\",\n    \"address\": {\n      \"line\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"accountNumber\": \"<string>\",\n    \"sourceOfFunds\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"networkID\": \"<string>\"\n  },\n  \"currency\": \"<string>\",\n  \"ofacValue\": \"<string>\",\n  \"avsID\": \"<string>\",\n  \"purposeOfPayment\": \"<string>\",\n  \"memo\": \"<string>\",\n  \"achOptions\": \"<string>\",\n  \"achEntryType\": \"<string>\",\n  \"pullOptions\": {\n    \"securityCode\": \"<string>\",\n    \"recurring\": \"<boolean>\",\n    \"recurringData\": {\n      \"initiator\": \"<string>\",\n      \"type\": \"<string>\",\n      \"initial\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"networkID\": \"<string>\"\n    },\n    \"partial\": \"<boolean>\",\n    \"expirationDate\": \"<string>\",\n    \"3DSecure\": {\n      \"ECI\": \"<string>\",\n      \"UCAF\": \"<string>\",\n      \"version\": \"<string>\",\n      \"XID\": \"<string>\",\n      \"dsTransactionID\": \"<string>\"\n    },\n    \"level2TaxExempt\": \"<boolean>\",\n    \"level2TaxAmount\": \"<string>\",\n    \"level3\": {\n      \"amountTax\": \"<string>\",\n      \"tax\": \"<string>\",\n      \"taxRate\": \"<number>\",\n      \"amountDiscount\": \"<string>\",\n      \"amountShipping\": \"<string>\",\n      \"amountDuty\": \"<string>\",\n      \"itemCommodityCode\": \"<string>\",\n      \"itemDescription\": \"<string>\",\n      \"productCode\": \"<string>\",\n      \"quantity\": \"<string>\",\n      \"unitOfMeasure\": \"<string>\",\n      \"amountUnitCost\": \"<string>\",\n      \"amountItemDiscount\": \"<string>\",\n      \"amountTotal\": \"<string>\",\n      \"poNumber\": \"<string>\"\n    }\n  },\n  \"softDescriptor\": {\n    \"name\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"county\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"line2\": \"<string>\"\n    },\n    \"phone\": {\n      \"number\": \"<string>\",\n      \"countryCode\": \"<string>\"\n    },\n    \"mcc\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"location\": {\n    \"name\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1b1b63a-1c45-4cab-9492-3d8923263034",
+              "name": "A Transaction is created and processing is completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "authorize",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referenceID\": \"1\",\n  \"type\": \"push\",\n  \"accounts\": {\n    \"sourceAccountID\": \"SettlementAccountID_22\",\n    \"destinationAccountID\": \"TabaPay_AccountID_22-c\"\n  },\n  \"amount\": \"0.25\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"transactionID\": \"TabaPay_TransactionID_\",\n  \"network\": \"Visa\",\n  \"networkID\": \"123454646545645\",\n  \"networkRC\": \"00\",\n  \"status\": \"COMPLETED\",\n  \"approvalCode\": \"000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "055cb1d9-4baa-4aa3-8a8f-7a945ac77f58",
+              "name": "A Transaction is created, but the transaction is waiting to be processed (batch).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "authorize",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referenceID\": \"1\",\n  \"type\": \"push\",\n  \"accounts\": {\n    \"sourceAccountID\": \"SettlementAccountID_22\",\n    \"destinationAccountID\": \"TabaPay_AccountID_22-c\"\n  },\n  \"amount\": \"0.25\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 201,\n  \"EC\": \"0\",\n  \"transactionID\": \"TabaPay_TransactionID_\",\n  \"network\": \"CreditCards\",\n  \"status\": \"Pending\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed8fa0ac-b6ae-421e-b4c0-18ee4a48e836",
+              "name": "One or more Failures occurred while processing the Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "authorize",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referenceID\": \"1\",\n  \"type\": \"push\",\n  \"accounts\": {\n    \"sourceAccountID\": \"SettlementAccountID_22\",\n    \"destinationAccountID\": \"TabaPay_AccountID_22-c\"\n  },\n  \"amount\": \"0.25\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\",\n  \"status\": \"UNKNOWN\",\n  \"transactionID\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d99a7600-6e75-4814-8f89-e0f615a54afa",
+              "name": "Over your Daily (24-hour rolling) Approximation Limit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "clients",
+                    ":ClientID",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "authorize",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referenceID\": \"1\",\n  \"type\": \"push\",\n  \"accounts\": {\n    \"sourceAccountID\": \"SettlementAccountID_22\",\n    \"destinationAccountID\": \"TabaPay_AccountID_22-c\"\n  },\n  \"amount\": \"0.25\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 429,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"Limit\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cee8d45d-24be-431a-a1e1-c94b3784a0e8",
+          "name": "Delete RTP Transaction",
+          "request": {
+            "name": "Delete RTP Transaction",
+            "description": {
+              "content": "If using`?request`: Requests a return of a previously sent RTP push transaction.\nIf using `?response`: Responds to a request of a previously received Request for Return of Funds (for a previously received RTP transaction).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "clients",
+                ":ClientID",
+                "transactions",
+                "rtp",
+                ":RTPNetworkID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "request",
+                  "value": "<string>",
+                  "description": "Use if you are sending a Request for Return of Funds (regarding the original RTP-Credit Transfer).\n\nMust use `request` or `response`"
+                },
+                {
+                  "disabled": false,
+                  "key": "response",
+                  "value": "<string>",
+                  "description": "Use if you are responding to a Request for Return of Funds (regarding a received RTP-Credit Transfer).\n\n*Must use `response` or `request`*"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ClientID",
+                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "RTPNetworkID",
+                  "description": "(Required) The original 35-character `networkID` (i.e. the <<glossary:RTP>> Instruction ID)"
+                },
+                {
+                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                  "type": "any",
+                  "value": "{{FQDN}}",
+                  "key": "FQDN"
+                },
+                {
+                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                  "type": "any",
+                  "value": "{{PORT}}",
+                  "key": "PORT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"fee\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"network\": \"<string>\",\n  \"reversalID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e9df9d6-20dc-426f-b39b-96d292f45726",
+              "name": "A response to a request for return of funds was accepted (and if applicable, the reimbursement was accepted).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    "rtp",
+                    ":RTPNetworkID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "request",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "response",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "RTPNetworkID",
+                      "description": "(Required) The original 35-character `networkID` (i.e. the <<glossary:RTP>> Instruction ID)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<string>\",\n  \"fee\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"network\": \"<string>\",\n  \"reversalID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"status\": \"COMPLETED\",\n  \"networkRC\": \"000\",\n  \"networkID\": \"M20220808103100195T1BSCA20000003002\",\n  \"reimbursement\": {\n    \"networkRC\": \"000\",\n    \"networkID\": \"20220808101115315T1BSCAH20000003001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c3e0d2d-e272-455c-abbc-1623fed5a2a7",
+              "name": "A request for return of funds was accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    "rtp",
+                    ":RTPNetworkID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "request",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "response",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "RTPNetworkID",
+                      "description": "(Required) The original 35-character `networkID` (i.e. the <<glossary:RTP>> Instruction ID)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<string>\",\n  \"fee\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"network\": \"<string>\",\n  \"reversalID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 202,\n  \"EC\": \"0\",\n  \"status\": \"ACCEPTED\",\n  \"networkRC\": \"000\",\n  \"networkID\": \"M20220808103100195T1BSCA20000003002\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02fe8ef1-143a-40bb-85d8-3b50114f3fe9",
+              "name": "One or more Failures occurred while processing the Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "clients",
+                    ":ClientID",
+                    "transactions",
+                    "rtp",
+                    ":RTPNetworkID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "request",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "response",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ClientID",
+                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "RTPNetworkID",
+                      "description": "(Required) The original 35-character `networkID` (i.e. the <<glossary:RTP>> Instruction ID)"
+                    },
+                    {
+                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+                      "type": "any",
+                      "value": "{{FQDN}}",
+                      "key": "FQDN"
+                    },
+                    {
+                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+                      "type": "any",
+                      "value": "{{PORT}}",
+                      "key": "PORT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<string>\",\n  \"fee\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"network\": \"<string>\",\n  \"reversalID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SC\": 207,\n  \"EC\": \"Internal Error Code\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "FQDN",
+      "key": "FQDN"
+    },
+    {
+      "description": {
+        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "PORT",
+      "key": "PORT"
+    },
+    {
+      "type": "string",
+      "value": "https://{{FQDN}}:{{PORT}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "385f4cec-31ee-4726-84a3-e5ec5103a8f3",
+    "name": "TabaPay APIs 3D Secure Transaction API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TabaPay Resource and Service Operations",
+      "type": "text/plain"
+    }
+  }
+}

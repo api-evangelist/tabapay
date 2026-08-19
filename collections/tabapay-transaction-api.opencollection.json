@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure Transaction API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/transactions/:TransactionID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "TransactionID",
+                "value": "",
+                "type": "path",
+                "description": "22-character Transaction ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the Transaction.\n\nIn circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*"
+        },
+        {
+          "info": {
+            "name": "Capture Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/transactions/:TransactionID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "TransactionID",
+                "value": "",
+                "type": "path",
+                "description": "22-character Transaction ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Captures the Authorized Transaction."
+        },
+        {
+          "info": {
+            "name": "Delete Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/transactions/:TransactionID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "TransactionID",
+                "value": "",
+                "type": "path",
+                "description": "22-character Transaction ID"
+              },
+              {
+                "name": "reversal",
+                "value": "",
+                "type": "query",
+                "description": "Use for reversing a transaction. (i.e. if Delete Transaction Request is *after* settlement of original *pull* transaction.)\n\nRequired to use `void` or `reversal` on every pull transaction DELETE request (non RTP).\n\nRequest to enable [Multiple Reversals](/docs/multiple-reversals#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+              },
+              {
+                "name": "void",
+                "value": "",
+                "type": "query",
+                "description": "Use for voiding a transaction. (i.e. if Delete Transaction request is *before* settlement of original *pull* transaction.)<br><br> **Note**: When reversing a transaction with status: `AUTHOIRZED`, you must use the `?void` parameter.\n\nRequired to use `void` or `reversal` on every pull transaction DELETE request (non RTP)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tries to request a reverse of a previous Pull Transaction.\n Note: Delete Transaction is NOT eligible to be used for an <<glossary:ACH>> Transaction."
+        },
+        {
+          "info": {
+            "name": "Create Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/transactions",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "authorize",
+                "value": "",
+                "type": "query",
+                "description": "Note the query string, `?authorize`, will create an authorization only. For `pull` payments. To settle the transaction, you must call [Capture Transaction](/reference/transactioncapture). \n\n Request to enable [Auth & Capture](/docs/overview-of-auth#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Transaction.\n\nIn circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*"
+        },
+        {
+          "info": {
+            "name": "Delete RTP Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/transactions/rtp/:RTPNetworkID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "RTPNetworkID",
+                "value": "",
+                "type": "path",
+                "description": "The original 35-character `networkID` (i.e. the <<glossary:RTP>> Instruction ID)"
+              },
+              {
+                "name": "request",
+                "value": "",
+                "type": "query",
+                "description": "Use if you are sending a Request for Return of Funds (regarding the original RTP-Credit Transfer).\n\nMust use `request` or `response`"
+              },
+              {
+                "name": "response",
+                "value": "",
+                "type": "query",
+                "description": "Use if you are responding to a Request for Return of Funds (regarding a received RTP-Credit Transfer).\n\n*Must use `response` or `request`*"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If using`?request`: Requests a return of a previously sent RTP push transaction.\nIf using `?response`: Responds to a request of a previously received Request for Return of Funds (for a previously received RTP transaction)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

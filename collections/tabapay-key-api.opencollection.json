@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure Key API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Key",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/keys",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Key."
+        },
+        {
+          "info": {
+            "name": "Retrieve Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/keys/:KeyID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "KeyID",
+                "value": "",
+                "type": "path",
+                "description": "Identification for the RSA key"
+              },
+              {
+                "name": "Format",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify your key format"
+              }
+            ]
+          },
+          "docs": "Retrieves the Key."
+        },
+        {
+          "info": {
+            "name": "Delete Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v1/clients/:ClientID/keys/:KeyID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "KeyID",
+                "value": "",
+                "type": "path",
+                "description": "Identification for the RSA key"
+              },
+              {
+                "name": "Format",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify your key format"
+              }
+            ]
+          },
+          "docs": "Deletes a Key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

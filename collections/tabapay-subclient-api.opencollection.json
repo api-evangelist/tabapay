@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure SubClient API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SubClient",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v4/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ]
+          },
+          "docs": "Retrieves a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*"
+        },
+        {
+          "info": {
+            "name": "Create SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v4/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+        },
+        {
+          "info": {
+            "name": "Update SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{FQDN}:{PORT}/v4/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*"
+        },
+        {
+          "info": {
+            "name": "Delete SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v4/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ]
+          },
+          "docs": "Deletes a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*"
+        },
+        {
+          "info": {
+            "name": "Retrieve SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ]
+          },
+          "docs": "Retrieves a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint."
+        },
+        {
+          "info": {
+            "name": "Create SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)\n\nThis endpoint is split from the original `/subclients` endpoint."
+        },
+        {
+          "info": {
+            "name": "Update SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete SubClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/subclients/:SubClientID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "SubClientID",
+                "value": "",
+                "type": "path",
+                "description": "4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be."
+              }
+            ]
+          },
+          "docs": "Deletes a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.*\n\nThis endpoint is split from the original `/subclients` endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

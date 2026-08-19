@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TabaPay APIs 3D Secure Ledger API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ledger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/ledgers",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a ledger.  \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+        },
+        {
+          "info": {
+            "name": "Retrieve Ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/ledgers/:LedgerID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "LedgerID",
+                "value": "",
+                "type": "path",
+                "description": "22-character LedgerID returned from Create Ledger."
+              },
+              {
+                "name": "referenceID",
+                "value": "",
+                "type": "query",
+                "description": "Reference ID fallback lookup."
+              }
+            ]
+          },
+          "docs": "Retrieves a ledger by ledgerID."
+        },
+        {
+          "info": {
+            "name": "Delete Ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{FQDN}:{PORT}/v2/clients/:ClientID/ledgers/:LedgerID",
+            "params": [
+              {
+                "name": "ClientID",
+                "value": "",
+                "type": "path",
+                "description": "22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+              },
+              {
+                "name": "LedgerID",
+                "value": "",
+                "type": "path",
+                "description": "22-character LedgerID returned from Create Ledger."
+              }
+            ]
+          },
+          "docs": "Deletes a ledger."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
