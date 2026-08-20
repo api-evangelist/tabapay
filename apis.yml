@@ -116,6 +116,8 @@ apis:
   humanURL: https://developers.tabapay.com/reference/getting-started
   baseURL: https://api.tabapay.com
   tags:
+  - Clients
+  tags_raw:
   - Client
   properties:
   - type: OpenAPI
@@ -243,6 +245,8 @@ apis:
   humanURL: https://developers.tabapay.com/reference/getting-started
   baseURL: https://api.tabapay.com
   tags:
+  - Transaction Request
+  tags_raw:
   - TransactionRequest
   properties:
   - type: OpenAPI
