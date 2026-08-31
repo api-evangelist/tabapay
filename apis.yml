@@ -245,7 +245,7 @@ apis:
   humanURL: https://developers.tabapay.com/reference/getting-started
   baseURL: https://api.tabapay.com
   tags:
-  - Transaction Request
+  - TransactionRequest
   tags_raw:
   - TransactionRequest
   properties:
