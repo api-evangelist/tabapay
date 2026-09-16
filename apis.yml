@@ -241,23 +241,6 @@ apis:
     url: https://developers.tabapay.com/docs/learn-more
   - type: APIReference
     url: https://developers.tabapay.com/reference/getting-started
-- aid: tabapay:tabapay-transactionrequest-api
-  name: TabaPay TransactionRequest API
-  description: >-
-    This resource represents a TransactionRequest One-time Payment Portal (<<glossary:OTPP>>)
-  humanURL: https://developers.tabapay.com/reference/getting-started
-  baseURL: https://api.tabapay.com
-  tags:
-  - Transaction Request
-  tags_raw:
-  - TransactionRequest
-  properties:
-  - type: OpenAPI
-    url: openapi/tabapay-transactionrequest-api-openapi.yml
-  - type: Documentation
-    url: https://developers.tabapay.com/docs/learn-more
-  - type: APIReference
-    url: https://developers.tabapay.com/reference/getting-started
 - aid: tabapay:tabapay-user-api
   name: TabaPay User API
   description: This resource represents a Client's User.
@@ -282,6 +265,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tabapay-verification-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tabapay.com/docs/learn-more
+  - type: APIReference
+    url: https://developers.tabapay.com/reference/getting-started
+- aid: tabapay:tabapay-transaction-request-api
+  name: TabaPay Transaction Request API
+  description: This resource represents a TransactionRequest One-time Payment Portal (>)
+  humanURL: https://developers.tabapay.com/reference/getting-started
+  baseURL: https://api.tabapay.com
+  tags:
+  - Transaction Request
+  properties:
+  - type: OpenAPI
+    url: openapi/tabapay-transaction-request-api-openapi.yml
   - type: Documentation
     url: https://developers.tabapay.com/docs/learn-more
   - type: APIReference
