@@ -105,6 +105,8 @@ apis:
   humanURL: https://developers.tabapay.com/reference/getting-started
   baseURL: https://api.tabapay.com
   tags:
+  - Cards
+  tags_raw:
   - Card
   properties:
   - type: OpenAPI
