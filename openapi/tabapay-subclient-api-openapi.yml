@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure SubClient API
+  title: TabaPay Sub Client API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -26,7 +26,13 @@ paths:
       tags:
       - SubClient
       summary: Create SubClient
-      description: "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      description: 'Creates a Client''s SubClient Registration.
+
+
+        *For >s (Independent Sales Organization) only.*
+
+
+        Request to enable at TabaPay Support or help@tabapay.com'
       operationId: createsubclient
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -63,7 +69,7 @@ paths:
       description: 'Deletes a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*'
+        *For >s (Independent Sales Organization) only.*'
       operationId: deletesubclient
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -95,7 +101,7 @@ paths:
       description: 'Retrieves a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*'
+        *For >s (Independent Sales Organization) only.*'
       operationId: retrievesubclient
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -156,7 +162,7 @@ paths:
       description: 'Updates a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*'
+        *For >s (Independent Sales Organization) only.*'
       operationId: updatesubclient
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -182,7 +188,16 @@ paths:
       tags:
       - SubClient
       summary: Create SubClient
-      description: "Creates a Client's SubClient Registration.\n\n*For <<glossary:ISO>>s (Independent Sales Organization) only.* \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)\n\nThis endpoint is split from the original `/subclients` endpoint."
+      description: 'Creates a Client''s SubClient Registration.
+
+
+        *For >s (Independent Sales Organization) only.*
+
+
+        Request to enable at TabaPay Support or help@tabapay.com
+
+
+        This endpoint is split from the original `/subclients` endpoint.'
       operationId: createsubclient2
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -351,7 +366,7 @@ paths:
       description: 'Deletes a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+        *For >s (Independent Sales Organization) only.*
 
 
         This endpoint is split from the original `/subclients` endpoint.'
@@ -386,7 +401,7 @@ paths:
       description: 'Retrieves a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+        *For >s (Independent Sales Organization) only.*
 
 
         This endpoint is split from the original `/subclients` endpoint.'
@@ -450,7 +465,7 @@ paths:
       description: 'Updates a Client''s SubClient Registration.
 
 
-        *For <<glossary:ISO>>s (Independent Sales Organization) only.*
+        *For >s (Independent Sales Organization) only.*
 
 
         This endpoint is split from the original `/subclients` endpoint.'
@@ -476,252 +491,6 @@ paths:
                 EC: '0'
 components:
   schemas:
-    businessOwner:
-      type: object
-      description: Additional individuals that own at least 25% of the entity.
-      required:
-      - firstName
-      - lastName
-      - dateOfBirth
-      properties:
-        firstName:
-          type: string
-          description: First name
-        middleName:
-          type: string
-          description: Middle name
-        lastName:
-          type: string
-          description: Last name
-        dateOfBirth:
-          type: string
-          description: 'Date of birth with the format: YYYYMMDD. Owner must be at least 18 years old.'
-    retrieveSubClientResponse:
-      type: object
-      properties:
-        SC:
-          type: string
-          description: HTTP Status Code
-        EC:
-          type: string
-          description: Internal Error Code to help TabaPay trace the error.
-        EM:
-          type: string
-          description: Short Description of Error if Error Occurred.
-        name:
-          type: string
-          description: Company Name
-          pattern: ^[ a-zA-Z0-9_-]$
-        tin:
-          type: string
-          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number).'
-        type:
-          type: string
-          description: 'Company Type:
-
-            - `LLC`
-
-            - `LLP`
-
-            - `C-Corp`
-
-            - `S-Corp`
-
-            - `SoleProprietor`
-
-            - `Nonprofit`
-
-            - `Charitable`
-
-            - `Other`'
-        url:
-          type: string
-          description: Company URL
-        email:
-          $ref: '#/components/schemas/email'
-        address:
-          $ref: '#/components/schemas/address'
-        phone:
-          $ref: '#/components/schemas/phone'
-        mcc:
-          type: string
-          pattern: ^[0-9]{4}$
-          description: Merchant Category Code
-        mvv:
-          type: string
-          pattern: ^[0-9]{6}$
-          description: Visa Merchant Verification Code - requires Visa registration
-        maid:
-          type: string
-          pattern: ^[0-9]{6}$
-          description: MasterCard Identification - requires MasterCard registration
-        settlement:
-          type: object
-          required:
-          - purchase
-          - disbursement
-          - fee
-          - exception
-          description: Settlement Accounts
-          properties:
-            purchase:
-              type: object
-              description: Purchase
-              required:
-              - routingNumber
-              - accountNumber
-              properties:
-                routingNumber:
-                  $ref: '#/components/schemas/routingNumber'
-                accountNumber:
-                  type: string
-                  pattern: ^[0-9]{4,17}$
-                  description: Account Number
-            disbursement:
-              type: object
-              description: Disbursement
-              required:
-              - routingNumber
-              - accountNumber
-              properties:
-                routingNumber:
-                  $ref: '#/components/schemas/routingNumber'
-                accountNumber:
-                  type: string
-                  pattern: ^[0-9]{4,17}$
-                  description: Account Number
-            fee:
-              type: object
-              description: Fee
-              required:
-              - routingNumber
-              - accountNumber
-              properties:
-                routingNumber:
-                  $ref: '#/components/schemas/routingNumber'
-                accountNumber:
-                  type: string
-                  pattern: ^[0-9]{4,17}$
-                  description: Account Number
-            exception:
-              type: object
-              description: Exception
-              required:
-              - routingNumber
-              - accountNumber
-              properties:
-                routingNumber:
-                  $ref: '#/components/schemas/routingNumber'
-                accountNumber:
-                  type: string
-                  pattern: ^[0-9]{4,17}$
-                  description: Account Number
-            serviceType:
-              type: string
-              description: "Indicate the payment rail that TabaPay will utilize with the client/sub-client. \nOptions are: \n\n - N - Next-Day ACH (Default) \n - S - Same-Day ACH \n - R - RTP"
-        fees:
-          $ref: '#/components/schemas/fees'
-        reserveAccount:
-          $ref: '#/components/schemas/reserveAccount'
-    businessOwners:
-      type: object
-      description: 'Individuals that own at least 25% of the entity, or the largest owner if no one owns at least 25%.
-
-        **Note: If you plan to add/remove/modify any owner information in the future, you will need re-submit all existing information to the update SubClient API. It is recommend that you store the owner information for this purpose.**'
-      required:
-      - businessOwner1
-      properties:
-        businessOwner1:
-          $ref: '#/components/schemas/businessOwner'
-        businessOwner2:
-          $ref: '#/components/schemas/businessOwner'
-        businessOwner3:
-          $ref: '#/components/schemas/businessOwner'
-        businessOwner4:
-          $ref: '#/components/schemas/businessOwner'
-    routingNumber:
-      type: string
-      pattern: ^[0-9]{9}$
-      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
-    subclient2Update:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        tin:
-          type: string
-          pattern: ^[0-9]{9}$
-          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number) needs to be 9 digits exactly.'
-        type:
-          type: string
-          enum:
-          - LLC
-          - LLP
-          - C-Corp
-          - S-Corp
-          - SoleProprietor
-          - Nonprofit
-          - Charitable
-          - NaturalPerson
-          - Other
-        url:
-          type: string
-        email:
-          type: string
-          format: email
-          description: Valid Email Address
-        address:
-          $ref: '#/components/schemas/address'
-        phone:
-          $ref: '#/components/schemas/phone'
-        mcc:
-          type: string
-          pattern: ^[0-9]{4}$
-        mvv:
-          type: string
-          pattern: ^[0-9]{6}$
-        maid:
-          type: string
-          pattern: ^[0-9]{6}$
-        evv:
-          type: string
-        userID:
-          $ref: '#/components/schemas/tpUserID'
-        iso:
-          type: string
-          pattern: ^[0-9]{3}$
-        useCase:
-          type: string
-        transactionTypes:
-          $ref: '#/components/schemas/subclient2TransactionTypes'
-        identification:
-          $ref: '#/components/schemas/subclient2Identification'
-        cardTypes:
-          $ref: '#/components/schemas/subclient2CardTypes'
-        visa:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        mastercard:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        discover:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        settlement:
-          $ref: '#/components/schemas/subclient2Settlement'
-        fees:
-          $ref: '#/components/schemas/fees'
-        reserveAccount:
-          $ref: '#/components/schemas/reserveAccount'
-        businessOwners:
-          $ref: '#/components/schemas/businessOwners'
-        ipAddress:
-          type: string
-          format: ipv4
-        dbaName:
-          type: string
-          description: Doing Business As (DBA)
-        payoutSchedule:
-          type: string
-      description: Partial update; only supplied fields are updated.
     cardTypeFee:
       type: object
       description: Card Type Fee
@@ -758,84 +527,21 @@ components:
           type: string
           description: Variable fee for successful American Express transactions ( % )
           pattern: ^[0-9]*.?[0-9]{0,4}$
-    subclient2SettlementAccount:
+    subclient2CardTypesDirection:
       type: object
       properties:
-        routingNumber:
-          $ref: '#/components/schemas/routingNumber'
-        accountNumber:
-          type: string
-          pattern: ^[0-9]{4,17}$
-        ledgerID:
-          $ref: '#/components/schemas/tpLedgerID'
-    subclient2NetworkConfig:
-      type: object
-      properties:
-        push:
-          $ref: '#/components/schemas/subclient2NetworkDirection'
-        pull:
-          $ref: '#/components/schemas/subclient2NetworkDirection'
-    address:
-      type: object
-      description: Address
-      required:
-      - line1
-      - city
-      - state
-      - zipcode
-      properties:
-        line1:
-          $ref: '#/components/schemas/line1'
-        line2:
-          $ref: '#/components/schemas/line2'
-        city:
-          $ref: '#/components/schemas/city'
-        state:
-          $ref: '#/components/schemas/state'
-        zipcode:
-          $ref: '#/components/schemas/zipcode'
-        country:
-          $ref: '#/components/schemas/country'
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    city:
-      type: string
-      description: City
-      pattern: ^[ a-zA-Z0-9_-]+$
-    subclient2CardTypes:
-      type: object
-      properties:
-        push:
-          $ref: '#/components/schemas/subclient2CardTypesDirection'
-        pull:
-          $ref: '#/components/schemas/subclient2CardTypesDirection'
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    subclient2TransactionTypes:
-      type: object
-      properties:
-        push:
+        debit:
           type: boolean
-          description: Push transaction enabled
-        pull:
+          description: Debit card type enabled
+        credit:
           type: boolean
-          description: Pull transaction enabled
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
+          description: Credit card type enabled
+        prepaid:
+          type: boolean
+          description: Prepaid card type enabled
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
     fees:
       type: object
       description: 'Set fees for this subclient. For more information refer to: [Fees for Sub-Clients during Boarding](https://developers.tabapay.com/docs/fees-for-sub-clients-during-boarding)'
@@ -945,121 +651,14 @@ components:
           type: string
           description: Fixed fee for each account updater request
           pattern: ^[0-9]*.?[0-9]{0,4}$
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    subclient2Identification:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - SSN
-          - GovernmentID
-          - Passport
-          - EIN
-        country:
-          $ref: '#/components/schemas/tpISO4217Numeric'
-        number:
-          type: string
-          description: A unique ID number issued by a government or organization.
-    email:
+    country:
       type: string
-      pattern: ^[A-Za-z._-]+@(?:[A-Za-z_-]+.?)*.[A-Za-z]+$
-      description: Valid Email Address
-    retrieveSubClient2Response:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        name:
-          type: string
-          maxLength: 255
-        tin:
-          type: string
-          pattern: ^[0-9]{9}$
-          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number)'
-        type:
-          type: string
-          enum:
-          - LLC
-          - LLP
-          - C-Corp
-          - S-Corp
-          - SoleProprietor
-          - Nonprofit
-          - Charitable
-          - NaturalPerson
-          - Other
-        url:
-          type: string
-        email:
-          type: string
-          format: email
-          description: Email Address
-        address:
-          $ref: '#/components/schemas/address'
-        phone:
-          $ref: '#/components/schemas/phone'
-        mcc:
-          type: string
-          pattern: ^[0-9]{4}$
-        mvv:
-          type: string
-          pattern: ^[0-9]{6}$
-        maid:
-          type: string
-          pattern: ^[0-9]{6}$
-        evv:
-          type: string
-        userID:
-          $ref: '#/components/schemas/tpUserID'
-        iso:
-          type: string
-          pattern: ^[0-9]{3}$
-        useCase:
-          type: string
-        transactionTypes:
-          $ref: '#/components/schemas/subclient2TransactionTypes'
-        identification:
-          $ref: '#/components/schemas/subclient2Identification'
-        cardTypes:
-          $ref: '#/components/schemas/subclient2CardTypes'
-        visa:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        mastercard:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        discover:
-          $ref: '#/components/schemas/subclient2NetworkConfig'
-        settlement:
-          $ref: '#/components/schemas/subclient2Settlement'
-        fees:
-          $ref: '#/components/schemas/fees'
-        reserveAccount:
-          $ref: '#/components/schemas/reserveAccount'
-        businessOwners:
-          $ref: '#/components/schemas/businessOwners'
-        ipAddress:
-          type: string
-          format: ipv4
-        dbaName:
-          type: string
-          description: Doing Business As (DBA)
-        payoutSchedule:
-          type: string
-    tpISO4217Numeric:
-      type: string
-      description: ISO-4217 numeric currency code
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
       pattern: ^[0-9]{3}$
       example: '840'
-    tpLedgerID:
-      type: string
-      description: TabaPay ledger identifier
-      pattern: ^[A-Za-z0-9]{22}$
     subclient2Create:
       type: object
       required:
@@ -1151,38 +750,117 @@ components:
           description: Doing Business As (DBA)
         payoutSchedule:
           type: string
-    subclient2Settlement:
+    retrieveSubClient2Response:
       type: object
       properties:
-        purchase:
-          $ref: '#/components/schemas/subclient2SettlementAccount'
-        disbursement:
-          $ref: '#/components/schemas/subclient2SettlementAccount'
-        fee:
-          $ref: '#/components/schemas/subclient2SettlementAccount'
-        exception:
-          $ref: '#/components/schemas/subclient2SettlementAccount'
-        serviceType:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        name:
           type: string
-          description: "Includes: \n - N: Next Day \n - S: Same Day \n - R: RTP "
+          maxLength: 255
+        tin:
+          type: string
+          pattern: ^[0-9]{9}$
+          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number)'
+        type:
+          type: string
           enum:
-          - N
-          - S
-          - R
-    zipcode:
+          - LLC
+          - LLP
+          - C-Corp
+          - S-Corp
+          - SoleProprietor
+          - Nonprofit
+          - Charitable
+          - NaturalPerson
+          - Other
+        url:
+          type: string
+        email:
+          type: string
+          format: email
+          description: Email Address
+        address:
+          $ref: '#/components/schemas/address'
+        phone:
+          $ref: '#/components/schemas/phone'
+        mcc:
+          type: string
+          pattern: ^[0-9]{4}$
+        mvv:
+          type: string
+          pattern: ^[0-9]{6}$
+        maid:
+          type: string
+          pattern: ^[0-9]{6}$
+        evv:
+          type: string
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        iso:
+          type: string
+          pattern: ^[0-9]{3}$
+        useCase:
+          type: string
+        transactionTypes:
+          $ref: '#/components/schemas/subclient2TransactionTypes'
+        identification:
+          $ref: '#/components/schemas/subclient2Identification'
+        cardTypes:
+          $ref: '#/components/schemas/subclient2CardTypes'
+        visa:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        mastercard:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        discover:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        settlement:
+          $ref: '#/components/schemas/subclient2Settlement'
+        fees:
+          $ref: '#/components/schemas/fees'
+        reserveAccount:
+          $ref: '#/components/schemas/reserveAccount'
+        businessOwners:
+          $ref: '#/components/schemas/businessOwners'
+        ipAddress:
+          type: string
+          format: ipv4
+        dbaName:
+          type: string
+          description: Doing Business As (DBA)
+        payoutSchedule:
+          type: string
+    businessOwner:
+      type: object
+      description: Additional individuals that own at least 25% of the entity.
+      required:
+      - firstName
+      - lastName
+      - dateOfBirth
+      properties:
+        firstName:
+          type: string
+          description: First name
+        middleName:
+          type: string
+          description: Middle name
+        lastName:
+          type: string
+          description: Last name
+        dateOfBirth:
+          type: string
+          description: 'Date of birth with the format: YYYYMMDD. Owner must be at least 18 years old.'
+    state:
       type: string
-      description: 'Zip Code
+      description: 'State Code
 
 
-        If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-        Zip codes from other countries will not be checked.'
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
       pattern: ^[ a-zA-Z0-9_-]+$
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
     createSubClientResponse:
       type: object
       properties:
@@ -1195,17 +873,92 @@ components:
         EM:
           type: string
           description: Short Description of Error if Error Occurred.
+    address:
+      type: object
+      description: Address
+      required:
+      - line1
+      - city
+      - state
+      - zipcode
+      properties:
+        line1:
+          $ref: '#/components/schemas/line1'
+        line2:
+          $ref: '#/components/schemas/line2'
+        city:
+          $ref: '#/components/schemas/city'
+        state:
+          $ref: '#/components/schemas/state'
+        zipcode:
+          $ref: '#/components/schemas/zipcode'
+        country:
+          $ref: '#/components/schemas/country'
+    subclient2NetworkDirection:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Network enabled flag
+        mccOverride:
+          type: string
+          pattern: ^[0-9]{4}$
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    tpLedgerID:
+      type: string
+      description: TabaPay ledger identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    subclient2CardTypes:
+      type: object
+      properties:
+        push:
+          $ref: '#/components/schemas/subclient2CardTypesDirection'
+        pull:
+          $ref: '#/components/schemas/subclient2CardTypesDirection'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    tpISO4217Numeric:
+      type: string
+      description: ISO-4217 numeric currency code
+      pattern: ^[0-9]{3}$
+      example: '840'
+    subclient2SettlementAccount:
+      type: object
+      properties:
+        routingNumber:
+          $ref: '#/components/schemas/routingNumber'
+        accountNumber:
+          type: string
+          pattern: ^[0-9]{4,17}$
+        ledgerID:
+          $ref: '#/components/schemas/tpLedgerID'
+    subclient2TransactionTypes:
+      type: object
+      properties:
+        push:
+          type: boolean
+          description: Push transaction enabled
+        pull:
+          type: boolean
+          description: Pull transaction enabled
     tpUserID:
       type: string
       description: TabaPay user identifier
       pattern: ^[A-Za-z0-9]{22}$
-    state:
+    EC:
       type: string
-      description: 'State Code
-
-
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     phone:
       type: object
       required:
@@ -1228,33 +981,54 @@ components:
             For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
           pattern: ^[0-9]{4,14}$
           example: '5555555555'
-    country:
-      type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    subclient2NetworkDirection:
+    subclient2Settlement:
       type: object
       properties:
-        enabled:
-          type: boolean
-          description: Network enabled flag
-        mccOverride:
+        purchase:
+          $ref: '#/components/schemas/subclient2SettlementAccount'
+        disbursement:
+          $ref: '#/components/schemas/subclient2SettlementAccount'
+        fee:
+          $ref: '#/components/schemas/subclient2SettlementAccount'
+        exception:
+          $ref: '#/components/schemas/subclient2SettlementAccount'
+        serviceType:
           type: string
-          pattern: ^[0-9]{4}$
-    line2:
+          description: "Includes: \n - N: Next Day \n - S: Same Day \n - R: RTP "
+          enum:
+          - N
+          - S
+          - R
+    subclient2Identification:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - SSN
+          - GovernmentID
+          - Passport
+          - EIN
+        country:
+          $ref: '#/components/schemas/tpISO4217Numeric'
+        number:
+          type: string
+          description: A unique ID number issued by a government or organization.
+    email:
       type: string
-      description: 'Address Line 2
-
-
-        *Optional*'
-      pattern: ^[ a-zA-Z0-9._-]+$
+      pattern: ^[A-Za-z._-]+@(?:[A-Za-z_-]+.?)*.[A-Za-z]+$
+      description: Valid Email Address
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
     subclientCreate:
       type: object
       required:
@@ -1486,6 +1260,119 @@ components:
           $ref: '#/components/schemas/reserveAccount'
         businessOwners:
           $ref: '#/components/schemas/businessOwners'
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    businessOwners:
+      type: object
+      description: 'Individuals that own at least 25% of the entity, or the largest owner if no one owns at least 25%.
+
+        **Note: If you plan to add/remove/modify any owner information in the future, you will need re-submit all existing information to the update SubClient API. It is recommend that you store the owner information for this purpose.**'
+      required:
+      - businessOwner1
+      properties:
+        businessOwner1:
+          $ref: '#/components/schemas/businessOwner'
+        businessOwner2:
+          $ref: '#/components/schemas/businessOwner'
+        businessOwner3:
+          $ref: '#/components/schemas/businessOwner'
+        businessOwner4:
+          $ref: '#/components/schemas/businessOwner'
+    subclient2Update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        tin:
+          type: string
+          pattern: ^[0-9]{9}$
+          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number) needs to be 9 digits exactly.'
+        type:
+          type: string
+          enum:
+          - LLC
+          - LLP
+          - C-Corp
+          - S-Corp
+          - SoleProprietor
+          - Nonprofit
+          - Charitable
+          - NaturalPerson
+          - Other
+        url:
+          type: string
+        email:
+          type: string
+          format: email
+          description: Valid Email Address
+        address:
+          $ref: '#/components/schemas/address'
+        phone:
+          $ref: '#/components/schemas/phone'
+        mcc:
+          type: string
+          pattern: ^[0-9]{4}$
+        mvv:
+          type: string
+          pattern: ^[0-9]{6}$
+        maid:
+          type: string
+          pattern: ^[0-9]{6}$
+        evv:
+          type: string
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        iso:
+          type: string
+          pattern: ^[0-9]{3}$
+        useCase:
+          type: string
+        transactionTypes:
+          $ref: '#/components/schemas/subclient2TransactionTypes'
+        identification:
+          $ref: '#/components/schemas/subclient2Identification'
+        cardTypes:
+          $ref: '#/components/schemas/subclient2CardTypes'
+        visa:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        mastercard:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        discover:
+          $ref: '#/components/schemas/subclient2NetworkConfig'
+        settlement:
+          $ref: '#/components/schemas/subclient2Settlement'
+        fees:
+          $ref: '#/components/schemas/fees'
+        reserveAccount:
+          $ref: '#/components/schemas/reserveAccount'
+        businessOwners:
+          $ref: '#/components/schemas/businessOwners'
+        ipAddress:
+          type: string
+          format: ipv4
+        dbaName:
+          type: string
+          description: Doing Business As (DBA)
+        payoutSchedule:
+          type: string
+      description: Partial update; only supplied fields are updated.
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    subclient2NetworkConfig:
+      type: object
+      properties:
+        push:
+          $ref: '#/components/schemas/subclient2NetworkDirection'
+        pull:
+          $ref: '#/components/schemas/subclient2NetworkDirection'
     reserveAccount:
       type: object
       description: Set reserve account for this subclient. If you add a reserve account, you will need a routing number and an account number.
@@ -1518,32 +1405,160 @@ components:
           type: string
           description: Number of days after which amount held is released (1-4 digits).
           pattern: ^[0-9]{1,4}$
-    subclient2CardTypesDirection:
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    apiResponseSCECEM:
       type: object
       properties:
-        debit:
-          type: boolean
-          description: Debit card type enabled
-        credit:
-          type: boolean
-          description: Credit card type enabled
-        prepaid:
-          type: boolean
-          description: Prepaid card type enabled
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    retrieveSubClientResponse:
+      type: object
+      properties:
+        SC:
+          type: string
+          description: HTTP Status Code
+        EC:
+          type: string
+          description: Internal Error Code to help TabaPay trace the error.
+        EM:
+          type: string
+          description: Short Description of Error if Error Occurred.
+        name:
+          type: string
+          description: Company Name
+          pattern: ^[ a-zA-Z0-9_-]$
+        tin:
+          type: string
+          description: '[Taxpayer Identification Number](https://en.wikipedia.org/wiki/Taxpayer_Identification_Number).'
+        type:
+          type: string
+          description: 'Company Type:
+
+            - `LLC`
+
+            - `LLP`
+
+            - `C-Corp`
+
+            - `S-Corp`
+
+            - `SoleProprietor`
+
+            - `Nonprofit`
+
+            - `Charitable`
+
+            - `Other`'
+        url:
+          type: string
+          description: Company URL
+        email:
+          $ref: '#/components/schemas/email'
+        address:
+          $ref: '#/components/schemas/address'
+        phone:
+          $ref: '#/components/schemas/phone'
+        mcc:
+          type: string
+          pattern: ^[0-9]{4}$
+          description: Merchant Category Code
+        mvv:
+          type: string
+          pattern: ^[0-9]{6}$
+          description: Visa Merchant Verification Code - requires Visa registration
+        maid:
+          type: string
+          pattern: ^[0-9]{6}$
+          description: MasterCard Identification - requires MasterCard registration
+        settlement:
+          type: object
+          required:
+          - purchase
+          - disbursement
+          - fee
+          - exception
+          description: Settlement Accounts
+          properties:
+            purchase:
+              type: object
+              description: Purchase
+              required:
+              - routingNumber
+              - accountNumber
+              properties:
+                routingNumber:
+                  $ref: '#/components/schemas/routingNumber'
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{4,17}$
+                  description: Account Number
+            disbursement:
+              type: object
+              description: Disbursement
+              required:
+              - routingNumber
+              - accountNumber
+              properties:
+                routingNumber:
+                  $ref: '#/components/schemas/routingNumber'
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{4,17}$
+                  description: Account Number
+            fee:
+              type: object
+              description: Fee
+              required:
+              - routingNumber
+              - accountNumber
+              properties:
+                routingNumber:
+                  $ref: '#/components/schemas/routingNumber'
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{4,17}$
+                  description: Account Number
+            exception:
+              type: object
+              description: Exception
+              required:
+              - routingNumber
+              - accountNumber
+              properties:
+                routingNumber:
+                  $ref: '#/components/schemas/routingNumber'
+                accountNumber:
+                  type: string
+                  pattern: ^[0-9]{4,17}$
+                  description: Account Number
+            serviceType:
+              type: string
+              description: "Indicate the payment rail that TabaPay will utilize with the client/sub-client. \nOptions are: \n\n - N - Next-Day ACH (Default) \n - S - Same-Day ACH \n - R - RTP"
+        fees:
+          $ref: '#/components/schemas/fees'
+        reserveAccount:
+          $ref: '#/components/schemas/reserveAccount'
   parameters:
-    SubClientID:
-      name: SubClientID
+    ClientID:
+      name: ClientID
       in: path
-      description: 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be.
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
       required: true
       style: simple
       explode: false
       schema:
         type: string
-    ClientID:
-      name: ClientID
+    SubClientID:
+      name: SubClientID
       in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      description: 4, 6, or 8-digit <<glossary:SubClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the specific number of digits your <<glossary:SubClientID>> needs to be.
       required: true
       style: simple
       explode: false

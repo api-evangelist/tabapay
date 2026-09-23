@@ -1,22 +1,7 @@
 {
   "provider": "tabapay",
   "sources": [
-    "tabapay-3d-secure-api-openapi.yml",
-    "tabapay-account-api-openapi.yml",
-    "tabapay-bank-api-openapi.yml",
-    "tabapay-card-api-openapi.yml",
-    "tabapay-client-api-openapi.yml",
-    "tabapay-fxrate-api-openapi.yml",
-    "tabapay-health-api-openapi.yml",
-    "tabapay-key-api-openapi.yml",
-    "tabapay-ledger-api-openapi.yml",
-    "tabapay-ofac-api-openapi.yml",
-    "tabapay-subclient-api-openapi.yml",
-    "tabapay-tag-api-openapi.yml",
-    "tabapay-transaction-api-openapi.yml",
-    "tabapay-transactionrequest-api-openapi.yml",
-    "tabapay-user-api-openapi.yml",
-    "tabapay-verification-api-openapi.yml"
+    "_original/tabapay-openapi.yml"
   ],
   "outputs": [
     "tabapay-3d-secure-api-openapi.yml",
@@ -36,9 +21,36 @@
     "tabapay-user-api-openapi.yml",
     "tabapay-verification-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tabapay-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tabapay-openapi.yml: declared missing tag: 3D Secure",
+    "tabapay-openapi.yml: declared missing tag: Health",
+    "tabapay-openapi.yml: declared missing tag: Tag",
+    "superseded outputs removed: tabapay-transaction-request-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 16 total)"
+  ],
+  "skipped": [
+    "tabapay-3d-secure-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-bank-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-card-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-client-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-fxrate-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-key-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-ledger-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-ofac-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-subclient-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-tag-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-transaction-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-transaction-request-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tabapay-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

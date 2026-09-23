@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure FXRate API
+  title: TabaPay FX Rate API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -62,21 +62,6 @@ paths:
                 EC: InternalErrorCode
 components:
   schemas:
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     queryFXResponse:
       type: object
       properties:
@@ -95,6 +80,12 @@ components:
         conversionRate:
           type: string
           description: A Decimal Conversion Rate without markup applied.
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryFXRequest:
       type: object
       required:
@@ -125,9 +116,18 @@ components:
             - `mastercard`
 
             - `bank`'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
   parameters:
     ClientID:
       name: ClientID

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure Transaction API
+  title: TabaPay Transaction API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -55,7 +55,9 @@ paths:
       tags:
       - Transaction
       summary: Delete Transaction
-      description: "Tries to request a reverse of a previous Pull Transaction.\n Note: Delete Transaction is NOT eligible to be used for an <<glossary:ACH>> Transaction."
+      description: 'Tries to request a reverse of a previous Pull Transaction.
+
+        Note: Delete Transaction is NOT eligible to be used for an > Transaction.'
       operationId: transactionDelete
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -108,7 +110,7 @@ paths:
       description: 'Retrieves the Transaction.
 
 
-        In circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*'
+        In circumstances where you fail to receive a transactionID from us, you can do a retrieve via referenceID. *(Allowed only up to 24 hours after original request)*'
       operationId: transactionRetrieve
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -210,7 +212,7 @@ paths:
       description: 'Creates a Transaction.
 
 
-        In circumstances where you fail to receive a transactionID from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*'
+        In circumstances where you fail to receive a transactionID from us, you can do a retrieve via referenceID. *(Allowed only up to 24 hours after original request)*'
       operationId: transactionCreate
       parameters:
       - $ref: '#/components/parameters/ClientID'
@@ -604,140 +606,226 @@ paths:
                 EC: Internal Error Code
 components:
   schemas:
-    transactionRetrieveResponse:
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    achEntryType:
+      type: string
+      description: "\nThree Options\n- `CCD` Corporate Credit or Debit \n- `PPD` Prearranged Payment and Deposit \n- `WEB` Website, App, or Mobile Initiated Entry \n\n*Required for ACH, else optional.*"
+    transactionReversed:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-        referenceID:
-          $ref: '#/components/schemas/referenceID'
-        network:
-          type: string
-          description: '[Network](https://developers.tabapay.com/reference/networks#/)'
-          example: Visa
-        networkRC:
-          $ref: '#/components/schemas/networkRC'
         status:
           type: string
-          description: '[Resource Status](https://developers.tabapay.com/reference/resource-status#/)'
+          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the reversal.'
           example: COMPLETED
-        originally:
-          type: string
-          description: Original [Resource Status](https://developers.tabapay.com/reference/resource-status#/)
-          example: COMPLETED
-        amount:
-          type: string
-          description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-          pattern: ^[0-9]*.?[0-9]{0,4}$
-        amountUSD:
-          type: string
-          description: 'Amount in USD if `currency` is not `840`.
-
-
-            See how to [properly format an amount](/reference/data#how-to-specify-an-amount-valuee).'
-          pattern: ^[0-9]*.[0-9]{0,2}$
-        fees:
-          type: object
-          description: Estimated Fees
-          required:
-          - interchange
-          - network
-          - tabapay
-          properties:
-            interchange:
-              type: string
-              description: Interchange Fees
-            network:
-              type: string
-              description: Network Fees
-            tabapay:
-              type: string
-              description: TabaPay Fees
-        reversalStatus:
-          type: string
-          description: Reversal [Status](https://developers.tabapay.com/reference/resource-status#/)
-          example: REVERSED
         reversal:
           type: object
-          description: Reversal
+          description: Reversal *object*
           properties:
             networkRC:
               type: string
-              description: 'Void
-
-
-                [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)'
+              description: 2-3 character [Network Response Code](/reference/iso-network-codes) of Void or first attempt for a reversal.
               example: '00'
             networkRC2:
               type: string
-              description: 'Refund after failed Void
+              description: '`networkRC2`
+
+                2-3 character [Network Response Code](/reference/iso-network-codes) of Refund (after failed void)
 
 
-                [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)
+                *Present if Dual-Message Network*
 
 
-                Present if Dual-Message Network'
+                *Conditionally present if the first reversal attempt fails (and the network supports a second attempt)* '
               example: '00'
-            error:
-              type: string
-              description: Internal Error Code. 1-8 characters.
-            reversalAmount:
-              type: string
-              description: Amount of the partial reversal. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-              example: '0.06'
-    deleteRTPTransaction:
+    card:
+      type: object
+      description: 'Payment Card Data.
+
+
+        Choose ***exactly ONE*** of the following:
+
+        - <<glossary:Payment Card Not Encrypted>>
+
+        - <<glossary:Payment Card Encrypted>>
+
+        - `token`
+
+        - `device` *object*
+
+        - `mobilePay` *object*
+
+        - `processor` *object*
+
+
+        Incompatible with `bank`. Exclusively use: `card` or `bank`.'
+      properties:
+        accountNumber:
+          type: string
+          pattern: ^[0-9]{13,19}$
+          description: 'Required field of ***<<glossary:Payment Card Not Encrypted>>***
+
+
+            13-19 digit Primary Account Number (PAN/Card Number)
+
+
+            Compatible with `expirationDate` and `securityCode`, nothing else'
+        expirationDate:
+          type: string
+          pattern: ^[0-9]{6}$
+          description: 'Conditionally required field of ***<<glossary:Payment Card Not Encrypted>>***
+
+
+            Expiration Date in YYYYMM format.
+
+
+            Compatible with `accountNumber` and `securityCode`, nothing else.'
+        securityCode:
+          type: string
+          pattern: ^[0-9]{3,4}$
+          description: 'Optional field of ***<<glossary:Payment Card Not Encrypted>>***
+
+
+            3-4 digit <<glossary:Security Code>>
+
+
+            Compatible with `accountNumber` and `expirationDate`, nothing else.'
+        keyID:
+          $ref: '#/components/schemas/keyID'
+        data:
+          $ref: '#/components/schemas/data'
+        token:
+          $ref: '#/components/schemas/tokeniFrame'
+        device:
+          $ref: '#/components/schemas/device'
+        mobilePay:
+          $ref: '#/components/schemas/mobilePay'
+        processor:
+          $ref: '#/components/schemas/processor'
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    device:
+      type: object
+      description: 'Card Data
+
+        - From a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions)
+
+        - From a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/y)
+
+
+        Incompatible with any other `card` object(s) or field(s)'
+      required:
+      - id
+      - blob
+      properties:
+        id:
+          type: string
+          description: 'Either a:
+
+            - TabaPay-assigned device ID
+
+            - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
+        blob:
+          $ref: '#/components/schemas/blob'
+    tokeniFrame:
+      type: string
+      pattern: ^[A-Za-z0-9_+=-]{344}$
+      format: byte
+      description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
+
+
+        Incompatible with any other `card` field.'
+    ofacValue:
+      type: string
+      description: 'OFAC Value from [Query OFAC](https://developers.tabapay.com/reference/ofacquery#/)
+
+
+        *Optional*'
+      pattern: ^[a-zA-Z0-9_-]+$
+    sourceAccountID:
+      type: string
+      description: '<<glossary:Source Account ID>>
+
+
+        22 characters TabaPay AccountID.
+
+
+        Use your <<glossary:Settlement Account ID>> here on all *push* transactions.'
+    apiResponseSCECStatus:
       type: object
       properties:
-        amount:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        status:
           type: string
-          description: 'Partial Reversal Amount. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+    processor:
+      type: object
+      required:
+      - name
+      - token
+      description: 'Tokenized Card Payment Data From an Issuing Processor
 
 
-            *Optional. Use is only allowed if using query string `?response`. If omitted, the reversal will be for the original amount.'
-          pattern: ^[0-9]*.?[0-9]{0,4}$
-        fee:
+        Incompatible with all other card objects and fields'
+      properties:
+        name:
           type: string
-          description: 'The fee the participant charges for returning the funds. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+          pattern: ^[0-9A-Za-z]+$
+          description: 'Processor Name
 
 
-            *Exclusively compatible with query string `response`. Optional, omit if no fee is incurred.'
-          pattern: ^[0-9]*.?[0-9]{0,4}$
-        reasonCode:
+            Currently supported `name`s are:
+
+            - `Galileo`
+
+            - `Q2`'
+        token:
           type: string
-          description: See valid Reason Codes for [`?request`](/reference/ach-rtp#rtprequest) and [`?response`](/reference/ach-rtp#/rtpresponse)
-          pattern: ^[A-Z0-9]{4}
-        network:
+          pattern: ^[0-9]+$
+          description: 'Token from issuing processor
+
+            - `Galileo` integrations use a CAD (preferred) or PRN
+
+            - `Q2` integrations use a CardID'
+        customerID:
           type: string
-          description: 'The payment-rails used to reimburse the original credit transfer
+          pattern: ^[0-9]+$
+          description: 'Customer Identifier.
 
 
-            Acceptable values:
-
-            - `R`: RTP
-
-            - `A`: ACH Payment
-
-            - `W`: FedWire
-
-            - `C`: CHIPS
+            Required if `name` is `Q2`, omit otherwise.'
+    state:
+      type: string
+      description: 'State Code
 
 
-            *Exclusively compatible with query string `response`. Required if `reasonCode` is `ACTC`, otherwise omit. If `network` is `R` (<<glossary:RTP>>), a credit transfer will be sent to reimburse the original transaction.'
-          pattern: ^[RAWC]$
-        reversalID:
-          type: string
-          description: 'The unique identifier of the transaction used to return the funds. Acceptable values:
-
-            - An **ACH** Trace Number
-
-            - A **FedWire** IMAD
-
-            - A **CHIPS** System Sequence Number (SSN)
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    currency:
+      type: string
+      description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
 
 
-            *Exclusively compatible with query string `response`. Required if `reasonCode` is `ACTC` and `network` is `W`, `A`, or `C`, omit otherwise.'
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    blob:
+      type: string
+      description: URL-safe, Base64 encoded card data
+      pattern: ^[A-Za-z0-9_+=-]{1500}$
     createTransactionResponsePending:
       type: object
       properties:
@@ -792,6 +880,60 @@ components:
 
 
                 Optional.'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    owner:
+      type: object
+      required:
+      - name
+      description: Owner Details
+      properties:
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          type: object
+          description: 'Address.
+
+
+            *All fields optional.* However, if you''re planning on using AVS in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
+          properties:
+            line1:
+              $ref: '#/components/schemas/line1'
+            line2:
+              type: string
+              description: Address Line 2
+              pattern: ^[ a-zA-Z0-9._-]+$
+            city:
+              $ref: '#/components/schemas/city'
+            state:
+              $ref: '#/components/schemas/state'
+            zipcode:
+              $ref: '#/components/schemas/zipcode'
+            country:
+              $ref: '#/components/schemas/country'
+        phone:
+          type: object
+          required:
+          - number
+          description: Phone *object*
+          properties:
+            countryCode:
+              type: string
+              description: '1-3 digit Country Calling Code
+
+
+                *Optional.* Default is `1`.'
+              pattern: ^[0-9]{3}$
+              example: '1'
+            number:
+              type: string
+              description: 'Phone Number.
+
+
+                For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+              pattern: ^[0-9]{4,14}$
+              example: '5555555555'
     pullOptions:
       type: object
       description: 'Additional Pull Options
@@ -959,762 +1101,6 @@ components:
         level3:
           $ref: '#/components/schemas/level3'
       example: null
-    name:
-      type: object
-      description: 'Name
-
-
-        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
-
-
-        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
-      properties:
-        company:
-          type: string
-          description: 'Company Name
-
-
-            Incompatible with any other `name` field.'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        first:
-          type: string
-          description: 'First Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        middle:
-          type: string
-          description: 'Middle Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        last:
-          type: string
-          description: 'Last Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        suffix:
-          type: string
-          description: 'Suffix
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-    currency:
-      type: string
-      description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
-    keyID:
-      type: string
-      pattern: ^[a-zA-Z0-9_-]{22}$
-      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
-
-
-        22 character KeyID. Ensure the RSA key you''re using to encrypt the card data is consistent with this keyID
-
-
-        Compatible with `data` and nothing else.'
-    purposeOfPayment:
-      type: string
-      description: '[Code](https://developers.tabapay.com/docs/purpose-of-payment#/) describing the purpose of payment
-
-
-        *Conditional. May be required, dependent on the country of the issuing BIN*'
-      pattern: ^[a-zA-Z0-9_ -]$
-    mobilePay:
-      type: object
-      required:
-      - accountNumber
-      - expirationDate
-      - cryptogram
-      - transactionID
-      - network
-      - type
-      description: A Decrypted [Apple Pay](https://developers.tabapay.com/docs/apple-pay) Token
-      properties:
-        accountNumber:
-          type: string
-          description: Pseudo Payment Card Account Number
-          pattern: ^[0-9]{13,19}$
-        expirationDate:
-          $ref: '#/components/schemas/expirationDateMobilePay'
-        cryptogram:
-          type: string
-          format: byte
-          description: Payment Data Cryptogram
-          pattern: ^[A-Za-z0-9_+=/-]{28}$
-        transactionID:
-          type: string
-          format: byte
-          description: Transaction Identifier in Hex
-          pattern: ^[A-Za-z0-9]{64}$
-        eciIndicator:
-          type: string
-          description: '1-digit <<glossary:ECI>> Indicator. Remove any leading `0`s.
-
-
-            For example if received ECI is `05` convert to `5` and populate this field
-
-
-            Usually only present when `network` is `Visa`'
-          pattern: ^[0-9]$
-          example: '5'
-        network:
-          type: string
-          description: 'Card Network.
-
-            - `Visa`
-
-            - `MasterCard`
-
-            - `Discover`
-
-            - `Amex`
-
-            - etc...'
-          pattern: ^[A-Za-z]+$
-          example: Visa
-        type:
-          type: string
-          description: "Card Type. Either\n- `Debit`\n- `Credit`\n- `PrePaid`\n etc..."
-          pattern: ^[A-Za-z]+
-          example: Debit
-    referenceID:
-      type: string
-      format: string
-      description: 1-15 character unique [referenceID](https://developers.tabapay.com/docs/glossary#reference-id). Used for [Retrieve via ReferenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid) in case of an HTTP timeout, or any scenario where you fail to get a response body. *Not case sensitive*
-      pattern: ^[a-zA-Z0-9_-]{1,15}$
-    owner:
-      type: object
-      required:
-      - name
-      description: Owner Details
-      properties:
-        name:
-          $ref: '#/components/schemas/name'
-        address:
-          type: object
-          description: 'Address.
-
-
-            *All fields optional.* However, if you''re planning on using AVS in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
-          properties:
-            line1:
-              $ref: '#/components/schemas/line1'
-            line2:
-              type: string
-              description: Address Line 2
-              pattern: ^[ a-zA-Z0-9._-]+$
-            city:
-              $ref: '#/components/schemas/city'
-            state:
-              $ref: '#/components/schemas/state'
-            zipcode:
-              $ref: '#/components/schemas/zipcode'
-            country:
-              $ref: '#/components/schemas/country'
-        phone:
-          type: object
-          required:
-          - number
-          description: Phone *object*
-          properties:
-            countryCode:
-              type: string
-              description: '1-3 digit Country Calling Code
-
-
-                *Optional.* Default is `1`.'
-              pattern: ^[0-9]{3}$
-              example: '1'
-            number:
-              type: string
-              description: 'Phone Number.
-
-
-                For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
-              pattern: ^[0-9]{4,14}$
-              example: '5555555555'
-    tokeniFrame:
-      type: string
-      pattern: ^[A-Za-z0-9_+=-]{344}$
-      format: byte
-      description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
-
-
-        Incompatible with any other `card` field.'
-    softDescriptor:
-      type: object
-      required:
-      - name
-      - address
-      description: 'Soft Descriptor.
-
-
-        ***Card Network Mandates for Soft Descriptor:*** To avoid fines or to avoid declines, when providing `zipCode` and `state`, please ensure they match i.e. `zipCode` must correspond to the `state` values.
-
-
-        *Optional*'
-      properties:
-        name:
-          type: string
-          description: 'Name.
-
-
-            *To set the company name in ACH transactions, use this field (the first 16 characters will be used).*'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        address:
-          type: object
-          required:
-          - line1
-          - city
-          - state
-          - county
-          - zipcode
-          - country
-          properties:
-            line1:
-              type: string
-              description: Address Line 1
-              pattern: ^[ a-zA-Z0-9._-]+$
-            line2:
-              type: string
-              description: 'Address Line 2
-
-
-                *Optional*'
-              pattern: ^[ a-zA-Z0-9._-]+$
-            city:
-              type: string
-              description: City
-              pattern: ^[ a-zA-Z0-9_-]+$
-            county:
-              type: string
-              description: 3-character County Code
-              pattern: ^[ a-zA-Z0-9_-]{3}$
-            state:
-              type: string
-              description: 'State Code
-
-
-                [State Code](https://developers.tabapay.com/reference/us-state-codes) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-              pattern: ^[ a-zA-Z0-9_-]+$
-            zipcode:
-              type: string
-              description: 'Zip Code
-
-
-                If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-                If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-                Zip codes from other countries will not be checked.'
-              pattern: ^[ a-zA-Z0-9_-]+$
-            country:
-              type: string
-              description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-                *Optional. Default is `840`*'
-              pattern: ^[0-9]{3}$
-              example: '840'
-        phone:
-          type: object
-          required:
-          - number
-          description: Phone *object*
-          properties:
-            countryCode:
-              type: string
-              description: '1-3 digit Country Calling Code
-
-
-                *Optional.* Default is `1`.'
-              pattern: ^[0-9]{3}$
-              example: '1'
-            number:
-              type: string
-              description: 'Phone Number.
-
-
-                For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
-              pattern: ^[0-9]{4,14}$
-              example: '5555555555'
-        mcc:
-          type: string
-          description: 'MCC
-
-
-            For American Express Bill Pay Provider program:
-
-            - Merchant''s/Seller''s MCC (4-digits)
-
-
-            *Note: This is not the processing MCC. This is for reporting purposes only (Amex Bill Pay Provider)*'
-        email:
-          type: string
-          description: 'Email Address
-
-
-            For American Express Bill Pay Provider program:
-
-            - Seller Email Address (max of 40 characters)'
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    city:
-      type: string
-      description: City
-      pattern: ^[ a-zA-Z0-9_-]+$
-    corresponding:
-      type: object
-      description: 'Corresponding Transaction Information
-
-
-        For a <<glossary:push>> transaction, this would be the corresponding *pull* transaction.
-
-        For a <<glossary:pull>> transaction, this would be the corresponding *push* transaction.
-
-
-        *Optional.* Incompatible with `correspondingID`.'
-      required:
-      - name
-      properties:
-        ofacValue:
-          type: string
-          description: Sender `ofacValue`. Received from [Query OFAC](https://developers.tabapay.com/reference/ofacquery#/) in response.
-          example: 7nGfHHedKNelaw
-        name:
-          type: object
-          required:
-          - first
-          properties:
-            first:
-              type: string
-              description: First Name
-              pattern: ^[ a-zA-Z0-9_-]+$
-            last:
-              type: string
-              description: Last Name
-              pattern: ^[ a-zA-Z0-9_-]+$
-        address:
-          type: object
-          properties:
-            line:
-              type: string
-              description: Sender Address Line
-              pattern: ^[ a-zA-Z0-9._-]+$
-            city:
-              type: string
-              description: Sender City
-              pattern: ^[ a-zA-Z0-9_-]+$
-            state:
-              type: string
-              description: 'State Code
-
-
-                [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).
-
-
-                Note: Visa will reject any transaction that sends a [US-Territory Code](https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States#Inhabited_territories) and country code `840`'
-              pattern: ^[ a-zA-Z0-9_-]+$
-            zipcode:
-              type: string
-              description: 'Zip Code
-
-
-                If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-                If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-                Zip codes from other countries will not be checked.'
-              pattern: ^[ a-zA-Z0-9_-]+$
-            country:
-              type: string
-              description: '[Country Code](https://developers.tabapay.com/reference/country-codes)
-
-
-                *Optional. Default is `840`*'
-              pattern: ^[0-9]{3}$
-              example: '840'
-        accountNumber:
-          type: string
-          pattern: ^[0-9]{4,17}$
-          description: Sender Account Number
-        sourceOfFunds:
-          type: string
-          pattern: ^[A-Za-z ]{1,25}$
-          description: 'Sender [Source of Funds](https://developers.tabapay.com/docs/source-of-funds#/). Valid Values Include:
-
-            - `Debit Card`
-
-            - `Prepaid Card`
-
-            - `Credit Card`
-
-            - `Cash`
-
-            - `Deposit Account`
-
-            - `Credit Account`
-
-            - `Mobile Money Account`'
-        dateOfBirth:
-          type: string
-          description: 'Date of birth with the format: YYYYMMDD. Sender must be at least 18 years old.'
-          example: '19910503'
-        networkID:
-          type: string
-          description: Network ID of the preceding `pull` transaction (the Account Funding Transaction (AFT) that will fund a subsequent `push` transaction).
-          example: '123456789012345'
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    networkID:
-      type: string
-      description: 'Network TransactionID.
-
-
-        *Not returned by every network.*'
-      example: '123456895258741'
-    networkRC:
-      type: string
-      description: 2-3 character [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)
-      example: '00'
-    processor:
-      type: object
-      required:
-      - name
-      - token
-      description: 'Tokenized Card Payment Data From an Issuing Processor
-
-
-        Incompatible with all other card objects and fields'
-      properties:
-        name:
-          type: string
-          pattern: ^[0-9A-Za-z]+$
-          description: 'Processor Name
-
-
-            Currently supported `name`s are:
-
-            - `Galileo`
-
-            - `Q2`'
-        token:
-          type: string
-          pattern: ^[0-9]+$
-          description: 'Token from issuing processor
-
-            - `Galileo` integrations use a CAD (preferred) or PRN
-
-            - `Q2` integrations use a CardID'
-        customerID:
-          type: string
-          pattern: ^[0-9]+$
-          description: 'Customer Identifier.
-
-
-            Required if `name` is `Q2`, omit otherwise.'
-    apiResponseSCECTxnIDStatus:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        transactionID:
-          $ref: '#/components/schemas/transactionID'
-        status:
-          type: string
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    blob:
-      type: string
-      description: URL-safe, Base64 encoded card data
-      pattern: ^[A-Za-z0-9_+=-]{1500}$
-    destinationAccount:
-      type: object
-      required:
-      - owner
-      description: '<<glossary:Destination Account>> Information.
-
-
-        Exclusively use `destinationAccount` or `destinationAccountID`. Can only be used on *push* transactions.
-
-
-        Incompatible with `destinationAccountID`.'
-      properties:
-        card:
-          type: object
-          description: 'Payment Card Data.
-
-
-            Incompatible with `bank`. Exclusively use: `card` *OR* `bank`.'
-          properties:
-            accountNumber:
-              type: string
-              pattern: ^[0-9]{13,19}$
-              description: '<<glossary:Payment Card Not Encrypted>> A Primary Account Number (PAN/Card Number)
-
-
-                Compatible *only* with `expirationDate` and nothing else.'
-            expirationDate:
-              type: string
-              pattern: ^[0-9]{6}$
-              description: '<<glossary:Payment Card Not Encrypted>> Expiration Date in YYYYMM
-
-
-                Compatible *only* with `accountNumber` and nothing else.'
-            securityCode:
-              type: string
-              pattern: ^[0-9]{3,4}$
-              description: '<<glossary:Payment Card Not Encrypted>> <<glossary:Security Code>>.
-
-
-                Compatible *only* with `accountNumber` and `expirationDate`, nothing else.'
-            keyID:
-              $ref: '#/components/schemas/keyID'
-            data:
-              $ref: '#/components/schemas/data'
-            token:
-              $ref: '#/components/schemas/tokeniFrame'
-            device:
-              type: object
-              description: 'Card Data: from a [secure device](https://developers.tabapay.com/docs/card-present-transactions)
-
-
-                Incompatible with any other `card` object(s) or field(s)'
-              required:
-              - id
-              - blob
-              properties:
-                id:
-                  type: string
-                  description: A TabaPay-assigned device ID
-                blob:
-                  $ref: '#/components/schemas/blob'
-            processor:
-              $ref: '#/components/schemas/processor'
-        bank:
-          type: object
-          description: 'Bank Account Data
-
-
-            *Choose either* `bank` *or* `card`. *Do not include both, or leave both out.*'
-          required:
-          - routingNumber
-          - accountNumber
-          - accountType
-          properties:
-            routingNumber:
-              type: string
-              pattern: ^[0-9]{9}$
-              description: '9-digit [Routing Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number). TabaPay performs [check-digit validations](https://en.wikipedia.org/w/index.php?title=ABA_routing_transit_number&section=7#Check_digit); no other validations are done.
-
-
-                Conditionally Required. Required if choosing `accountNumber` and `routingNumber`*'
-            accountNumber:
-              type: string
-              pattern: ^[0-9]{4,17}$
-              description: 'Bank Account Number.
-
-
-                *Required if choosing `bank`*'
-            accountType:
-              type: string
-              pattern: ^[CSABL]$
-              description: 'Bank Account Type:
-
-                - `C` Checking
-
-                - `S` Saving
-
-
-                No validations are done to match `accountNumber` to `accountType`.
-
-
-                *Required if choosing `bank`'
-        link:
-          type: object
-          description: 'A tokenized form of payment details.
-
-
-            *Required if choosing `bank`*'
-          properties:
-            name:
-              type: string
-              description: 'The name of the `link` provider. Currently, only valid values are:
-
-                - [`Plaid`](https://plaid.com/docs/)'
-            token:
-              type: string
-              description: 'A tokenized value of routing number, account number, and account type.
-
-                - `Plaid` - [Processor Token](https://plaid.com/docs/api/processors/#processortokencreate)'
-        tag:
-          type: object
-          description: Payment tag
-          properties:
-            network:
-              type: string
-              description: "The network of the tag. \nSupported Networks: \n - `Visa`"
-              example: Visa
-            name:
-              type: string
-              description: 'Tag Name
-
-                - For `Visa`, you would provide the payname.'
-              example: +b2cbrian.paypal
-        owner:
-          $ref: '#/components/schemas/owner'
-    card:
-      type: object
-      description: 'Payment Card Data.
-
-
-        Choose ***exactly ONE*** of the following:
-
-        - <<glossary:Payment Card Not Encrypted>>
-
-        - <<glossary:Payment Card Encrypted>>
-
-        - `token`
-
-        - `device` *object*
-
-        - `mobilePay` *object*
-
-        - `processor` *object*
-
-
-        Incompatible with `bank`. Exclusively use: `card` or `bank`.'
-      properties:
-        accountNumber:
-          type: string
-          pattern: ^[0-9]{13,19}$
-          description: 'Required field of ***<<glossary:Payment Card Not Encrypted>>***
-
-
-            13-19 digit Primary Account Number (PAN/Card Number)
-
-
-            Compatible with `expirationDate` and `securityCode`, nothing else'
-        expirationDate:
-          type: string
-          pattern: ^[0-9]{6}$
-          description: 'Conditionally required field of ***<<glossary:Payment Card Not Encrypted>>***
-
-
-            Expiration Date in YYYYMM format.
-
-
-            Compatible with `accountNumber` and `securityCode`, nothing else.'
-        securityCode:
-          type: string
-          pattern: ^[0-9]{3,4}$
-          description: 'Optional field of ***<<glossary:Payment Card Not Encrypted>>***
-
-
-            3-4 digit <<glossary:Security Code>>
-
-
-            Compatible with `accountNumber` and `expirationDate`, nothing else.'
-        keyID:
-          $ref: '#/components/schemas/keyID'
-        data:
-          $ref: '#/components/schemas/data'
-        token:
-          $ref: '#/components/schemas/tokeniFrame'
-        device:
-          $ref: '#/components/schemas/device'
-        mobilePay:
-          $ref: '#/components/schemas/mobilePay'
-        processor:
-          $ref: '#/components/schemas/processor'
-    transactionCaptureResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        status:
-          type: string
-          description: '[Resource Status](https://developers.tabapay.com/reference/resource-status#/)'
-          example: COMPLETED
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    transactionRTPDeleteRequest:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        status:
-          type: string
-          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the RTP Delete.'
-          example: COMPLETED
-        networkRC:
-          type: string
-          description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Reversal Request or of Reversal Response
-          example: '000'
-        networkID:
-          type: string
-          description: 35-character Network ID of Reversal Request or of Reversal Response
-    transactionID:
-      type: string
-      description: 22 character Transaction ID
-    device:
-      type: object
-      description: 'Card Data
-
-        - From a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions)
-
-        - From a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/y)
-
-
-        Incompatible with any other `card` object(s) or field(s)'
-      required:
-      - id
-      - blob
-      properties:
-        id:
-          type: string
-          description: 'Either a:
-
-            - TabaPay-assigned device ID
-
-            - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
-        blob:
-          $ref: '#/components/schemas/blob'
-    amount:
-      type: string
-      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-      pattern: ^[0-9]*.?[0-9]{0,4}$
     level3:
       type: object
       required:
@@ -1851,68 +1237,183 @@ components:
 
 
             Do *NOT* populate the field with all `0`s or all `9`s'
-    deleteTransaction:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
-
-
-            *Optional. Default is `840`*'
-          pattern: ^[0-9]{3}$
-          example: '840'
-        amount:
-          type: string
-          description: 'Partial Reversal Amount. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-
-
-            If `amount` is omitted, the reversal request will be for the original transaction amount.
-
-
-            *Optional*'
-          pattern: ^[0-9]*.?[0-9]{0,4}$
-    sourceAccountID:
+    zipcode:
       type: string
-      description: '<<glossary:Source Account ID>>
+      description: 'Zip Code
 
 
-        22 characters TabaPay AccountID.
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
 
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
 
-        Use your <<glossary:Settlement Account ID>> here on all *push* transactions.'
-    transactionRTPDeleteResponse:
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    mobilePay:
       type: object
+      required:
+      - accountNumber
+      - expirationDate
+      - cryptogram
+      - transactionID
+      - network
+      - type
+      description: A Decrypted [Apple Pay](https://developers.tabapay.com/docs/apple-pay) Token
       properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        status:
+        accountNumber:
           type: string
-          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the <<glossary:RTP>> Delete.'
-          example: COMPLETED
-        networkRC:
+          description: Pseudo Payment Card Account Number
+          pattern: ^[0-9]{13,19}$
+        expirationDate:
+          $ref: '#/components/schemas/expirationDateMobilePay'
+        cryptogram:
           type: string
-          description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Reversal Request or of Reversal Response
-          example: '000'
+          format: byte
+          description: Payment Data Cryptogram
+          pattern: ^[A-Za-z0-9_+=/-]{28}$
+        transactionID:
+          type: string
+          format: byte
+          description: Transaction Identifier in Hex
+          pattern: ^[A-Za-z0-9]{64}$
+        eciIndicator:
+          type: string
+          description: '1-digit <<glossary:ECI>> Indicator. Remove any leading `0`s.
+
+
+            For example if received ECI is `05` convert to `5` and populate this field
+
+
+            Usually only present when `network` is `Visa`'
+          pattern: ^[0-9]$
+          example: '5'
+        network:
+          type: string
+          description: 'Card Network.
+
+            - `Visa`
+
+            - `MasterCard`
+
+            - `Discover`
+
+            - `Amex`
+
+            - etc...'
+          pattern: ^[A-Za-z]+$
+          example: Visa
+        type:
+          type: string
+          description: "Card Type. Either\n- `Debit`\n- `Credit`\n- `PrePaid`\n etc..."
+          pattern: ^[A-Za-z]+
+          example: Debit
+    corresponding:
+      type: object
+      description: 'Corresponding Transaction Information
+
+
+        For a <<glossary:push>> transaction, this would be the corresponding *pull* transaction.
+
+        For a <<glossary:pull>> transaction, this would be the corresponding *push* transaction.
+
+
+        *Optional.* Incompatible with `correspondingID`.'
+      required:
+      - name
+      properties:
+        ofacValue:
+          type: string
+          description: Sender `ofacValue`. Received from [Query OFAC](https://developers.tabapay.com/reference/ofacquery#/) in response.
+          example: 7nGfHHedKNelaw
+        name:
+          type: object
+          required:
+          - first
+          properties:
+            first:
+              type: string
+              description: First Name
+              pattern: ^[ a-zA-Z0-9_-]+$
+            last:
+              type: string
+              description: Last Name
+              pattern: ^[ a-zA-Z0-9_-]+$
+        address:
+          type: object
+          properties:
+            line:
+              type: string
+              description: Sender Address Line
+              pattern: ^[ a-zA-Z0-9._-]+$
+            city:
+              type: string
+              description: Sender City
+              pattern: ^[ a-zA-Z0-9_-]+$
+            state:
+              type: string
+              description: 'State Code
+
+
+                [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).
+
+
+                Note: Visa will reject any transaction that sends a [US-Territory Code](https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States#Inhabited_territories) and country code `840`'
+              pattern: ^[ a-zA-Z0-9_-]+$
+            zipcode:
+              type: string
+              description: 'Zip Code
+
+
+                If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+                If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+                Zip codes from other countries will not be checked.'
+              pattern: ^[ a-zA-Z0-9_-]+$
+            country:
+              type: string
+              description: '[Country Code](https://developers.tabapay.com/reference/country-codes)
+
+
+                *Optional. Default is `840`*'
+              pattern: ^[0-9]{3}$
+              example: '840'
+        accountNumber:
+          type: string
+          pattern: ^[0-9]{4,17}$
+          description: Sender Account Number
+        sourceOfFunds:
+          type: string
+          pattern: ^[A-Za-z ]{1,25}$
+          description: 'Sender [Source of Funds](https://developers.tabapay.com/docs/source-of-funds#/). Valid Values Include:
+
+            - `Debit Card`
+
+            - `Prepaid Card`
+
+            - `Credit Card`
+
+            - `Cash`
+
+            - `Deposit Account`
+
+            - `Credit Account`
+
+            - `Mobile Money Account`'
+        dateOfBirth:
+          type: string
+          description: 'Date of birth with the format: YYYYMMDD. Sender must be at least 18 years old.'
+          example: '19910503'
         networkID:
           type: string
-          description: 35-character Network ID of Reversal Request or of Reversal Response
-        reimbursement:
-          type: object
-          description: 'Reimbursement *object*
-
-
-            *Only present if using `?response` and sending a credit transfer for reimbursement*'
-          properties:
-            networkRC:
-              type: string
-              description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Credit Transfer (the reimbursement)
-              example: '000'
-            networkID:
-              type: string
-              description: 35-character Network ID of Credit Transfer (the reimbursement)
+          description: Network ID of the preceding `pull` transaction (the Account Funding Transaction (AFT) that will fund a subsequent `push` transaction).
+          example: '123456789012345'
+    expirationDateMobilePay:
+      type: string
+      pattern: ^[0-9]{6}$
+      description: "\nExpiration Date in YYYYMM.\n\n Note: Convert YYMMDD format to YYYYMM."
     createTransaction:
       type: object
       required:
@@ -1972,6 +1473,355 @@ components:
           $ref: '#/components/schemas/softDescriptor'
         location:
           $ref: '#/components/schemas/location'
+    destinationAccount:
+      type: object
+      required:
+      - owner
+      description: '<<glossary:Destination Account>> Information.
+
+
+        Exclusively use `destinationAccount` or `destinationAccountID`. Can only be used on *push* transactions.
+
+
+        Incompatible with `destinationAccountID`.'
+      properties:
+        card:
+          type: object
+          description: 'Payment Card Data.
+
+
+            Incompatible with `bank`. Exclusively use: `card` *OR* `bank`.'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: '<<glossary:Payment Card Not Encrypted>> A Primary Account Number (PAN/Card Number)
+
+
+                Compatible *only* with `expirationDate` and nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: '<<glossary:Payment Card Not Encrypted>> Expiration Date in YYYYMM
+
+
+                Compatible *only* with `accountNumber` and nothing else.'
+            securityCode:
+              type: string
+              pattern: ^[0-9]{3,4}$
+              description: '<<glossary:Payment Card Not Encrypted>> <<glossary:Security Code>>.
+
+
+                Compatible *only* with `accountNumber` and `expirationDate`, nothing else.'
+            keyID:
+              $ref: '#/components/schemas/keyID'
+            data:
+              $ref: '#/components/schemas/data'
+            token:
+              $ref: '#/components/schemas/tokeniFrame'
+            device:
+              type: object
+              description: 'Card Data: from a [secure device](https://developers.tabapay.com/docs/card-present-transactions)
+
+
+                Incompatible with any other `card` object(s) or field(s)'
+              required:
+              - id
+              - blob
+              properties:
+                id:
+                  type: string
+                  description: A TabaPay-assigned device ID
+                blob:
+                  $ref: '#/components/schemas/blob'
+            processor:
+              $ref: '#/components/schemas/processor'
+        bank:
+          type: object
+          description: 'Bank Account Data
+
+
+            *Choose either* `bank` *or* `card`. *Do not include both, or leave both out.*'
+          required:
+          - routingNumber
+          - accountNumber
+          - accountType
+          properties:
+            routingNumber:
+              type: string
+              pattern: ^[0-9]{9}$
+              description: '9-digit [Routing Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number). TabaPay performs [check-digit validations](https://en.wikipedia.org/w/index.php?title=ABA_routing_transit_number&section=7#Check_digit); no other validations are done.
+
+
+                Conditionally Required. Required if choosing `accountNumber` and `routingNumber`*'
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{4,17}$
+              description: 'Bank Account Number.
+
+
+                *Required if choosing `bank`*'
+            accountType:
+              type: string
+              pattern: ^[CSABL]$
+              description: 'Bank Account Type:
+
+                - `C` Checking
+
+                - `S` Saving
+
+
+                No validations are done to match `accountNumber` to `accountType`.
+
+
+                *Required if choosing `bank`'
+        link:
+          type: object
+          description: 'A tokenized form of payment details.
+
+
+            *Required if choosing `bank`*'
+          properties:
+            name:
+              type: string
+              description: 'The name of the `link` provider. Currently, only valid values are:
+
+                - [`Plaid`](https://plaid.com/docs/)'
+            token:
+              type: string
+              description: 'A tokenized value of routing number, account number, and account type.
+
+                - `Plaid` - [Processor Token](https://plaid.com/docs/api/processors/#processortokencreate)'
+        tag:
+          type: object
+          description: Payment tag
+          properties:
+            network:
+              type: string
+              description: "The network of the tag. \nSupported Networks: \n - `Visa`"
+              example: Visa
+            name:
+              type: string
+              description: 'Tag Name
+
+                - For `Visa`, you would provide the payname.'
+              example: +b2cbrian.paypal
+        owner:
+          $ref: '#/components/schemas/owner'
+    networkRC:
+      type: string
+      description: 2-3 character [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)
+      example: '00'
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    transactionRTPDeleteRequest:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        status:
+          type: string
+          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the RTP Delete.'
+          example: COMPLETED
+        networkRC:
+          type: string
+          description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Reversal Request or of Reversal Response
+          example: '000'
+        networkID:
+          type: string
+          description: 35-character Network ID of Reversal Request or of Reversal Response
+    deleteRTPTransaction:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: 'Partial Reversal Amount. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+
+
+            *Optional. Use is only allowed if using query string `?response`. If omitted, the reversal will be for the original amount.'
+          pattern: ^[0-9]*.?[0-9]{0,4}$
+        fee:
+          type: string
+          description: 'The fee the participant charges for returning the funds. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+
+
+            *Exclusively compatible with query string `response`. Optional, omit if no fee is incurred.'
+          pattern: ^[0-9]*.?[0-9]{0,4}$
+        reasonCode:
+          type: string
+          description: See valid Reason Codes for [`?request`](/reference/ach-rtp#rtprequest) and [`?response`](/reference/ach-rtp#/rtpresponse)
+          pattern: ^[A-Z0-9]{4}
+        network:
+          type: string
+          description: 'The payment-rails used to reimburse the original credit transfer
+
+
+            Acceptable values:
+
+            - `R`: RTP
+
+            - `A`: ACH Payment
+
+            - `W`: FedWire
+
+            - `C`: CHIPS
+
+
+            *Exclusively compatible with query string `response`. Required if `reasonCode` is `ACTC`, otherwise omit. If `network` is `R` (<<glossary:RTP>>), a credit transfer will be sent to reimburse the original transaction.'
+          pattern: ^[RAWC]$
+        reversalID:
+          type: string
+          description: 'The unique identifier of the transaction used to return the funds. Acceptable values:
+
+            - An **ACH** Trace Number
+
+            - A **FedWire** IMAD
+
+            - A **CHIPS** System Sequence Number (SSN)
+
+
+            *Exclusively compatible with query string `response`. Required if `reasonCode` is `ACTC` and `network` is `W`, `A`, or `C`, omit otherwise.'
+    transactionRetrieveResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        referenceID:
+          $ref: '#/components/schemas/referenceID'
+        network:
+          type: string
+          description: '[Network](https://developers.tabapay.com/reference/networks#/)'
+          example: Visa
+        networkRC:
+          $ref: '#/components/schemas/networkRC'
+        status:
+          type: string
+          description: '[Resource Status](https://developers.tabapay.com/reference/resource-status#/)'
+          example: COMPLETED
+        originally:
+          type: string
+          description: Original [Resource Status](https://developers.tabapay.com/reference/resource-status#/)
+          example: COMPLETED
+        amount:
+          type: string
+          description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+          pattern: ^[0-9]*.?[0-9]{0,4}$
+        amountUSD:
+          type: string
+          description: 'Amount in USD if `currency` is not `840`.
+
+
+            See how to [properly format an amount](/reference/data#how-to-specify-an-amount-valuee).'
+          pattern: ^[0-9]*.[0-9]{0,2}$
+        fees:
+          type: object
+          description: Estimated Fees
+          required:
+          - interchange
+          - network
+          - tabapay
+          properties:
+            interchange:
+              type: string
+              description: Interchange Fees
+            network:
+              type: string
+              description: Network Fees
+            tabapay:
+              type: string
+              description: TabaPay Fees
+        reversalStatus:
+          type: string
+          description: Reversal [Status](https://developers.tabapay.com/reference/resource-status#/)
+          example: REVERSED
+        reversal:
+          type: object
+          description: Reversal
+          properties:
+            networkRC:
+              type: string
+              description: 'Void
+
+
+                [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)'
+              example: '00'
+            networkRC2:
+              type: string
+              description: 'Refund after failed Void
+
+
+                [Network Response Code](https://developers.tabapay.com/reference/iso-network-codes#/)
+
+
+                Present if Dual-Message Network'
+              example: '00'
+            error:
+              type: string
+              description: Internal Error Code. 1-8 characters.
+            reversalAmount:
+              type: string
+              description: Amount of the partial reversal. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+              example: '0.06'
+    name:
+      type: object
+      description: 'Name
+
+
+        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
+
+
+        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
+      properties:
+        company:
+          type: string
+          description: 'Company Name
+
+
+            Incompatible with any other `name` field.'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        first:
+          type: string
+          description: 'First Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        middle:
+          type: string
+          description: 'Middle Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        last:
+          type: string
+          description: 'Last Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        suffix:
+          type: string
+          description: 'Suffix
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+    correspondingID:
+      type: string
+      description: 'Optional <<glossary:Corresponding Transaction ID>>
+
+
+        Incompatible with `corresponding` object.'
     createTransactionResponse:
       type: object
       properties:
@@ -2094,14 +1944,7 @@ components:
               type: string
               description: '[Payment Account Reference](https://developers.tabapay.com/docs/payment-account-reference-par#/)'
               example: V0010013022073812195104908149
-    ofacValue:
-      type: string
-      description: 'OFAC Value from [Query OFAC](https://developers.tabapay.com/reference/ofacquery#/)
-
-
-        *Optional*'
-      pattern: ^[a-zA-Z0-9_-]+$
-    transactionReversed:
+    transactionCaptureResponse:
       type: object
       properties:
         SC:
@@ -2110,43 +1953,122 @@ components:
           $ref: '#/components/schemas/EC'
         status:
           type: string
-          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the reversal.'
+          description: '[Resource Status](https://developers.tabapay.com/reference/resource-status#/)'
           example: COMPLETED
-        reversal:
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    transactionID:
+      type: string
+      description: 22 character Transaction ID
+    destinationAccountID:
+      type: string
+      description: '<<glossary:Destination Account ID>>
+
+
+        22 characters TabaPay AccountID.
+
+
+        Use your <<glossary:Settlement Account ID>> here on all *pull* transactions.'
+    purposeOfPayment:
+      type: string
+      description: '[Code](https://developers.tabapay.com/docs/purpose-of-payment#/) describing the purpose of payment
+
+
+        *Conditional. May be required, dependent on the country of the issuing BIN*'
+      pattern: ^[a-zA-Z0-9_ -]$
+    amount:
+      type: string
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
+    achOptions:
+      type: string
+      description: "ACH Options\n- `R` <<glossary:RTP>>\n- `N` Next Day\n- `S` Same Day\n\n*Required for <<glossary:RTP>> or <<glossary:ACH>>, else optional.* \n\n Request to enable ACH or RTP at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      pattern: ^[RNS]$
+    deleteTransaction:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
+
+
+            *Optional. Default is `840`*'
+          pattern: ^[0-9]{3}$
+          example: '840'
+        amount:
+          type: string
+          description: 'Partial Reversal Amount. See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+
+
+            If `amount` is omitted, the reversal request will be for the original transaction amount.
+
+
+            *Optional*'
+          pattern: ^[0-9]*.?[0-9]{0,4}$
+    keyID:
+      type: string
+      pattern: ^[a-zA-Z0-9_-]{22}$
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        22 character KeyID. Ensure the RSA key you''re using to encrypt the card data is consistent with this keyID
+
+
+        Compatible with `data` and nothing else.'
+    transactionRTPDeleteResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        status:
+          type: string
+          description: '[Status](https://developers.tabapay.com/reference/resource-status#/) of the <<glossary:RTP>> Delete.'
+          example: COMPLETED
+        networkRC:
+          type: string
+          description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Reversal Request or of Reversal Response
+          example: '000'
+        networkID:
+          type: string
+          description: 35-character Network ID of Reversal Request or of Reversal Response
+        reimbursement:
           type: object
-          description: Reversal *object*
+          description: 'Reimbursement *object*
+
+
+            *Only present if using `?response` and sending a credit transfer for reimbursement*'
           properties:
             networkRC:
               type: string
-              description: 2-3 character [Network Response Code](/reference/iso-network-codes) of Void or first attempt for a reversal.
-              example: '00'
-            networkRC2:
+              description: 3-character [Network Response Code](https://developers.tabapay.com/reference/rtp-response-codes#/) of Credit Transfer (the reimbursement)
+              example: '000'
+            networkID:
               type: string
-              description: '`networkRC2`
-
-                2-3 character [Network Response Code](/reference/iso-network-codes) of Refund (after failed void)
-
-
-                *Present if Dual-Message Network*
-
-
-                *Conditionally present if the first reversal attempt fails (and the network supports a second attempt)* '
-              example: '00'
-    zipcode:
+              description: 35-character Network ID of Credit Transfer (the reimbursement)
+    apiResponseSCECTxnIDStatus:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        transactionID:
+          $ref: '#/components/schemas/transactionID'
+        status:
+          type: string
+    data:
       type: string
-      description: 'Zip Code
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
 
 
-        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
 
-        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
 
-        Zip codes from other countries will not be checked.'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    expirationDateMobilePay:
-      type: string
-      pattern: ^[0-9]{6}$
-      description: "\nExpiration Date in YYYYMM.\n\n Note: Convert YYMMDD format to YYYYMM."
+        Compatible with `keyID` and nothing else'
     location:
       type: object
       description: 'Location of Origination of Transaction
@@ -2182,33 +2104,6 @@ components:
               $ref: '#/components/schemas/zipcode'
             country:
               $ref: '#/components/schemas/country'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    state:
-      type: string
-      description: 'State Code
-
-
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    apiResponseSCECStatus:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        status:
-          type: string
-    country:
-      type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
     memo:
       type: string
       description: '1-32 character Memo
@@ -2222,16 +2117,154 @@ components:
 
         Note: `memo` field for convenience fee for is for pull only'
       pattern: ^[a-zA-Z0-9_ -]{1,32}$
-    EM:
+    line2:
       type: string
-      description: Short description of the error if an error occurred.
-    achOptions:
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    networkID:
       type: string
-      description: "ACH Options\n- `R` <<glossary:RTP>>\n- `N` Next Day\n- `S` Same Day\n\n*Required for <<glossary:RTP>> or <<glossary:ACH>>, else optional.* \n\n Request to enable ACH or RTP at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-      pattern: ^[RNS]$
-    achEntryType:
+      description: 'Network TransactionID.
+
+
+        *Not returned by every network.*'
+      example: '123456895258741'
+    line1:
       type: string
-      description: "\nThree Options\n- `CCD` Corporate Credit or Debit \n- `PPD` Prearranged Payment and Deposit \n- `WEB` Website, App, or Mobile Initiated Entry \n\n*Required for ACH, else optional.*"
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    softDescriptor:
+      type: object
+      required:
+      - name
+      - address
+      description: 'Soft Descriptor.
+
+
+        ***Card Network Mandates for Soft Descriptor:*** To avoid fines or to avoid declines, when providing `zipCode` and `state`, please ensure they match i.e. `zipCode` must correspond to the `state` values.
+
+
+        *Optional*'
+      properties:
+        name:
+          type: string
+          description: 'Name.
+
+
+            *To set the company name in ACH transactions, use this field (the first 16 characters will be used).*'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        address:
+          type: object
+          required:
+          - line1
+          - city
+          - state
+          - county
+          - zipcode
+          - country
+          properties:
+            line1:
+              type: string
+              description: Address Line 1
+              pattern: ^[ a-zA-Z0-9._-]+$
+            line2:
+              type: string
+              description: 'Address Line 2
+
+
+                *Optional*'
+              pattern: ^[ a-zA-Z0-9._-]+$
+            city:
+              type: string
+              description: City
+              pattern: ^[ a-zA-Z0-9_-]+$
+            county:
+              type: string
+              description: 3-character County Code
+              pattern: ^[ a-zA-Z0-9_-]{3}$
+            state:
+              type: string
+              description: 'State Code
+
+
+                [State Code](https://developers.tabapay.com/reference/us-state-codes) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+              pattern: ^[ a-zA-Z0-9_-]+$
+            zipcode:
+              type: string
+              description: 'Zip Code
+
+
+                If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+                If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+                Zip codes from other countries will not be checked.'
+              pattern: ^[ a-zA-Z0-9_-]+$
+            country:
+              type: string
+              description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+                *Optional. Default is `840`*'
+              pattern: ^[0-9]{3}$
+              example: '840'
+        phone:
+          type: object
+          required:
+          - number
+          description: Phone *object*
+          properties:
+            countryCode:
+              type: string
+              description: '1-3 digit Country Calling Code
+
+
+                *Optional.* Default is `1`.'
+              pattern: ^[0-9]{3}$
+              example: '1'
+            number:
+              type: string
+              description: 'Phone Number.
+
+
+                For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+              pattern: ^[0-9]{4,14}$
+              example: '5555555555'
+        mcc:
+          type: string
+          description: 'MCC
+
+
+            For American Express Bill Pay Provider program:
+
+            - Merchant''s/Seller''s MCC (4-digits)
+
+
+            *Note: This is not the processing MCC. This is for reporting purposes only (Amex Bill Pay Provider)*'
+        email:
+          type: string
+          description: 'Email Address
+
+
+            For American Express Bill Pay Provider program:
+
+            - Seller Email Address (max of 40 characters)'
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    referenceID:
+      type: string
+      format: string
+      description: 1-15 character unique [referenceID](https://developers.tabapay.com/docs/glossary#reference-id). Used for [Retrieve via ReferenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid) in case of an HTTP timeout, or any scenario where you fail to get a response body. *Not case sensitive*
+      pattern: ^[a-zA-Z0-9_-]{1,15}$
     sourceAccount:
       type: object
       required:
@@ -2307,38 +2340,26 @@ components:
                 - `Plaid` - [Processor Token](https://plaid.com/docs/api/processors/#processortokencreate)'
         owner:
           $ref: '#/components/schemas/owner'
-    correspondingID:
-      type: string
-      description: 'Optional <<glossary:Corresponding Transaction ID>>
-
-
-        Incompatible with `corresponding` object.'
-    line2:
-      type: string
-      description: 'Address Line 2
-
-
-        *Optional*'
-      pattern: ^[ a-zA-Z0-9._-]+$
-    destinationAccountID:
-      type: string
-      description: '<<glossary:Destination Account ID>>
-
-
-        22 characters TabaPay AccountID.
-
-
-        Use your <<glossary:Settlement Account ID>> here on all *pull* transactions.'
-    data:
-      type: string
-      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
-
-
-        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
-
-
-        Compatible with `keyID` and nothing else'
   parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    authorize:
+      name: authorize
+      in: query
+      description: "Note the query string, `?authorize`, will create an authorization only. For `pull` payments. To settle the transaction, you must call [Capture Transaction](/reference/transactioncapture). \n\n Request to enable [Auth & Capture](/docs/overview-of-auth#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
     RTPNetworkID:
       name: RTPNetworkID
       in: path
@@ -2348,13 +2369,13 @@ components:
       explode: false
       schema:
         type: string
-    void:
-      name: void
+    RTPRequest:
+      name: request
       in: query
-      description: 'Use for voiding a transaction. (i.e. if Delete Transaction request is *before* settlement of original *pull* transaction.)<br><br> **Note**: When reversing a transaction with status: `AUTHOIRZED`, you must use the `?void` parameter.
+      description: 'Use if you are sending a Request for Return of Funds (regarding the original RTP-Credit Transfer).
 
 
-        Required to use `void` or `reversal` on every pull transaction DELETE request (non RTP).'
+        Must use `request` or `response`'
       required: false
       allowEmptyValue: true
       schema:
@@ -2374,38 +2395,19 @@ components:
         type: string
         minLength: 0
         maxLength: 0
-    RTPRequest:
-      name: request
+    void:
+      name: void
       in: query
-      description: 'Use if you are sending a Request for Return of Funds (regarding the original RTP-Credit Transfer).
+      description: 'Use for voiding a transaction. (i.e. if Delete Transaction request is *before* settlement of original *pull* transaction.)<br><br> **Note**: When reversing a transaction with status: `AUTHOIRZED`, you must use the `?void` parameter.
 
 
-        Must use `request` or `response`'
+        Required to use `void` or `reversal` on every pull transaction DELETE request (non RTP).'
       required: false
       allowEmptyValue: true
       schema:
         type: string
         minLength: 0
         maxLength: 0
-    authorize:
-      name: authorize
-      in: query
-      description: "Note the query string, `?authorize`, will create an authorization only. For `pull` payments. To settle the transaction, you must call [Capture Transaction](/reference/transactioncapture). \n\n Request to enable [Auth & Capture](/docs/overview-of-auth#/) at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-      required: false
-      allowEmptyValue: true
-      schema:
-        type: string
-        minLength: 0
-        maxLength: 0
-    TransactionID:
-      name: TransactionID
-      in: path
-      description: 22-character Transaction ID
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
     reversal:
       name: reversal
       in: query
@@ -2422,10 +2424,10 @@ components:
         type: string
         minLength: 0
         maxLength: 0
-    ClientID:
-      name: ClientID
+    TransactionID:
+      name: TransactionID
       in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      description: 22-character Transaction ID
       required: true
       style: simple
       explode: false

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure Client API
+  title: TabaPay Client API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -90,36 +90,6 @@ paths:
                 EM: Locked
 components:
   schemas:
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    clientLocked:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    networkLimits:
-      type: object
-      description: 'List of Network Limits.
-
-        Network is listed only if if different from above limits'
-      properties:
-        network:
-          type: string
-          description: Network Name
-        transaction:
-          type: string
-          description: Network Transaction Limit
-        daily:
-          type: string
-          description: '*Approximate* Network Daily Limit'
     clientRetrieveResponse:
       type: object
       properties:
@@ -203,9 +173,9 @@ components:
 
 
                     Network is listed only if different from above Push Limits'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
     clientNotFound:
       type: object
       properties:
@@ -215,6 +185,36 @@ components:
           $ref: '#/components/schemas/EC'
         EM:
           $ref: '#/components/schemas/EM'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    clientLocked:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    networkLimits:
+      type: object
+      description: 'List of Network Limits.
+
+        Network is listed only if if different from above limits'
+      properties:
+        network:
+          type: string
+          description: Network Name
+        transaction:
+          type: string
+          description: Network Transaction Limit
+        daily:
+          type: string
+          description: '*Approximate* Network Daily Limit'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
   securitySchemes:
     bearerAuth:
       type: http

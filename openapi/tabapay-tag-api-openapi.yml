@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure Tag API
+  title: TabaPay Tag API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -74,9 +74,9 @@ paths:
                       last: Gamgee
 components:
   schemas:
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryTagNameResponse:
       type: object
       properties:
@@ -104,6 +104,9 @@ components:
               type: string
               description: Last Name
               example: Gamkee
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     queryTagName:
       type: object
       required:
@@ -122,9 +125,6 @@ components:
           type: string
           description: Last 4 digits of the tag owner's phone number.
           example: '4343'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
   parameters:
     ClientID:
       name: ClientID

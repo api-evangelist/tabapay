@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TabaPay APIs 3D Secure OFAC API
+  title: TabaPay OFAC API
   description: TabaPay Resource and Service Operations
   version: 1.0.0
   license:
@@ -76,6 +76,16 @@ paths:
                 EC: InternalErrorCode
 components:
   schemas:
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryOfac:
       type: object
       required:
@@ -113,16 +123,6 @@ components:
     EC:
       type: string
       description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryOfacResponse:
       type: object
       properties:
