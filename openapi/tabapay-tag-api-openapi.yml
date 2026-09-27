@@ -74,9 +74,30 @@ paths:
                       last: Gamgee
 components:
   schemas:
+    queryTagName:
+      type: object
+      required:
+      - network
+      - tagName
+      properties:
+        network:
+          type: string
+          description: "The network of the tag. \nSupported Networks: \n - `Visa`"
+          example: Visa
+        tagName:
+          type: string
+          description: "The name of the tag.\n - For Visa, this would be the `payname`"
+          example: +sammy.wallet
+        phoneLast4:
+          type: string
+          description: Last 4 digits of the tag owner's phone number.
+          example: '4343'
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     queryTagNameResponse:
       type: object
       properties:
@@ -104,27 +125,6 @@ components:
               type: string
               description: Last Name
               example: Gamkee
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    queryTagName:
-      type: object
-      required:
-      - network
-      - tagName
-      properties:
-        network:
-          type: string
-          description: "The network of the tag. \nSupported Networks: \n - `Visa`"
-          example: Visa
-        tagName:
-          type: string
-          description: "The name of the tag.\n - For Visa, this would be the `payname`"
-          example: +sammy.wallet
-        phoneLast4:
-          type: string
-          description: Last 4 digits of the tag owner's phone number.
-          example: '4343'
   parameters:
     ClientID:
       name: ClientID

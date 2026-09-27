@@ -77,9 +77,10 @@ paths:
                     EM: accounts.destinationAccount.bank.routingNumber
 components:
   schemas:
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
     queryBank:
       type: object
       required:
@@ -87,10 +88,9 @@ components:
       properties:
         routingNumber:
           $ref: '#/components/schemas/routingNumber'
-    routingNumber:
-      type: string
-      pattern: ^[0-9]{9}$
-      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryBankResponse:
       type: object
       properties:

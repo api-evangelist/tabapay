@@ -90,6 +90,12 @@ paths:
                 EM: Locked
 components:
   schemas:
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     clientRetrieveResponse:
       type: object
       properties:
@@ -173,21 +179,6 @@ components:
 
 
                     Network is listed only if different from above Push Limits'
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
-    clientNotFound:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     clientLocked:
       type: object
       properties:
@@ -212,9 +203,18 @@ components:
         daily:
           type: string
           description: '*Approximate* Network Daily Limit'
-    EC:
+    clientNotFound:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    EM:
       type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+      description: Short description of the error if an error occurred.
   securitySchemes:
     bearerAuth:
       type: http

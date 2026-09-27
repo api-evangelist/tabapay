@@ -109,7 +109,67 @@ paths:
               schema:
                 $ref: '#/components/schemas/apiResponseSCECEM'
 components:
+  parameters:
+    LedgerID:
+      name: LedgerID
+      in: path
+      description: 22-character LedgerID returned from Create Ledger.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ReferenceIDQuery:
+      name: referenceID
+      in: query
+      description: Reference ID fallback lookup.
+      required: false
+      schema:
+        type: string
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   schemas:
+    ledgerCreate:
+      type: object
+      required:
+      - referenceID
+      - userID
+      - bank
+      - type
+      - currency
+      properties:
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+        bank:
+          type: string
+          description: Ledger backing bank identifier
+        type:
+          type: string
+          enum:
+          - BalanceHolding
+          - Passthrough
+        currency:
+          $ref: '#/components/schemas/tpISO4217Numeric'
+    createLedgerResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        ledgerID:
+          $ref: '#/components/schemas/tpLedgerID'
     apiResponseSCEC:
       type: object
       properties:
@@ -117,22 +177,12 @@ components:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-    tpReferenceID:
-      type: string
-      description: Client-defined reference identifier
-      minLength: 1
-      maxLength: 15
-      pattern: ^[A-Za-z0-9._-]+$
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    tpLedgerID:
+    EC:
       type: string
-      description: TabaPay ledger identifier
-      pattern: ^[A-Za-z0-9]{22}$
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     retrieveLedgerResponse:
       type: object
       properties:
@@ -176,41 +226,6 @@ components:
         updated:
           type: string
           format: date-time
-    tpISO4217Numeric:
-      type: string
-      description: ISO-4217 numeric currency code
-      pattern: ^[0-9]{3}$
-      example: '840'
-    tpUserID:
-      type: string
-      description: TabaPay user identifier
-      pattern: ^[A-Za-z0-9]{22}$
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    ledgerCreate:
-      type: object
-      required:
-      - referenceID
-      - userID
-      - bank
-      - type
-      - currency
-      properties:
-        referenceID:
-          $ref: '#/components/schemas/tpReferenceID'
-        userID:
-          $ref: '#/components/schemas/tpUserID'
-        bank:
-          type: string
-          description: Ledger backing bank identifier
-        type:
-          type: string
-          enum:
-          - BalanceHolding
-          - Passthrough
-        currency:
-          $ref: '#/components/schemas/tpISO4217Numeric'
     apiResponseSCECEM:
       type: object
       properties:
@@ -220,43 +235,28 @@ components:
           $ref: '#/components/schemas/EC'
         EM:
           $ref: '#/components/schemas/EM'
-    createLedgerResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        ledgerID:
-          $ref: '#/components/schemas/tpLedgerID'
-  parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ReferenceIDQuery:
-      name: referenceID
-      in: query
-      description: Reference ID fallback lookup.
-      required: false
-      schema:
-        type: string
-    LedgerID:
-      name: LedgerID
-      in: path
-      description: 22-character LedgerID returned from Create Ledger.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
+    tpISO4217Numeric:
+      type: string
+      description: ISO-4217 numeric currency code
+      pattern: ^[0-9]{3}$
+      example: '840'
+    tpUserID:
+      type: string
+      description: TabaPay user identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    tpLedgerID:
+      type: string
+      description: TabaPay ledger identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    tpReferenceID:
+      type: string
+      description: Client-defined reference identifier
+      minLength: 1
+      maxLength: 15
+      pattern: ^[A-Za-z0-9._-]+$
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
   securitySchemes:
     bearerAuth:
       type: http

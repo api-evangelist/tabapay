@@ -50,6 +50,29 @@ paths:
                 link: https://link/?ID=TabaPay_OTPPID_22Chars
 components:
   schemas:
+    amount:
+      type: string
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
     transactionRequestResponse:
       type: object
       properties:
@@ -77,25 +100,10 @@ components:
 
 
             Present if `SC` is `200`.'
-    zipcode:
+    line1:
       type: string
-      description: 'Zip Code
-
-
-        If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-        Zip codes from other countries will not be checked.'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    country:
-      type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
     line2:
       type: string
       description: 'Address Line 2
@@ -103,14 +111,17 @@ components:
 
         *Optional*'
       pattern: ^[ a-zA-Z0-9._-]+$
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
     city:
       type: string
       description: City
       pattern: ^[ a-zA-Z0-9_-]+$
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
     createTransactionRequest:
       type: object
       required:
@@ -198,17 +209,6 @@ components:
                 value:
                   type: string
                   description: URL String
-    amount:
-      type: string
-      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-      pattern: ^[0-9]*.?[0-9]{0,4}$
-    state:
-      type: string
-      description: 'State Code
-
-
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
   parameters:
     ClientID:
       name: ClientID
