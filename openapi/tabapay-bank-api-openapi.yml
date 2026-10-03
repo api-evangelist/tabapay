@@ -76,18 +76,17 @@ paths:
                     EC: InternalErrorCode
                     EM: accounts.destinationAccount.bank.routingNumber
 components:
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   schemas:
-    routingNumber:
-      type: string
-      pattern: ^[0-9]{9}$
-      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
-    queryBank:
-      type: object
-      required:
-      - routingNumber
-      properties:
-        routingNumber:
-          $ref: '#/components/schemas/routingNumber'
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
@@ -125,16 +124,17 @@ components:
     EC:
       type: string
       description: Internal Error Code. This is used to help TabaPay team members trace an error.
-  parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
+    queryBank:
+      type: object
+      required:
+      - routingNumber
+      properties:
+        routingNumber:
+          $ref: '#/components/schemas/routingNumber'
   securitySchemes:
     bearerAuth:
       type: http

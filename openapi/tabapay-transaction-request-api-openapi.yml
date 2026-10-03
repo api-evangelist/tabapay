@@ -50,18 +50,6 @@ paths:
                 link: https://link/?ID=TabaPay_OTPPID_22Chars
 components:
   schemas:
-    amount:
-      type: string
-      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-      pattern: ^[0-9]*.?[0-9]{0,4}$
-    country:
-      type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
     zipcode:
       type: string
       description: 'Zip Code
@@ -100,17 +88,6 @@ components:
 
 
             Present if `SC` is `200`.'
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    line2:
-      type: string
-      description: 'Address Line 2
-
-
-        *Optional*'
-      pattern: ^[ a-zA-Z0-9._-]+$
     state:
       type: string
       description: 'State Code
@@ -118,10 +95,29 @@ components:
 
         [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
       pattern: ^[ a-zA-Z0-9_-]+$
-    city:
+    amount:
       type: string
-      description: City
-      pattern: ^[ a-zA-Z0-9_-]+$
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
     createTransactionRequest:
       type: object
       required:
@@ -209,6 +205,10 @@ components:
                 value:
                   type: string
                   description: URL String
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
   parameters:
     ClientID:
       name: ClientID

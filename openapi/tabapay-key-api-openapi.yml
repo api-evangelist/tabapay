@@ -151,74 +151,6 @@ paths:
                     expiration: '2017-04-03T00:00:00Z'
 components:
   schemas:
-    createKey:
-      type: object
-      required:
-      - format
-      pattern: (?:ASN.1|Raw)
-      properties:
-        format:
-          type: string
-          description: 'Public Key Response Format, either:
-
-
-            - `ASN.1`
-
-            - `Raw` (Modulus and Public Exponent)'
-          example: ASN.1
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    retrieveKeyResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        key:
-          type: string
-          description: 'ASN.1 key, encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `ASN.1`*'
-        keyModulus:
-          type: string
-          description: 'Raw Key Modulus. Encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `Raw`*'
-        keyExponent:
-          type: string
-          description: 'Raw Key Public Exponent. Encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `Raw`*'
-        expiration:
-          type: string
-          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
-          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
     createKeyResponse:
       type: object
       properties:
@@ -259,19 +191,78 @@ components:
         notices:
           type: string
           description: Important Notices
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     EM:
       type: string
       description: Short description of the error if an error occurred.
+    retrieveKeyResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        key:
+          type: string
+          description: 'ASN.1 key, encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `ASN.1`*'
+        keyModulus:
+          type: string
+          description: 'Raw Key Modulus. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        keyExponent:
+          type: string
+          description: 'Raw Key Public Exponent. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        expiration:
+          type: string
+          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
+          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
+    createKey:
+      type: object
+      required:
+      - format
+      pattern: (?:ASN.1|Raw)
+      properties:
+        format:
+          type: string
+          description: 'Public Key Response Format, either:
+
+
+            - `ASN.1`
+
+            - `Raw` (Modulus and Public Exponent)'
+          example: ASN.1
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
   parameters:
-    KeyID:
-      name: KeyID
-      in: path
-      description: Identification for the RSA key
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
     ClientID:
       name: ClientID
       in: path
@@ -290,6 +281,15 @@ components:
       schema:
         type: string
         pattern: ^(?:ASN.1|Raw)$
+    KeyID:
+      name: KeyID
+      in: path
+      description: Identification for the RSA key
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

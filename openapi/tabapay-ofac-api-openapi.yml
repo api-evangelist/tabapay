@@ -75,17 +75,17 @@ paths:
                 SC: 207
                 EC: InternalErrorCode
 components:
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   schemas:
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryOfacResponse:
       type: object
       properties:
@@ -101,9 +101,9 @@ components:
           type: string
           description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
           example: 7nGfHHedKNelaw
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryOfac:
       type: object
       required:
@@ -138,16 +138,16 @@ components:
         country:
           type: string
           description: '[3-digit Country Code](https://developers.tabapay.com/reference/country-codes#/)'
-  parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
   securitySchemes:
     bearerAuth:
       type: http

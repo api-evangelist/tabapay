@@ -207,14 +207,130 @@ paths:
                 $ref: '#/components/schemas/createUserResponse'
 components:
   schemas:
-    userName:
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    businessOwner:
+      type: object
+      description: Additional individuals that own at least 25% of the entity.
+      required:
+      - firstName
+      - lastName
+      - dateOfBirth
+      properties:
+        firstName:
+          type: string
+          description: First name
+        middleName:
+          type: string
+          description: Middle name
+        lastName:
+          type: string
+          description: Last name
+        dateOfBirth:
+          type: string
+          description: 'Date of birth with the format: YYYYMMDD. Owner must be at least 18 years old.'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    createUserResponse:
       type: object
       properties:
-        individual:
-          $ref: '#/components/schemas/userNameIndividual'
-        company:
-          $ref: '#/components/schemas/userNameCompany'
-      description: For type NaturalPerson use name.individual; otherwise use name.company.
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        userID:
+          $ref: '#/components/schemas/tpUserID'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    userNameIndividual:
+      type: object
+      required:
+      - first
+      - last
+      properties:
+        first:
+          type: string
+          description: First name
+        middle:
+          type: string
+          description: Middle name
+        last:
+          type: string
+          description: Last name
+        suffix:
+          type: string
+          maxLength: 50
+    tpUserID:
+      type: string
+      description: TabaPay user identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    zipcode:
+      type: string
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    userIdentification:
+      type: object
+      required:
+      - type
+      - number
+      properties:
+        type:
+          type: string
+          enum:
+          - SSN
+          - GovernmentID
+          - Passport
+          - EIN
+        number:
+          type: string
+          description: A unique ID number issued by a government or organization.
     retrieveUserResponse:
       type: object
       properties:
@@ -261,19 +377,59 @@ components:
         kyc:
           type: string
           description: "Lists the status of the verification request\n\nValid Values:\n - CREATED\n - PENDING\n - COMPLETED\n - FAILED\n - UNKNOWN"
-    apiResponseSCECEM:
+    address:
       type: object
+      description: Address
+      required:
+      - line1
+      - city
+      - state
+      - zipcode
       properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    tpUserID:
+        line1:
+          $ref: '#/components/schemas/line1'
+        line2:
+          $ref: '#/components/schemas/line2'
+        city:
+          $ref: '#/components/schemas/city'
+        state:
+          $ref: '#/components/schemas/state'
+        zipcode:
+          $ref: '#/components/schemas/zipcode'
+        country:
+          $ref: '#/components/schemas/country'
+    line1:
       type: string
-      description: TabaPay user identifier
-      pattern: ^[A-Za-z0-9]{22}$
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    phone:
+      type: object
+      required:
+      - number
+      description: Phone *object*
+      properties:
+        countryCode:
+          type: string
+          description: '1-3 digit Country Calling Code
+
+
+            *Optional.* Default is `1`.'
+          pattern: ^[0-9]{3}$
+          example: '1'
+        number:
+          type: string
+          description: 'Phone Number.
+
+
+            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+          pattern: ^[0-9]{4,14}$
+          example: '5555555555'
+    tpReferenceID:
+      type: string
+      description: Client-defined reference identifier
+      minLength: 1
+      maxLength: 15
+      pattern: ^[A-Za-z0-9._-]+$
     userNameCompany:
       type: object
       required:
@@ -285,24 +441,63 @@ components:
         dba:
           type: string
           description: Doing Business As (DBA)
-    userNameIndividual:
+    userName:
       type: object
-      required:
-      - first
-      - last
       properties:
-        first:
+        individual:
+          $ref: '#/components/schemas/userNameIndividual'
+        company:
+          $ref: '#/components/schemas/userNameCompany'
+      description: For type NaturalPerson use name.individual; otherwise use name.company.
+    userUpdate:
+      type: object
+      properties:
+        referenceID:
+          $ref: '#/components/schemas/tpReferenceID'
+        type:
           type: string
-          description: First name
-        middle:
+          enum:
+          - LLC
+          - LLP
+          - C-Corp
+          - S-Corp
+          - SoleProprietor
+          - Nonprofit
+          - Charitable
+          - NaturalPerson
+          - Other
+        name:
+          $ref: '#/components/schemas/userName'
+        email:
           type: string
-          description: Middle name
-        last:
-          type: string
-          description: Last name
-        suffix:
-          type: string
-          maxLength: 50
+          format: email
+          description: Valid Email Address
+        phone:
+          $ref: '#/components/schemas/phone'
+        address:
+          $ref: '#/components/schemas/address'
+        dateOfBirth:
+          $ref: '#/components/schemas/tpDateYYYYMMDD'
+        dateOfFormation:
+          $ref: '#/components/schemas/tpDateYYYYMMDD'
+        identification:
+          $ref: '#/components/schemas/userIdentification'
+        beneficialOwners:
+          type: object
+          description: beneficialOwner1..beneficialOwner4 objects
+      description: Partial update; only supplied fields are updated.
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    tpDateYYYYMMDD:
+      type: string
+      description: Date in YYYYMMDD format
+      pattern: ^[0-9]{8}$
+      example: '19990131'
     userCreate:
       type: object
       required:
@@ -373,201 +568,6 @@ components:
               - properties:
                   identification:
                     $ref: '#/components/schemas/userIdentification'
-    userIdentification:
-      type: object
-      required:
-      - type
-      - number
-      properties:
-        type:
-          type: string
-          enum:
-          - SSN
-          - GovernmentID
-          - Passport
-          - EIN
-        number:
-          type: string
-          description: A unique ID number issued by a government or organization.
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    country:
-      type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
-    phone:
-      type: object
-      required:
-      - number
-      description: Phone *object*
-      properties:
-        countryCode:
-          type: string
-          description: '1-3 digit Country Calling Code
-
-
-            *Optional.* Default is `1`.'
-          pattern: ^[0-9]{3}$
-          example: '1'
-        number:
-          type: string
-          description: 'Phone Number.
-
-
-            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
-          pattern: ^[0-9]{4,14}$
-          example: '5555555555'
-    userUpdate:
-      type: object
-      properties:
-        referenceID:
-          $ref: '#/components/schemas/tpReferenceID'
-        type:
-          type: string
-          enum:
-          - LLC
-          - LLP
-          - C-Corp
-          - S-Corp
-          - SoleProprietor
-          - Nonprofit
-          - Charitable
-          - NaturalPerson
-          - Other
-        name:
-          $ref: '#/components/schemas/userName'
-        email:
-          type: string
-          format: email
-          description: Valid Email Address
-        phone:
-          $ref: '#/components/schemas/phone'
-        address:
-          $ref: '#/components/schemas/address'
-        dateOfBirth:
-          $ref: '#/components/schemas/tpDateYYYYMMDD'
-        dateOfFormation:
-          $ref: '#/components/schemas/tpDateYYYYMMDD'
-        identification:
-          $ref: '#/components/schemas/userIdentification'
-        beneficialOwners:
-          type: object
-          description: beneficialOwner1..beneficialOwner4 objects
-      description: Partial update; only supplied fields are updated.
-    state:
-      type: string
-      description: 'State Code
-
-
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    address:
-      type: object
-      description: Address
-      required:
-      - line1
-      - city
-      - state
-      - zipcode
-      properties:
-        line1:
-          $ref: '#/components/schemas/line1'
-        line2:
-          $ref: '#/components/schemas/line2'
-        city:
-          $ref: '#/components/schemas/city'
-        state:
-          $ref: '#/components/schemas/state'
-        zipcode:
-          $ref: '#/components/schemas/zipcode'
-        country:
-          $ref: '#/components/schemas/country'
-    zipcode:
-      type: string
-      description: 'Zip Code
-
-
-        If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-        Zip codes from other countries will not be checked.'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    createUserResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        userID:
-          $ref: '#/components/schemas/tpUserID'
-    businessOwner:
-      type: object
-      description: Additional individuals that own at least 25% of the entity.
-      required:
-      - firstName
-      - lastName
-      - dateOfBirth
-      properties:
-        firstName:
-          type: string
-          description: First name
-        middleName:
-          type: string
-          description: Middle name
-        lastName:
-          type: string
-          description: Last name
-        dateOfBirth:
-          type: string
-          description: 'Date of birth with the format: YYYYMMDD. Owner must be at least 18 years old.'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    tpDateYYYYMMDD:
-      type: string
-      description: Date in YYYYMMDD format
-      pattern: ^[0-9]{8}$
-      example: '19990131'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    line2:
-      type: string
-      description: 'Address Line 2
-
-
-        *Optional*'
-      pattern: ^[ a-zA-Z0-9._-]+$
-    city:
-      type: string
-      description: City
-      pattern: ^[ a-zA-Z0-9_-]+$
-    tpReferenceID:
-      type: string
-      description: Client-defined reference identifier
-      minLength: 1
-      maxLength: 15
-      pattern: ^[A-Za-z0-9._-]+$
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
   parameters:
     ReferenceIDQuery:
       name: referenceID

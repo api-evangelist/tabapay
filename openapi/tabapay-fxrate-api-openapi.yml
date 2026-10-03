@@ -62,39 +62,6 @@ paths:
                 EC: InternalErrorCode
 components:
   schemas:
-    queryFXResponse:
-      type: object
-      properties:
-        SC:
-          type: integer
-          description: HTTP Status Code
-        EC:
-          type: string
-          description: 'Internal Error Code.
-
-
-            Present if `SC` is `200`.'
-        convertedAmount:
-          type: string
-          description: "This is the converted amount without markup applied. \nTabaPay will return the payment network rates. Formatting of amounts in the FX API response will be per the payment network rules."
-        conversionRate:
-          type: string
-          description: A Decimal Conversion Rate without markup applied.
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
     queryFXRequest:
       type: object
       required:
@@ -125,9 +92,42 @@ components:
             - `mastercard`
 
             - `bank`'
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     EM:
       type: string
       description: Short description of the error if an error occurred.
+    queryFXResponse:
+      type: object
+      properties:
+        SC:
+          type: integer
+          description: HTTP Status Code
+        EC:
+          type: string
+          description: 'Internal Error Code.
+
+
+            Present if `SC` is `200`.'
+        convertedAmount:
+          type: string
+          description: "This is the converted amount without markup applied. \nTabaPay will return the payment network rates. Formatting of amounts in the FX API response will be per the payment network rules."
+        conversionRate:
+          type: string
+          description: A Decimal Conversion Rate without markup applied.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
   parameters:
     ClientID:
       name: ClientID

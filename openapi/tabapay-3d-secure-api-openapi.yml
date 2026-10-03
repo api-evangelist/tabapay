@@ -247,24 +247,10 @@ paths:
                 EM: Account
 components:
   schemas:
-    screenWidth:
+    productCode:
       type: string
-      description: '*Deprecated*
-
-
-        Screen Width'
-    userAgent:
-      type: string
-      description: '*Deprecated*
-
-
-        User Agent'
-    header:
-      type: string
-      description: '*Deprecated*
-
-
-        Header'
+      pattern: ^(?:PHY|CHA|ACF|QCT|PAL)$
+      description: 3-character [Product Code](lookup#product-code)
     3dsID:
       type: string
       description: 3dsID returned from [3dsinit](https://developers.tabapay.com/reference/3dsinit#/)
@@ -274,7 +260,64 @@ components:
 
 
         Screen Height'
-    apiResponseSCECEM:
+    authenticationIndicator:
+      type: string
+      pattern: ^(?:0[1|2|3|4|5|6])$
+      description: 2-digit [Authentication Indicator](https://developers.tabapay.com/reference/lookup#/authentication-indicator)
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    transactionType:
+      type: string
+      pattern: ^C$
+      description: '`C` is the only [Transaction Type](https://developers.tabapay.com/reference/lookup#/transaction-type) supported.'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    colorDepth:
+      type: string
+      description: '*Deprecated*
+
+
+        Color Depth'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    line2:
+      type: string
+      description: 'Address Line 2
+
+
+        *Optional*'
+      pattern: ^[ a-zA-Z0-9._-]+$
+    3dsauthenticate:
+      type: object
+      required:
+      - 3dsID
+      - jwt
+      properties:
+        3dsID:
+          $ref: '#/components/schemas/3dsID'
+        jwt:
+          type: string
+          description: '[JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)'
+    screenWidth:
+      type: string
+      description: '*Deprecated*
+
+
+        Screen Width'
+    deviceChannel:
+      type: string
+      pattern: ^(?:Browser|SDK)$
+      description: Either `Browser` or `SDK`
+    userAgent:
+      type: string
+      description: '*Deprecated*
+
+
+        User Agent'
+    3dsAuthenticateResponse:
       type: object
       properties:
         SC:
@@ -283,6 +326,79 @@ components:
           $ref: '#/components/schemas/EC'
         EM:
           $ref: '#/components/schemas/EM'
+        actionCode:
+          type: string
+          description: "[Result](/reference/3ds-challenge-results) of the 3DS transaction attempt\n\n- SUCCESS \n- CANCEL \n- ERROR \n- FAILURE \n- NOACTION \n- TIMEOUT"
+          example: SUCCESS
+        errorNumber:
+          type: string
+          description: Listed error number
+          example: '0'
+        errorDescription:
+          type: string
+          description: Description of the listed actionCode error and errorNumber
+          example: '0'
+        3dsVersion:
+          $ref: '#/components/schemas/3dsVersion'
+        processorTransactionID:
+          type: string
+          description: Processor Transaction Identifier
+          example: '11111111111111111111'
+        status:
+          type: string
+          example: '`Y`'
+          description: 'Transaction Status Result
+
+
+            Possible Values:
+
+            - `Y` Successful Authentication
+
+            - `N` Failed Authentication
+
+            - `U` Unable to Complete Authentication
+
+            - `A` Successful Attempts Transaction
+
+            - `R` Authentication Rejected
+
+            - `I` Informational Only; 3DS Requester challenge preference acknowledged'
+        ECI:
+          type: string
+          pattern: ^[0][012567]$
+          description: 'Electronic Commerce Indicator
+
+
+            Possible Values:
+
+            - `00`
+
+            - `01`
+
+            - `02`
+
+            - `04`
+
+            - `05`
+
+            - `06`
+
+            - `07`'
+          example: '05'
+        UCAF:
+          type: string
+          description: 'Universal Cardholder Authentication Field
+
+
+            [Visa](/docs/visa-cavv-results-code#/) uses <<glossary:CAVV>> (Cardholder Authentication Verification Value)
+
+
+            [MasterCard](/docs/mastercard-ucaf-collection-downgrade-indicator#/) uses AAV (Account-Holder Authentication Value)'
+          example: '1111111111111111111111111111'
+        XID:
+          type: string
+          description: XID (Transaction ID)
+          example: VkM0MXAwOGhjMGxuaUcxU1VtNjA=
     3dslookup:
       type: object
       required:
@@ -407,6 +523,21 @@ components:
               $ref: '#/components/schemas/amount'
         browser:
           $ref: '#/components/schemas/browser'
+    state:
+      type: string
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    country:
+      type: string
+      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
+
+
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
     3dsLookupResponse:
       type: object
       properties:
@@ -528,54 +659,18 @@ components:
         3dsRC:
           type: string
           description: TabaPay Error Code for <<glossary:3DS>>, this should be 0 unless there is an issue. Please store this in your logs.
-    sdkSessionID:
+    3dsVersion:
       type: string
-      description: 'Mobile flow referenceID (used in conjunction with init.sdkVersion, comes from the SDK''s setup.onComplete)
+      description: 'The 3D Secure Version that was used to process this request.
 
 
-        Required if the device channel is SDK.'
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-    country:
+        Expected values are of the form: `2.X.X`'
+      example: 2.2.0
+    city:
       type: string
-      description: '[Country Code](https://developers.tabapay.com/reference/country-codes#/)
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
-    deviceChannel:
-      type: string
-      pattern: ^(?:Browser|SDK)$
-      description: Either `Browser` or `SDK`
-    phone:
-      type: object
-      required:
-      - number
-      description: Phone *object*
-      properties:
-        countryCode:
-          type: string
-          description: '1-3 digit Country Calling Code
-
-
-            *Optional.* Default is `1`.'
-          pattern: ^[0-9]{3}$
-          example: '1'
-        number:
-          type: string
-          description: 'Phone Number.
-
-
-            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
-          pattern: ^[0-9]{4,14}$
-          example: '5555555555'
-    3dsInitResponse:
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    apiResponseSCECEM:
       type: object
       properties:
         SC:
@@ -584,29 +679,18 @@ components:
           $ref: '#/components/schemas/EC'
         EM:
           $ref: '#/components/schemas/EM'
-        3dsID:
-          $ref: '#/components/schemas/3dsID'
-        jwt:
-          type: string
-          pattern: ^[a-zA-Z0-9-_.]+$
-          description: '[JWT](https://jwt.io)'
-        deviceCollectionURL:
-          type: string
-          description: 'URL for Device Data Collection.
-
-
-            See [3DS FAQ](https://developers.tabapay.com/reference/device-data-collection#/) for details on how to use this value.'
-    state:
+    language:
       type: string
-      description: 'State Code
+      description: '*Deprecated*
 
 
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    transactionMode:
+        Language'
+    sdkSessionID:
       type: string
-      pattern: ^(?:M|P|R|S|T)$
-      description: 1-character [Transaction Mode](https://developers.tabapay.com/reference/lookup#/transaction-mode)
+      description: 'Mobile flow referenceID (used in conjunction with init.sdkVersion, comes from the SDK''s setup.onComplete)
+
+
+        Required if the device channel is SDK.'
     browser:
       type: object
       required:
@@ -635,22 +719,6 @@ components:
           $ref: '#/components/schemas/browserInfo'
         deviceChannel:
           $ref: '#/components/schemas/deviceChannel'
-    amount:
-      type: string
-      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
-      pattern: ^[0-9]*.?[0-9]{0,4}$
-    javaEnabled:
-      type: boolean
-      description: '*Deprecated*
-
-
-        Java Enabled'
-    language:
-      type: string
-      description: '*Deprecated*
-
-
-        Language'
     zipcode:
       type: string
       description: 'Zip Code
@@ -662,25 +730,31 @@ components:
 
         Zip codes from other countries will not be checked.'
       pattern: ^[ a-zA-Z0-9_-]+$
-    currency:
-      type: string
-      description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
-
-
-        *Optional. Default is `840`*'
-      pattern: ^[0-9]{3}$
-      example: '840'
-    3dsauthenticate:
+    3dsInitResponse:
       type: object
-      required:
-      - 3dsID
-      - jwt
       properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
         3dsID:
           $ref: '#/components/schemas/3dsID'
         jwt:
           type: string
-          description: '[JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)'
+          pattern: ^[a-zA-Z0-9-_.]+$
+          description: '[JWT](https://jwt.io)'
+        deviceCollectionURL:
+          type: string
+          description: 'URL for Device Data Collection.
+
+
+            See [3DS FAQ](https://developers.tabapay.com/reference/device-data-collection#/) for details on how to use this value.'
+    amount:
+      type: string
+      description: See how to [properly format an amount](/reference/data#how-to-specify-an-amount-value).
+      pattern: ^[0-9]*.?[0-9]{0,4}$
     browserInfo:
       type: string
       description: 'Concatenated [Browser Data Fields](https://developers.tabapay.com/reference/browser-fields). Concatenate the below fields (in order!) with the `|`
@@ -710,19 +784,48 @@ components:
 
 
         *See an example [here](https://developers.tabapay.com/reference/browser-fields#browser-object-field-browserinfo)*'
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
+    transactionMode:
+      type: string
+      pattern: ^(?:M|P|R|S|T)$
+      description: 1-character [Transaction Mode](https://developers.tabapay.com/reference/lookup#/transaction-mode)
+    phone:
+      type: object
+      required:
+      - number
+      description: Phone *object*
+      properties:
+        countryCode:
+          type: string
+          description: '1-3 digit Country Calling Code
+
+
+            *Optional.* Default is `1`.'
+          pattern: ^[0-9]{3}$
+          example: '1'
+        number:
+          type: string
+          description: 'Phone Number.
+
+
+            For phone numbers with `countryCode` equal to `1` (or blank), provide a 10-digit phone number. For all `countryCodes`, other than `1`, a 4-14 digit phone number is accepted.'
+          pattern: ^[0-9]{4,14}$
+          example: '5555555555'
+    javascriptEnabled:
+      type: boolean
+      description: '*Deprecated*
+
+
+        Javascript Enabled'
     ipAddress:
       type: string
       description: '*Deprecated*
 
 
         IP Addresses in IPv4 or IPv6 formats are accepted.'
-    transactionType:
-      type: string
-      pattern: ^C$
-      description: '`C` is the only [Transaction Type](https://developers.tabapay.com/reference/lookup#/transaction-type) supported.'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     3dsinit:
       type: object
       required:
@@ -779,136 +882,33 @@ components:
               $ref: '#/components/schemas/currency'
             amount:
               $ref: '#/components/schemas/amount'
-    javascriptEnabled:
-      type: boolean
-      description: '*Deprecated*
-
-
-        Javascript Enabled'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    line2:
-      type: string
-      description: 'Address Line 2
-
-
-        *Optional*'
-      pattern: ^[ a-zA-Z0-9._-]+$
-    3dsAuthenticateResponse:
+    apiResponseSCEC:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        actionCode:
-          type: string
-          description: "[Result](/reference/3ds-challenge-results) of the 3DS transaction attempt\n\n- SUCCESS \n- CANCEL \n- ERROR \n- FAILURE \n- NOACTION \n- TIMEOUT"
-          example: SUCCESS
-        errorNumber:
-          type: string
-          description: Listed error number
-          example: '0'
-        errorDescription:
-          type: string
-          description: Description of the listed actionCode error and errorNumber
-          example: '0'
-        3dsVersion:
-          $ref: '#/components/schemas/3dsVersion'
-        processorTransactionID:
-          type: string
-          description: Processor Transaction Identifier
-          example: '11111111111111111111'
-        status:
-          type: string
-          example: '`Y`'
-          description: 'Transaction Status Result
-
-
-            Possible Values:
-
-            - `Y` Successful Authentication
-
-            - `N` Failed Authentication
-
-            - `U` Unable to Complete Authentication
-
-            - `A` Successful Attempts Transaction
-
-            - `R` Authentication Rejected
-
-            - `I` Informational Only; 3DS Requester challenge preference acknowledged'
-        ECI:
-          type: string
-          pattern: ^[0][012567]$
-          description: 'Electronic Commerce Indicator
-
-
-            Possible Values:
-
-            - `00`
-
-            - `01`
-
-            - `02`
-
-            - `04`
-
-            - `05`
-
-            - `06`
-
-            - `07`'
-          example: '05'
-        UCAF:
-          type: string
-          description: 'Universal Cardholder Authentication Field
-
-
-            [Visa](/docs/visa-cavv-results-code#/) uses <<glossary:CAVV>> (Cardholder Authentication Verification Value)
-
-
-            [MasterCard](/docs/mastercard-ucaf-collection-downgrade-indicator#/) uses AAV (Account-Holder Authentication Value)'
-          example: '1111111111111111111111111111'
-        XID:
-          type: string
-          description: XID (Transaction ID)
-          example: VkM0MXAwOGhjMGxuaUcxU1VtNjA=
-    productCode:
+    currency:
       type: string
-      pattern: ^(?:PHY|CHA|ACF|QCT|PAL)$
-      description: 3-character [Product Code](lookup#product-code)
-    3dsVersion:
-      type: string
-      description: 'The 3D Secure Version that was used to process this request.
+      description: '[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3-Digit [Currency Code](https://developers.tabapay.com/reference/currency-numbers#/).
 
 
-        Expected values are of the form: `2.X.X`'
-      example: 2.2.0
-    city:
-      type: string
-      description: City
-      pattern: ^[ a-zA-Z0-9_-]+$
-    authenticationIndicator:
-      type: string
-      pattern: ^(?:0[1|2|3|4|5|6])$
-      description: 2-digit [Authentication Indicator](https://developers.tabapay.com/reference/lookup#/authentication-indicator)
-    colorDepth:
+        *Optional. Default is `840`*'
+      pattern: ^[0-9]{3}$
+      example: '840'
+    javaEnabled:
+      type: boolean
+      description: '*Deprecated*
+
+
+        Java Enabled'
+    header:
       type: string
       description: '*Deprecated*
 
 
-        Color Depth'
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
+        Header'
   parameters:
     enhancedResponse:
       name: enhancedResponse
