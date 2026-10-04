@@ -75,35 +75,20 @@ paths:
                 SC: 207
                 EC: InternalErrorCode
 components:
-  parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
   schemas:
-    queryOfacResponse:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    apiResponseSCEC:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-        ofacMatchCodes:
-          type: string
-          description: '`N` for No Hit. `H` for Hit.'
-          example: H
-        ofacValue:
-          type: string
-          description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
-          example: 7nGfHHedKNelaw
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryOfac:
       type: object
       required:
@@ -138,16 +123,31 @@ components:
         country:
           type: string
           description: '[3-digit Country Code](https://developers.tabapay.com/reference/country-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    apiResponseSCEC:
+    queryOfacResponse:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
+        ofacMatchCodes:
+          type: string
+          description: '`N` for No Hit. `H` for Hit.'
+          example: H
+        ofacValue:
+          type: string
+          description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
+          example: 7nGfHHedKNelaw
+  parameters:
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

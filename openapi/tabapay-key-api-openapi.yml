@@ -151,6 +151,22 @@ paths:
                     expiration: '2017-04-03T00:00:00Z'
 components:
   schemas:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    apiResponseSCEC:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
     createKeyResponse:
       type: object
       properties:
@@ -191,15 +207,6 @@ components:
         notices:
           type: string
           description: Important Notices
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
     retrieveKeyResponse:
       type: object
       properties:
@@ -246,13 +253,6 @@ components:
 
             - `Raw` (Modulus and Public Exponent)'
           example: ASN.1
-    apiResponseSCEC:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
     apiResponseSCECEM:
       type: object
       properties:
@@ -272,15 +272,6 @@ components:
       explode: false
       schema:
         type: string
-    Format:
-      name: Format
-      in: query
-      description: Use to specify your key format
-      required: false
-      allowEmptyValue: false
-      schema:
-        type: string
-        pattern: ^(?:ASN.1|Raw)$
     KeyID:
       name: KeyID
       in: path
@@ -290,6 +281,15 @@ components:
       explode: false
       schema:
         type: string
+    Format:
+      name: Format
+      in: query
+      description: Use to specify your key format
+      required: false
+      allowEmptyValue: false
+      schema:
+        type: string
+        pattern: ^(?:ASN.1|Raw)$
   securitySchemes:
     bearerAuth:
       type: http

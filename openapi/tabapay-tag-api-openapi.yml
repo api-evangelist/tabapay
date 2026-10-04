@@ -74,6 +74,9 @@ paths:
                       last: Gamgee
 components:
   schemas:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     queryTagName:
       type: object
       required:
@@ -95,9 +98,6 @@ components:
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     queryTagNameResponse:
       type: object
       properties:

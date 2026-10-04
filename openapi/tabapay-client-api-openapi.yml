@@ -90,6 +90,48 @@ paths:
                 EM: Locked
 components:
   schemas:
+    clientLocked:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    clientNotFound:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    networkLimits:
+      type: object
+      description: 'List of Network Limits.
+
+        Network is listed only if if different from above limits'
+      properties:
+        network:
+          type: string
+          description: Network Name
+        transaction:
+          type: string
+          description: Network Transaction Limit
+        daily:
+          type: string
+          description: '*Approximate* Network Daily Limit'
     clientRetrieveResponse:
       type: object
       properties:
@@ -173,48 +215,6 @@ components:
 
 
                     Network is listed only if different from above Push Limits'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    clientLocked:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
-    networkLimits:
-      type: object
-      description: 'List of Network Limits.
-
-        Network is listed only if if different from above limits'
-      properties:
-        network:
-          type: string
-          description: Network Name
-        transaction:
-          type: string
-          description: Network Transaction Limit
-        daily:
-          type: string
-          description: '*Approximate* Network Daily Limit'
-    clientNotFound:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
   securitySchemes:
     bearerAuth:
       type: http

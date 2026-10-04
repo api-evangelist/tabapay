@@ -62,6 +62,12 @@ paths:
                 EC: InternalErrorCode
 components:
   schemas:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     queryFXRequest:
       type: object
       required:
@@ -92,12 +98,6 @@ components:
             - `mastercard`
 
             - `bank`'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     EM:
       type: string
       description: Short description of the error if an error occurred.
