@@ -77,6 +77,9 @@ paths:
                     EM: accounts.destinationAccount.bank.routingNumber
 components:
   schemas:
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
     EC:
       type: string
       description: Internal Error Code. This is used to help TabaPay team members trace an error.
@@ -87,13 +90,6 @@ components:
       properties:
         routingNumber:
           $ref: '#/components/schemas/routingNumber'
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    routingNumber:
-      type: string
-      pattern: ^[0-9]{9}$
-      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
     queryBankResponse:
       type: object
       properties:
@@ -125,6 +121,10 @@ components:
               type: boolean
               description: The routing number enablement for Request For Payment (RFP) within the FedNow network
               example: false
+    routingNumber:
+      type: string
+      pattern: ^[0-9]{9}$
+      description: '[ABA routing transit number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)'
   parameters:
     ClientID:
       name: ClientID

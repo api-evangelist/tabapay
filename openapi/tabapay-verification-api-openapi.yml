@@ -96,9 +96,6 @@ paths:
                 $ref: '#/components/schemas/apiResponseSCECEM'
 components:
   schemas:
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
@@ -125,6 +122,36 @@ components:
             back:
               type: string
               description: 22 character unique document ID from [Create Document](https://developers.tabapay.com/reference/createdocument)
+    tpUserID:
+      type: string
+      description: TabaPay user identifier
+      pattern: ^[A-Za-z0-9]{22}$
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+    createVerificationResponse:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
+        verificationID:
+          $ref: '#/components/schemas/tpVerificationID'
+        status:
+          type: string
+          description: "Status of Verification Request\n\nValid Values:\n - CREATED\n - PENDING\n - COMPLETED\n - FAILED\n - UNKNOWN"
     retrieveVerificationResponse:
       type: object
       properties:
@@ -162,48 +189,19 @@ components:
       minLength: 1
       maxLength: 15
       pattern: ^[A-Za-z0-9._-]+$
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
     tpVerificationID:
       type: string
       description: TabaPay verification identifier
       pattern: ^[A-Za-z0-9]{22}$
-    tpUserID:
+    EM:
       type: string
-      description: TabaPay user identifier
-      pattern: ^[A-Za-z0-9]{22}$
-    createVerificationResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        verificationID:
-          $ref: '#/components/schemas/tpVerificationID'
-        status:
-          type: string
-          description: "Status of Verification Request\n\nValid Values:\n - CREATED\n - PENDING\n - COMPLETED\n - FAILED\n - UNKNOWN"
-    apiResponseSCECEM:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
+      description: Short description of the error if an error occurred.
   parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
+    ReferenceIDQuery:
+      name: referenceID
+      in: query
+      description: Reference ID fallback lookup.
+      required: false
       schema:
         type: string
     VerificationID:
@@ -215,11 +213,13 @@ components:
       explode: false
       schema:
         type: string
-    ReferenceIDQuery:
-      name: referenceID
-      in: query
-      description: Reference ID fallback lookup.
-      required: false
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
       schema:
         type: string
   securitySchemes:

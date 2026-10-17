@@ -76,19 +76,27 @@ paths:
                 EC: InternalErrorCode
 components:
   schemas:
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    apiResponseSCEC:
+    EC:
+      type: string
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    queryOfacResponse:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
+        ofacMatchCodes:
+          type: string
+          description: '`N` for No Hit. `H` for Hit.'
+          example: H
+        ofacValue:
+          type: string
+          description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
+          example: 7nGfHHedKNelaw
     queryOfac:
       type: object
       required:
@@ -123,21 +131,13 @@ components:
         country:
           type: string
           description: '[3-digit Country Code](https://developers.tabapay.com/reference/country-codes#/)'
-    queryOfacResponse:
+    apiResponseSCEC:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-        ofacMatchCodes:
-          type: string
-          description: '`N` for No Hit. `H` for Hit.'
-          example: H
-        ofacValue:
-          type: string
-          description: To be used in [Create Transaction](https://developers.tabapay.com/reference/transactioncreate#/) (`ofacValue`)
-          example: 7nGfHHedKNelaw
   parameters:
     ClientID:
       name: ClientID

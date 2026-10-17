@@ -440,63 +440,7 @@ paths:
                 SC: 207
                 EC: InternalErrorCode
 components:
-  parameters:
-    Fees:
-      name: Fees
-      in: query
-      description: 'Use to check fees.
-
-
-        If using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.'
-      required: false
-      allowEmptyValue: true
-      schema:
-        type: string
-        minLength: 0
-        maxLength: 0
-    AVS:
-      name: AVS
-      in: query
-      description: "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-      required: false
-      allowEmptyValue: true
-      schema:
-        type: string
-        minLength: 0
-        maxLength: 0
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ANI:
-      name: ANI
-      in: query
-      description: "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-      required: false
-      allowEmptyValue: true
-      schema:
-        type: string
-        minLength: 0
-        maxLength: 0
-    AU:
-      name: AU
-      in: query
-      description: Use to send the card number and expiration date to network's Account Updater, and apply any card changes.
-      required: false
-      schema:
-        type: string
   schemas:
-    SC:
-      type: integer
-      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    EM:
-      type: string
-      description: Short description of the error if an error occurred.
     keyID:
       type: string
       pattern: ^[a-zA-Z0-9_-]{22}$
@@ -507,13 +451,138 @@ components:
 
 
         Compatible with `data` and nothing else.'
-    city:
+    state:
       type: string
-      description: City
+      description: 'State Code
+
+
+        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
       pattern: ^[ a-zA-Z0-9_-]+$
+    line1:
+      type: string
+      description: Address Line 1
+      pattern: ^[ a-zA-Z0-9._-]+$
     EC:
       type: string
       description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    name:
+      type: object
+      description: 'Name
+
+
+        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
+
+
+        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
+      properties:
+        company:
+          type: string
+          description: 'Company Name
+
+
+            Incompatible with any other `name` field.'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        first:
+          type: string
+          description: 'First Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        middle:
+          type: string
+          description: 'Middle Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        last:
+          type: string
+          description: 'Last Name
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+        suffix:
+          type: string
+          description: 'Suffix
+
+
+            Incompatible with `company` name'
+          pattern: ^[ a-zA-Z0-9_-]+$
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
+    blob:
+      type: string
+      description: URL-safe, Base64 encoded card data
+      pattern: ^[A-Za-z0-9_+=-]{1500}$
+    tokeniFrame:
+      type: string
+      pattern: ^[A-Za-z0-9_+=-]{344}$
+      format: byte
+      description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
+
+
+        Incompatible with any other `card` field.'
+    mobilePay:
+      type: object
+      required:
+      - accountNumber
+      - expirationDate
+      - cryptogram
+      - transactionID
+      - network
+      - type
+      description: A Decrypted [Apple Pay](https://developers.tabapay.com/docs/apple-pay) Token
+      properties:
+        accountNumber:
+          type: string
+          description: Pseudo Payment Card Account Number
+          pattern: ^[0-9]{13,19}$
+        expirationDate:
+          $ref: '#/components/schemas/expirationDateMobilePay'
+        cryptogram:
+          type: string
+          format: byte
+          description: Payment Data Cryptogram
+          pattern: ^[A-Za-z0-9_+=/-]{28}$
+        transactionID:
+          type: string
+          format: byte
+          description: Transaction Identifier in Hex
+          pattern: ^[A-Za-z0-9]{64}$
+        eciIndicator:
+          type: string
+          description: '1-digit <<glossary:ECI>> Indicator. Remove any leading `0`s.
+
+
+            For example if received ECI is `05` convert to `5` and populate this field
+
+
+            Usually only present when `network` is `Visa`'
+          pattern: ^[0-9]$
+          example: '5'
+        network:
+          type: string
+          description: 'Card Network.
+
+            - `Visa`
+
+            - `MasterCard`
+
+            - `Discover`
+
+            - `Amex`
+
+            - etc...'
+          pattern: ^[A-Za-z]+$
+          example: Visa
+        type:
+          type: string
+          description: "Card Type. Either\n- `Debit`\n- `Credit`\n- `PrePaid`\n etc..."
+          pattern: ^[A-Za-z]+
+          example: Debit
     apiResponseSCEC:
       type: object
       properties:
@@ -529,187 +598,10 @@ components:
         *Optional. Default is `840`*'
       pattern: ^[0-9]{3}$
       example: '840'
-    state:
+    expirationDateMobilePay:
       type: string
-      description: 'State Code
-
-
-        [State Code](https://developers.tabapay.com/reference/us-state-codes#/) must be a valid 2-character code if `country` is [840](https://developers.tabapay.com/reference/country-codes#/) or [Canadian 2-char code](https://developers.tabapay.com/reference/canadian-province-codes#/) if [124](https://developers.tabapay.com/reference/country-codes#/).'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    zipcode:
-      type: string
-      description: 'Zip Code
-
-
-        If `country` is `840`, `zipcode` must be 5 or 9 digits.
-
-        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
-
-        Zip codes from other countries will not be checked.'
-      pattern: ^[ a-zA-Z0-9_-]+$
-    tokeniFrame:
-      type: string
-      pattern: ^[A-Za-z0-9_+=-]{344}$
-      format: byte
-      description: 'Card Token (from the [PCI-compliant iFrame](https://developers.tabapay.com/reference/browser-sdk#/basic-custom-iframe))
-
-
-        Incompatible with any other `card` field.'
-    line1:
-      type: string
-      description: Address Line 1
-      pattern: ^[ a-zA-Z0-9._-]+$
-    queryCard:
-      type: object
-      required:
-      - owner
-      properties:
-        account:
-          type: object
-          description: 'TabaPay Account Details
-
-
-            Incompatible with `card`. Exclusively use `account` or `card`.'
-          required:
-          - accountID
-          properties:
-            accountID:
-              type: string
-              description: 22-character <<glossary:Account ID>>.
-              example: 22CharacterTabaPayID12
-            securityCode:
-              type: string
-              pattern: ^[0-9]{3,4}$
-              description: "3-4 digit <<glossary:Security Code>>, <<glossary:CVV>>, or <<glossary:CVV2>>. \n\nOptional. Include to request the verification of the security code."
-        card:
-          type: object
-          description: 'Payment Card Data.
-
-
-            Choose ***exactly ONE*** of the following:
-
-            - [Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)
-
-            - <<glossary:Payment Card Encrypted>>
-
-            - `token`
-
-            - `device` *object*
-
-            - `mobilePay` *object*
-
-
-            Incompatible with `account`. Exclusively use: `card` or `account`.'
-          properties:
-            accountNumber:
-              type: string
-              pattern: ^[0-9]{13,19}$
-              description: 'Required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
-
-
-                13-19 digit Primary Account Number (PAN/Card Number)
-
-
-                Compatible with `expirationDate` and `securityCode`, nothing else.'
-            expirationDate:
-              type: string
-              pattern: ^[0-9]{6}$
-              description: 'Conditionally required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
-
-
-                Expiration Date in YYYYMM format.
-
-
-                Compatible with `accountNumber` and `securityCode`, nothing else.'
-              example: '202906'
-            securityCode:
-              type: string
-              pattern: ^[0-9]{3,4}$
-              description: 'Optional field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
-
-
-                3-4 digit <<glossary:Security Code>>. Coorelates with <<glossary:CVV>>, or <<glossary:CVV2>>.
-
-
-                Optional. Include to request the verification of the security code.
-
-
-                Compatible with `accountNumber` and `expirationDate`, nothing else.'
-            keyID:
-              $ref: '#/components/schemas/keyID'
-            data:
-              $ref: '#/components/schemas/data'
-            token:
-              $ref: '#/components/schemas/tokeniFrame'
-            device:
-              $ref: '#/components/schemas/device'
-            mobilePay:
-              $ref: '#/components/schemas/mobilePay'
-        owner:
-          type: object
-          required:
-          - name
-          description: Owner Details
-          properties:
-            name:
-              $ref: '#/components/schemas/name'
-            address:
-              type: object
-              description: 'Address.
-
-
-                *All fields optional.* However, if you''re planning on using <<glossary:AVS>> in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
-              properties:
-                line1:
-                  $ref: '#/components/schemas/line1'
-                line2:
-                  type: string
-                  description: Address Line 2
-                  pattern: ^[ a-zA-Z0-9._-]+$
-                city:
-                  $ref: '#/components/schemas/city'
-                state:
-                  $ref: '#/components/schemas/state'
-                zipcode:
-                  $ref: '#/components/schemas/zipcode'
-                country:
-                  $ref: '#/components/schemas/country'
-    data:
-      type: string
-      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
-
-
-        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
-
-
-        Compatible with `keyID` and nothing else'
-    blob:
-      type: string
-      description: URL-safe, Base64 encoded card data
-      pattern: ^[A-Za-z0-9_+=-]{1500}$
-    device:
-      type: object
-      description: 'Card Data
-
-        - From a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions)
-
-        - From a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/y)
-
-
-        Incompatible with any other `card` object(s) or field(s)'
-      required:
-      - id
-      - blob
-      properties:
-        id:
-          type: string
-          description: 'Either a:
-
-            - TabaPay-assigned device ID
-
-            - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
-        blob:
-          $ref: '#/components/schemas/blob'
+      pattern: ^[0-9]{6}$
+      description: "\nExpiration Date in YYYYMM.\n\n Note: Convert YYMMDD format to YYYYMM."
     queryCardResponse:
       type: object
       properties:
@@ -1039,113 +931,221 @@ components:
         subClientID:
           type: string
           description: Unique subClientID of the merchant or subClient
-    name:
-      type: object
-      description: 'Name
-
-
-        Use Either: (1) `company` **OR** (2) `first`, `middle`, `last`, and `suffix`
-
-
-        If choosing (2), `first` and `last` are required, `middle` and `suffix` are optional*'
-      properties:
-        company:
-          type: string
-          description: 'Company Name
-
-
-            Incompatible with any other `name` field.'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        first:
-          type: string
-          description: 'First Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        middle:
-          type: string
-          description: 'Middle Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        last:
-          type: string
-          description: 'Last Name
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-        suffix:
-          type: string
-          description: 'Suffix
-
-
-            Incompatible with `company` name'
-          pattern: ^[ a-zA-Z0-9_-]+$
-    expirationDateMobilePay:
+    SC:
+      type: integer
+      description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
+    zipcode:
       type: string
-      pattern: ^[0-9]{6}$
-      description: "\nExpiration Date in YYYYMM.\n\n Note: Convert YYMMDD format to YYYYMM."
-    mobilePay:
+      description: 'Zip Code
+
+
+        If `country` is `840`, `zipcode` must be 5 or 9 digits.
+
+        If country is `124`, `zipcode` must be in the *A1A 1A1* format.
+
+        Zip codes from other countries will not be checked.'
+      pattern: ^[ a-zA-Z0-9_-]+$
+    city:
+      type: string
+      description: City
+      pattern: ^[ a-zA-Z0-9_-]+$
+    queryCard:
       type: object
       required:
-      - accountNumber
-      - expirationDate
-      - cryptogram
-      - transactionID
-      - network
-      - type
-      description: A Decrypted [Apple Pay](https://developers.tabapay.com/docs/apple-pay) Token
+      - owner
       properties:
-        accountNumber:
+        account:
+          type: object
+          description: 'TabaPay Account Details
+
+
+            Incompatible with `card`. Exclusively use `account` or `card`.'
+          required:
+          - accountID
+          properties:
+            accountID:
+              type: string
+              description: 22-character <<glossary:Account ID>>.
+              example: 22CharacterTabaPayID12
+            securityCode:
+              type: string
+              pattern: ^[0-9]{3,4}$
+              description: "3-4 digit <<glossary:Security Code>>, <<glossary:CVV>>, or <<glossary:CVV2>>. \n\nOptional. Include to request the verification of the security code."
+        card:
+          type: object
+          description: 'Payment Card Data.
+
+
+            Choose ***exactly ONE*** of the following:
+
+            - [Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)
+
+            - <<glossary:Payment Card Encrypted>>
+
+            - `token`
+
+            - `device` *object*
+
+            - `mobilePay` *object*
+
+
+            Incompatible with `account`. Exclusively use: `card` or `account`.'
+          properties:
+            accountNumber:
+              type: string
+              pattern: ^[0-9]{13,19}$
+              description: 'Required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                13-19 digit Primary Account Number (PAN/Card Number)
+
+
+                Compatible with `expirationDate` and `securityCode`, nothing else.'
+            expirationDate:
+              type: string
+              pattern: ^[0-9]{6}$
+              description: 'Conditionally required field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                Expiration Date in YYYYMM format.
+
+
+                Compatible with `accountNumber` and `securityCode`, nothing else.'
+              example: '202906'
+            securityCode:
+              type: string
+              pattern: ^[0-9]{3,4}$
+              description: 'Optional field of ***[Payment Card Not Encrypted](https://developers.tabapay.com/docs/glossary#payment-not-encrypted)***
+
+
+                3-4 digit <<glossary:Security Code>>. Coorelates with <<glossary:CVV>>, or <<glossary:CVV2>>.
+
+
+                Optional. Include to request the verification of the security code.
+
+
+                Compatible with `accountNumber` and `expirationDate`, nothing else.'
+            keyID:
+              $ref: '#/components/schemas/keyID'
+            data:
+              $ref: '#/components/schemas/data'
+            token:
+              $ref: '#/components/schemas/tokeniFrame'
+            device:
+              $ref: '#/components/schemas/device'
+            mobilePay:
+              $ref: '#/components/schemas/mobilePay'
+        owner:
+          type: object
+          required:
+          - name
+          description: Owner Details
+          properties:
+            name:
+              $ref: '#/components/schemas/name'
+            address:
+              type: object
+              description: 'Address.
+
+
+                *All fields optional.* However, if you''re planning on using <<glossary:AVS>> in [QueryCard](https://developers.tabapay.com/reference/cardquery#/), provide an accurate `zipcode` at the minimum. And, if you can, provide an accurate `line1` value as well.'
+              properties:
+                line1:
+                  $ref: '#/components/schemas/line1'
+                line2:
+                  type: string
+                  description: Address Line 2
+                  pattern: ^[ a-zA-Z0-9._-]+$
+                city:
+                  $ref: '#/components/schemas/city'
+                state:
+                  $ref: '#/components/schemas/state'
+                zipcode:
+                  $ref: '#/components/schemas/zipcode'
+                country:
+                  $ref: '#/components/schemas/country'
+    data:
+      type: string
+      description: 'Required field of ***<<glossary:Payment Card Encrypted>>***
+
+
+        [RSA-encrypted card data](https://developers.tabapay.com/reference/pci-helper-rsa#/what-data-do-i-encrypt) using RSA key with KeyID `keyID`.
+
+
+        Compatible with `keyID` and nothing else'
+    device:
+      type: object
+      description: 'Card Data
+
+        - From a [Secure Device](https://developers.tabapay.com/docs/card-present-transactions)
+
+        - From a [GooglePay PaymentMethodToken](https://developers.tabapay.com/reference/googlepay#/y)
+
+
+        Incompatible with any other `card` object(s) or field(s)'
+      required:
+      - id
+      - blob
+      properties:
+        id:
           type: string
-          description: Pseudo Payment Card Account Number
-          pattern: ^[0-9]{13,19}$
-        expirationDate:
-          $ref: '#/components/schemas/expirationDateMobilePay'
-        cryptogram:
-          type: string
-          format: byte
-          description: Payment Data Cryptogram
-          pattern: ^[A-Za-z0-9_+=/-]{28}$
-        transactionID:
-          type: string
-          format: byte
-          description: Transaction Identifier in Hex
-          pattern: ^[A-Za-z0-9]{64}$
-        eciIndicator:
-          type: string
-          description: '1-digit <<glossary:ECI>> Indicator. Remove any leading `0`s.
+          description: 'Either a:
+
+            - TabaPay-assigned device ID
+
+            - [GooglePay|gatewayMerchantId](https://developers.tabapay.com/reference/googlepay#/)'
+        blob:
+          $ref: '#/components/schemas/blob'
+  parameters:
+    AVS:
+      name: AVS
+      in: query
+      description: "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    Fees:
+      name: Fees
+      in: query
+      description: 'Use to check fees.
 
 
-            For example if received ECI is `05` convert to `5` and populate this field
-
-
-            Usually only present when `network` is `Visa`'
-          pattern: ^[0-9]$
-          example: '5'
-        network:
-          type: string
-          description: 'Card Network.
-
-            - `Visa`
-
-            - `MasterCard`
-
-            - `Discover`
-
-            - `Amex`
-
-            - etc...'
-          pattern: ^[A-Za-z]+$
-          example: Visa
-        type:
-          type: string
-          description: "Card Type. Either\n- `Debit`\n- `Credit`\n- `PrePaid`\n etc..."
-          pattern: ^[A-Za-z]+
-          example: Debit
+        If using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.'
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ANI:
+      name: ANI
+      in: query
+      description: "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
+      required: false
+      allowEmptyValue: true
+      schema:
+        type: string
+        minLength: 0
+        maxLength: 0
+    AU:
+      name: AU
+      in: query
+      description: Use to send the card number and expiration date to network's Account Updater, and apply any card changes.
+      required: false
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -151,22 +151,52 @@ paths:
                     expiration: '2017-04-03T00:00:00Z'
 components:
   schemas:
-    EC:
-      type: string
-      description: Internal Error Code. This is used to help TabaPay team members trace an error.
     SC:
       type: integer
       description: '[HTTP Status Code](https://developers.tabapay.com/reference/http-status-codes#/)'
-    apiResponseSCEC:
+    retrieveKeyResponse:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-    EM:
+        EM:
+          $ref: '#/components/schemas/EM'
+        key:
+          type: string
+          description: 'ASN.1 key, encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `ASN.1`*'
+        keyModulus:
+          type: string
+          description: 'Raw Key Modulus. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        keyExponent:
+          type: string
+          description: 'Raw Key Public Exponent. Encoded in Base64 URL-Safe Character Set
+
+
+            *Only present if `format` is `Raw`*'
+        expiration:
+          type: string
+          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
+          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
+    EC:
       type: string
-      description: Short description of the error if an error occurred.
+      description: Internal Error Code. This is used to help TabaPay team members trace an error.
+    apiResponseSCECEM:
+      type: object
+      properties:
+        SC:
+          $ref: '#/components/schemas/SC'
+        EC:
+          $ref: '#/components/schemas/EC'
+        EM:
+          $ref: '#/components/schemas/EM'
     createKeyResponse:
       type: object
       properties:
@@ -207,37 +237,6 @@ components:
         notices:
           type: string
           description: Important Notices
-    retrieveKeyResponse:
-      type: object
-      properties:
-        SC:
-          $ref: '#/components/schemas/SC'
-        EC:
-          $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
-        key:
-          type: string
-          description: 'ASN.1 key, encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `ASN.1`*'
-        keyModulus:
-          type: string
-          description: 'Raw Key Modulus. Encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `Raw`*'
-        keyExponent:
-          type: string
-          description: 'Raw Key Public Exponent. Encoded in Base64 URL-Safe Character Set
-
-
-            *Only present if `format` is `Raw`*'
-        expiration:
-          type: string
-          pattern: ^20[2-9][0-9]-[01][0-9]-[03][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$
-          description: Key Expiration in yyyy-MM-ddTHH:mm:ssZ Format.
     createKey:
       type: object
       required:
@@ -253,25 +252,17 @@ components:
 
             - `Raw` (Modulus and Public Exponent)'
           example: ASN.1
-    apiResponseSCECEM:
+    apiResponseSCEC:
       type: object
       properties:
         SC:
           $ref: '#/components/schemas/SC'
         EC:
           $ref: '#/components/schemas/EC'
-        EM:
-          $ref: '#/components/schemas/EM'
+    EM:
+      type: string
+      description: Short description of the error if an error occurred.
   parameters:
-    ClientID:
-      name: ClientID
-      in: path
-      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
     KeyID:
       name: KeyID
       in: path
@@ -290,6 +281,15 @@ components:
       schema:
         type: string
         pattern: ^(?:ASN.1|Raw)$
+    ClientID:
+      name: ClientID
+      in: path
+      description: 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
