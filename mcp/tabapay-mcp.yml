@@ -13,14 +13,24 @@ notes: 'Official hosted MCP server served from the TabaPay developer portal (Rea
   against the TabaPay API with client credentials.'
 tools:
 - name: list-endpoints
-  description: Lists all API paths and their HTTP methods with summaries, organized by path.
+  description: Lists all API paths and their HTTP methods with summaries, organized by path. Results can
+    be passed directly into 'get-endpoint'.
 - name: get-endpoint
   description: Gets detailed information about a specific API endpoint, including security schemes and
-    servers.
+    servers
 - name: search-endpoints
-  description: Deep search through paths, operations, and parameters to discover relevant API endpoints.
+  description: Performs a deep search through paths, operations, and parameters to discover relevant API
+    endpoints. Use this tool to find specific API capabilities, required parameters, or data models based
+    on search keywords. Results can be passed directly into 'get-endpoint'.
 - name: execute-request
   description: Executes an API request with a given HAR request object.
+- name: get-server-variables
+  description: Gets the server variables for each server within a specific OpenAPI spec.
+- name: search
+  description: Searches through documentation with the given search query, returning a list of results
+    with ID, title, and URL.
+- name: fetch
+  description: Gets detailed content for documentation by ID returned from the `search` tool.
 deployment:
   mode: remote
   endpoint: https://developers.tabapay.com/mcp
@@ -54,3 +64,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 7
