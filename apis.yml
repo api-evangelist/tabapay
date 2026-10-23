@@ -286,6 +286,8 @@ apis:
   - type: APIReference
     url: https://developers.tabapay.com/reference/getting-started
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/tabapay/overview
 - type: AgentSkill
   url: skills/tabapay-3ds-transaction.md
 - type: Overlay
