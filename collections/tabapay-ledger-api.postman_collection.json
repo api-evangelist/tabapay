@@ -1,705 +1,578 @@
 {
+  "info": {
+    "_postman_id": "b1044d7c-7243-4e3b-b26e-9e65c0e67af6",
+    "name": "TabaPay Ledger API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:25.000Z",
+    "updatedAt": "2026-10-22T02:08:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b1044d7c-7243-4e3b-b26e-9e65c0e67af6"
+  },
   "item": [
     {
-      "id": "3174aa7f-e0e7-4f4b-857b-c8134b50640e",
-      "name": "Ledger",
-      "description": {
-        "content": "This resource represents a Client's Ledger.",
-        "type": "text/plain"
-      },
+      "name": "v2",
       "item": [
         {
-          "id": "e9b2b94d-5635-4f54-92b3-c460da05c597",
-          "name": "Create Ledger",
-          "request": {
-            "name": "Create Ledger",
-            "description": {
-              "content": "Creates a ledger.  \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "ledgers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"referenceID\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"type\": \"<string>\",\n  \"currency\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "5e44a3e9-299c-4700-8df8-27b1da7a4082",
-              "name": "Ledger created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{ClientID}",
+              "item": [
+                {
+                  "name": "ledgers",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                      "name": "{LedgerID}",
+                      "item": [
+                        {
+                          "name": "Delete Ledger",
+                          "id": "196732bd-c168-41d0-a033-6ae239cf73a3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "ledgers",
+                                ":LedgerID"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a8950019-7753-4ddb-bd9f-cc621ab47325",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "7f0bef14-4c9a-4a04-bd7e-64ccb62eb462",
+                                  "key": "LedgerID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character LedgerID returned from Create Ledger."
+                                }
+                              ]
+                            },
+                            "description": "Deletes a ledger."
+                          },
+                          "response": [
+                            {
+                              "id": "c4bd80ef-e00d-4df4-b777-6f19acd255f7",
+                              "name": "Ledger deleted.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "ledgers",
+                                    ":LedgerID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "LedgerID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:26.000Z",
+                              "updatedAt": "2026-10-22T02:08:26.000Z",
+                              "uid": "35240-c4bd80ef-e00d-4df4-b777-6f19acd255f7"
+                            },
+                            {
+                              "id": "26a4a0ab-4890-4eac-8a6f-7b94fb561eaf",
+                              "name": "Ledger not found.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "ledgers",
+                                    ":LedgerID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "LedgerID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:26.000Z",
+                              "updatedAt": "2026-10-22T02:08:26.000Z",
+                              "uid": "35240-26a4a0ab-4890-4eac-8a6f-7b94fb561eaf"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:08:26.000Z",
+                          "updatedAt": "2026-10-22T02:08:26.000Z",
+                          "uid": "35240-196732bd-c168-41d0-a033-6ae239cf73a3"
+                        },
+                        {
+                          "name": "Retrieve Ledger",
+                          "id": "91413bd7-00f3-41cd-b795-df4e34a3c0c3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID?referenceID=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "ledgers",
+                                ":LedgerID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Reference ID fallback lookup.",
+                                  "key": "referenceID",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3beabc0b-dfc9-4bff-a236-b8435b942dba",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "6c44b9cd-cede-44fb-a6f6-df9c376f3b0b",
+                                  "key": "LedgerID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character LedgerID returned from Create Ledger."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a ledger by ledgerID."
+                          },
+                          "response": [
+                            {
+                              "id": "afa43003-5ccf-491a-b085-fba32efaf84d",
+                              "name": "Ledger retrieved.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID?referenceID=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "ledgers",
+                                    ":LedgerID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Reference ID fallback lookup.",
+                                      "key": "referenceID",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "LedgerID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"ledgerID\": \"V5gNM4PL5vubE6UVS9jqxa\",\n  \"referenceID\": \"tU.i0Ds1\",\n  \"userID\": \"S7UsuR4p4cRceqFEVufdUO\",\n  \"bank\": \"<string>\",\n  \"type\": \"Passthrough\",\n  \"routingNumber\": \"641876654\",\n  \"accountNumber\": \"886074268614504\",\n  \"currency\": \"674\",\n  \"balance\": {\n    \"ledger\": \"<number>\",\n    \"available\": \"<number>\"\n  },\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-10-22T02:08:26.000Z",
+                              "updatedAt": "2026-10-22T02:08:26.000Z",
+                              "uid": "35240-afa43003-5ccf-491a-b085-fba32efaf84d"
+                            },
+                            {
+                              "id": "f92abacc-b5e1-4af0-9563-af2ecc3b7dc5",
+                              "name": "Ledger not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers/:LedgerID?referenceID=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "ledgers",
+                                    ":LedgerID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Reference ID fallback lookup.",
+                                      "key": "referenceID",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "LedgerID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:26.000Z",
+                              "updatedAt": "2026-10-22T02:08:26.000Z",
+                              "uid": "35240-f92abacc-b5e1-4af0-9563-af2ecc3b7dc5"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:08:26.000Z",
+                          "updatedAt": "2026-10-22T02:08:26.000Z",
+                          "uid": "35240-91413bd7-00f3-41cd-b795-df4e34a3c0c3"
+                        }
+                      ],
+                      "id": "f2b78074-49f2-462f-8932-98a10b93b43e",
+                      "createdAt": "2026-10-22T02:08:26.000Z",
+                      "updatedAt": "2026-10-22T02:08:26.000Z",
+                      "uid": "35240-f2b78074-49f2-462f-8932-98a10b93b43e"
                     },
                     {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
+                      "name": "Create Ledger",
+                      "id": "db79ab07-e00e-401c-be12-7e5df7cf2c44",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"referenceID\": \"Fi0\",\n  \"userID\": \"CReXf1U0j2EJdSruUpRmGk\",\n  \"bank\": \"<string>\",\n  \"type\": \"BalanceHolding\",\n  \"currency\": \"175\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "clients",
+                            ":ClientID",
+                            "ledgers"
+                          ],
+                          "variable": [
+                            {
+                              "id": "741ba6ef-60e4-4b27-8c56-30ffd27917df",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "Creates a ledger.\n\nRequest to enable at TabaPay Support or help@tabapay.com"
+                      },
+                      "response": [
+                        {
+                          "id": "5a0044e3-4342-4e13-bac1-e9d61df327b4",
+                          "name": "Ledger created.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"referenceID\": \"Fi0\",\n  \"userID\": \"CReXf1U0j2EJdSruUpRmGk\",\n  \"bank\": \"<string>\",\n  \"type\": \"BalanceHolding\",\n  \"currency\": \"175\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "ledgers"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"ledgerID\": \"3SGBGeC5RIkoJKx7eOyKqX\"\n}",
+                          "createdAt": "2026-10-22T02:08:26.000Z",
+                          "updatedAt": "2026-10-22T02:08:26.000Z",
+                          "uid": "35240-5a0044e3-4342-4e13-bac1-e9d61df327b4"
+                        },
+                        {
+                          "id": "bb6def70-f11b-4fd4-9c37-27361e92252c",
+                          "name": "One or more failures occurred while processing the Request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"referenceID\": \"Fi0\",\n  \"userID\": \"CReXf1U0j2EJdSruUpRmGk\",\n  \"bank\": \"<string>\",\n  \"type\": \"BalanceHolding\",\n  \"currency\": \"175\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/ledgers",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "ledgers"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Multi-Status (WebDAV) (RFC 4918)",
+                          "code": 207,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:26.000Z",
+                          "updatedAt": "2026-10-22T02:08:26.000Z",
+                          "uid": "35240-bb6def70-f11b-4fd4-9c37-27361e92252c"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:26.000Z",
+                      "updatedAt": "2026-10-22T02:08:26.000Z",
+                      "uid": "35240-db79ab07-e00e-401c-be12-7e5df7cf2c44"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"type\": \"BalanceHolding\",\n  \"referenceID\": \"1234reference\",\n  \"userID\": \"22CharacterTabaPayID12\",\n  \"bank\": \"CRB\",\n  \"currency\": \"840\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "a2b615f1-278e-42b8-97a3-9278a5c2ef5d",
+                  "createdAt": "2026-10-22T02:08:26.000Z",
+                  "updatedAt": "2026-10-22T02:08:26.000Z",
+                  "uid": "35240-a2b615f1-278e-42b8-97a3-9278a5c2ef5d"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"ledgerID\": \"22characterledgerID123\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1a2eda01-fe81-4f76-9818-f755ccaebe9c",
-              "name": "One or more failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"type\": \"BalanceHolding\",\n  \"referenceID\": \"1234reference\",\n  \"userID\": \"22CharacterTabaPayID12\",\n  \"bank\": \"CRB\",\n  \"currency\": \"840\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 9101,\n  \"EC\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "71d28e85-9dc0-4e66-bb94-208230137493",
-          "name": "Delete Ledger",
-          "request": {
-            "name": "Delete Ledger",
-            "description": {
-              "content": "Deletes a ledger.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "ledgers",
-                ":LedgerID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "LedgerID",
-                  "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "f6e1b1ee-25bf-483c-8a61-d95a55ce0fcd",
-              "name": "Ledger deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers",
-                    ":LedgerID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "LedgerID",
-                      "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 9101,\n  \"EC\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2125894a-cd5c-42bf-b0ad-b20b63c939f8",
-              "name": "Ledger not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers",
-                    ":LedgerID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "LedgerID",
-                      "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 5936,\n  \"EC\": \"string\",\n  \"EM\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5a7b0160-dad9-4550-baae-565705c736cb",
-          "name": "Retrieve Ledger",
-          "request": {
-            "name": "Retrieve Ledger",
-            "description": {
-              "content": "Retrieves a ledger by ledgerID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "ledgers",
-                ":LedgerID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "referenceID",
-                  "value": "<string>",
-                  "description": "Reference ID fallback lookup."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "LedgerID",
-                  "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c47a9db3-ccca-4add-a2d3-c06e964bdcac",
-              "name": "Ledger retrieved.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers",
-                    ":LedgerID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "referenceID",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "LedgerID",
-                      "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 2449,\n  \"EC\": \"string\",\n  \"EM\": \"string\",\n  \"ledgerID\": \"CnU0GU8wOapuc5AX0rukCk\",\n  \"referenceID\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"bank\": \"string\",\n  \"type\": \"BalanceHolding\",\n  \"routingNumber\": \"011698547\",\n  \"accountNumber\": \"593\",\n  \"currency\": \"840\",\n  \"balance\": {\n    \"ledger\": 9915.130526476421,\n    \"available\": 5935.106345691274\n  },\n  \"created\": \"2016-08-17T05:30:47.473Z\",\n  \"updated\": \"1982-06-13T04:41:20.068Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "990fb185-a1a5-4372-84bd-659bfb1b5d21",
-              "name": "Ledger not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "ledgers",
-                    ":LedgerID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "referenceID",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "LedgerID",
-                      "description": "(Required) 22-character LedgerID returned from Create Ledger."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 5936,\n  \"EC\": \"string\",\n  \"EM\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "1e470d71-d407-4f37-a139-6d5224625762",
+              "createdAt": "2026-10-22T02:08:26.000Z",
+              "updatedAt": "2026-10-22T02:08:26.000Z",
+              "uid": "35240-1e470d71-d407-4f37-a139-6d5224625762"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7322aa8c-0e2b-42cb-8cc4-1829742b65b0",
+          "createdAt": "2026-10-22T02:08:26.000Z",
+          "updatedAt": "2026-10-22T02:08:26.000Z",
+          "uid": "35240-7322aa8c-0e2b-42cb-8cc4-1829742b65b0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "02026666-0122-4265-a3ac-53a12b767e56",
+      "createdAt": "2026-10-22T02:08:26.000Z",
+      "updatedAt": "2026-10-22T02:08:26.000Z",
+      "uid": "35240-02026666-0122-4265-a3ac-53a12b767e56"
     }
   ],
   "auth": {
@@ -707,17 +580,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b5c759dd-e29a-48ef-9345-183cbf1f0e8a",
-    "name": "TabaPay APIs 3D Secure Ledger API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

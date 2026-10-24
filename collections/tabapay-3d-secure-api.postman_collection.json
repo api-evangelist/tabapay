@@ -1,804 +1,731 @@
 {
+  "info": {
+    "_postman_id": "2a652545-5cf4-4c1a-b851-b4f18f940f4a",
+    "name": "TabaPay 3D Secure API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:07:34.000Z",
+    "updatedAt": "2026-10-22T02:07:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2a652545-5cf4-4c1a-b851-b4f18f940f4a"
+  },
   "item": [
     {
-      "id": "4e2fb9b6-f706-4bda-ab4c-e7b336c54f0c",
-      "name": "3D Secure",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v2",
       "item": [
         {
-          "id": "fe916b3a-8d89-401c-8e65-7859527c3d25",
-          "name": "3D Secure Authenticate",
-          "request": {
-            "name": "3D Secure Authenticate",
-            "description": {
-              "content": "3D Secure Card Authentication Request.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "3ds",
-                "authenticate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"3dsID\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "69dfd58e-352c-4cf4-824d-398bdb6c56eb",
-              "name": "An Authenticate Response is returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "authenticate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"3dsID\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "3ds",
+                  "item": [
+                    {
+                      "name": "authenticate",
+                      "item": [
+                        {
+                          "name": "3D Secure Authenticate",
+                          "id": "b2f7862a-37a6-431d-ad8d-0ed9c22f9b1f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"3dsID\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/authenticate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "3ds",
+                                "authenticate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "54698ad5-41e5-4e93-9a77-7e0e050bd838",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                }
+                              ]
+                            },
+                            "description": "3D Secure Card Authentication Request."
+                          },
+                          "response": [
+                            {
+                              "id": "4a5c8446-f16a-4f0f-aa57-78fdc65e3c2b",
+                              "name": "An Authenticate Response is returned.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"3dsID\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/authenticate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "authenticate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"actionCode\": \"<string>\",\n  \"errorNumber\": \"<string>\",\n  \"errorDescription\": \"<string>\",\n  \"3dsVersion\": \"<string>\",\n  \"processorTransactionID\": \"<string>\",\n  \"status\": \"<string>\",\n  \"ECI\": \"00\",\n  \"UCAF\": \"<string>\",\n  \"XID\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-4a5c8446-f16a-4f0f-aa57-78fdc65e3c2b"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:35.000Z",
+                          "updatedAt": "2026-10-22T02:07:35.000Z",
+                          "uid": "35240-b2f7862a-37a6-431d-ad8d-0ed9c22f9b1f"
+                        }
+                      ],
+                      "id": "b7c663f2-b70e-4653-a42b-1833f4d517d4",
+                      "createdAt": "2026-10-22T02:07:35.000Z",
+                      "updatedAt": "2026-10-22T02:07:35.000Z",
+                      "uid": "35240-b7c663f2-b70e-4653-a42b-1833f4d517d4"
+                    },
+                    {
+                      "name": "init",
+                      "item": [
+                        {
+                          "name": "3D Secure Initialize",
+                          "id": "7639e7fc-9d1c-448f-bf02-18dcef745505",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"order\": {\n    \"orderID\": \"SD9Eb\",\n    \"amount\": \"13250489432\",\n    \"currency\": \"663\"\n  },\n  \"sdkVersion\": \"<string>\",\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"33645809987567210\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/init",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "3ds",
+                                "init"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "be07dc33-99d1-48cd-bf29-2bb1ad184a01",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                }
+                              ]
+                            },
+                            "description": "Initializes a 3D Secure Card Authentication Request.\n\nRequest to enable at TabaPay Support or help@tabapay.com"
+                          },
+                          "response": [
+                            {
+                              "id": "64a2bcca-4c89-4cb5-9e29-cc469d14de2c",
+                              "name": "A JWT is Created.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"order\": {\n    \"orderID\": \"SD9Eb\",\n    \"amount\": \"13250489432\",\n    \"currency\": \"663\"\n  },\n  \"sdkVersion\": \"<string>\",\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"33645809987567210\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/init",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "init"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"3dsID\": \"<string>\",\n  \"jwt\": \"tCCeQ\",\n  \"deviceCollectionURL\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-64a2bcca-4c89-4cb5-9e29-cc469d14de2c"
+                            },
+                            {
+                              "id": "1c136228-4ffd-4e9f-9cd7-642a65c78c19",
+                              "name": "One or more Failures occurred while processing the Request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"order\": {\n    \"orderID\": \"SD9Eb\",\n    \"amount\": \"13250489432\",\n    \"currency\": \"663\"\n  },\n  \"sdkVersion\": \"<string>\",\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"33645809987567210\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/init",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "init"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Multi-Status (WebDAV) (RFC 4918)",
+                              "code": 207,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-1c136228-4ffd-4e9f-9cd7-642a65c78c19"
+                            },
+                            {
+                              "id": "09cc4e3c-b250-4cb0-9b83-548ca2e03c99",
+                              "name": "The AccountID does not point to a valid Account.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"order\": {\n    \"orderID\": \"SD9Eb\",\n    \"amount\": \"13250489432\",\n    \"currency\": \"663\"\n  },\n  \"sdkVersion\": \"<string>\",\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"33645809987567210\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/init",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "init"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-09cc4e3c-b250-4cb0-9b83-548ca2e03c99"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:35.000Z",
+                          "updatedAt": "2026-10-22T02:07:35.000Z",
+                          "uid": "35240-7639e7fc-9d1c-448f-bf02-18dcef745505"
+                        }
+                      ],
+                      "id": "77645bb6-8b52-48bb-8dd9-3d8c9216043e",
+                      "createdAt": "2026-10-22T02:07:35.000Z",
+                      "updatedAt": "2026-10-22T02:07:35.000Z",
+                      "uid": "35240-77645bb6-8b52-48bb-8dd9-3d8c9216043e"
+                    },
+                    {
+                      "name": "lookup",
+                      "item": [
+                        {
+                          "name": "3D Secure Lookup",
+                          "id": "9135c9f9-82b1-4c3c-a17b-5634a1675a4d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"jMyO@ ieFkbmYm\",\n      \"phone\": {\n        \"number\": \"247199711\",\n        \"countryCode\": \"073\"\n      },\n      \"name\": {\n        \"first\": \"x05pYR6\",\n        \"last\": \"E-OfF\"\n      },\n      \"address\": {\n        \"line1\": \"g_9nqmfP\",\n        \"line2\": \"Czd0TmtK\",\n        \"city\": \"NCPGHG5\",\n        \"state\": \"KLXa3UC\",\n        \"zipcode\": \"dglMU\",\n        \"country\": \"134\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"7550847155474109\",\n      \"expirationDate\": \"586678\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"t29sHMtPbR2\",\n    \"amount\": \"95734912R\",\n    \"currency\": \"125\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"01\",\n  \"transactionType\": \"C\",\n  \"productCode\": \"CHA\",\n  \"browser\": {\n    \"deviceChannel\": \"Browser\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"R\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/lookup?enhancedResponse=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "3ds",
+                                "lookup"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Provides more granular detail in 3DS responses.",
+                                  "key": "enhancedResponse",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1b490d1b-ab05-4e5e-af6b-e450d90aea24",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                }
+                              ]
+                            },
+                            "description": "3D Secure Card Lookup."
+                          },
+                          "response": [
+                            {
+                              "id": "28394049-c087-44a5-8ef6-d92655ef49ff",
+                              "name": "A Lookup Response is returned.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"jMyO@ ieFkbmYm\",\n      \"phone\": {\n        \"number\": \"247199711\",\n        \"countryCode\": \"073\"\n      },\n      \"name\": {\n        \"first\": \"x05pYR6\",\n        \"last\": \"E-OfF\"\n      },\n      \"address\": {\n        \"line1\": \"g_9nqmfP\",\n        \"line2\": \"Czd0TmtK\",\n        \"city\": \"NCPGHG5\",\n        \"state\": \"KLXa3UC\",\n        \"zipcode\": \"dglMU\",\n        \"country\": \"134\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"7550847155474109\",\n      \"expirationDate\": \"586678\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"t29sHMtPbR2\",\n    \"amount\": \"95734912R\",\n    \"currency\": \"125\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"01\",\n  \"transactionType\": \"C\",\n  \"productCode\": \"CHA\",\n  \"browser\": {\n    \"deviceChannel\": \"Browser\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"R\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/lookup?enhancedResponse=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "lookup"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Provides more granular detail in 3DS responses.",
+                                      "key": "enhancedResponse",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"3dsVersion\": \"<string>\",\n  \"enrolled\": \"<string>\",\n  \"processorTransactionID\": \"<string>\",\n  \"dsTransactionID\": \"<string>\",\n  \"status\": \"<string>\",\n  \"ECI\": \"05\",\n  \"UCAF\": \"<string>\",\n  \"XID\": \"<string>\",\n  \"challengeURL\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"cardholderInfo\": \"<string>\",\n  \"signatureVerification\": \"<string>\",\n  \"stepUpURL\": \"<string>\",\n  \"3dsRC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-28394049-c087-44a5-8ef6-d92655ef49ff"
+                            },
+                            {
+                              "id": "0e31e647-aa9e-4bb9-a47e-8fc748af31e4",
+                              "name": "One or more Failures occurred while processing the Request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"jMyO@ ieFkbmYm\",\n      \"phone\": {\n        \"number\": \"247199711\",\n        \"countryCode\": \"073\"\n      },\n      \"name\": {\n        \"first\": \"x05pYR6\",\n        \"last\": \"E-OfF\"\n      },\n      \"address\": {\n        \"line1\": \"g_9nqmfP\",\n        \"line2\": \"Czd0TmtK\",\n        \"city\": \"NCPGHG5\",\n        \"state\": \"KLXa3UC\",\n        \"zipcode\": \"dglMU\",\n        \"country\": \"134\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"7550847155474109\",\n      \"expirationDate\": \"586678\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"t29sHMtPbR2\",\n    \"amount\": \"95734912R\",\n    \"currency\": \"125\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"01\",\n  \"transactionType\": \"C\",\n  \"productCode\": \"CHA\",\n  \"browser\": {\n    \"deviceChannel\": \"Browser\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"R\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/lookup?enhancedResponse=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "lookup"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Provides more granular detail in 3DS responses.",
+                                      "key": "enhancedResponse",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Multi-Status (WebDAV) (RFC 4918)",
+                              "code": 207,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-0e31e647-aa9e-4bb9-a47e-8fc748af31e4"
+                            },
+                            {
+                              "id": "5b2c3898-2fe9-4008-8459-7768ed80cfb9",
+                              "name": "The AccountID does not point to a valid Account.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"jMyO@ ieFkbmYm\",\n      \"phone\": {\n        \"number\": \"247199711\",\n        \"countryCode\": \"073\"\n      },\n      \"name\": {\n        \"first\": \"x05pYR6\",\n        \"last\": \"E-OfF\"\n      },\n      \"address\": {\n        \"line1\": \"g_9nqmfP\",\n        \"line2\": \"Czd0TmtK\",\n        \"city\": \"NCPGHG5\",\n        \"state\": \"KLXa3UC\",\n        \"zipcode\": \"dglMU\",\n        \"country\": \"134\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"7550847155474109\",\n      \"expirationDate\": \"586678\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"t29sHMtPbR2\",\n    \"amount\": \"95734912R\",\n    \"currency\": \"125\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"01\",\n  \"transactionType\": \"C\",\n  \"productCode\": \"CHA\",\n  \"browser\": {\n    \"deviceChannel\": \"Browser\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"R\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/3ds/lookup?enhancedResponse=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "3ds",
+                                    "lookup"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Provides more granular detail in 3DS responses.",
+                                      "key": "enhancedResponse",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:35.000Z",
+                              "updatedAt": "2026-10-22T02:07:35.000Z",
+                              "uid": "35240-5b2c3898-2fe9-4008-8459-7768ed80cfb9"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:35.000Z",
+                          "updatedAt": "2026-10-22T02:07:35.000Z",
+                          "uid": "35240-9135c9f9-82b1-4c3c-a17b-5634a1675a4d"
+                        }
+                      ],
+                      "id": "f7e590a5-cc06-47ab-bc2f-8bdef3c02c04",
+                      "createdAt": "2026-10-22T02:07:35.000Z",
+                      "updatedAt": "2026-10-22T02:07:35.000Z",
+                      "uid": "35240-f7e590a5-cc06-47ab-bc2f-8bdef3c02c04"
+                    }
+                  ],
+                  "id": "4dd1b9f8-f348-4f0c-b8a7-56b941abc779",
+                  "createdAt": "2026-10-22T02:07:35.000Z",
+                  "updatedAt": "2026-10-22T02:07:35.000Z",
+                  "uid": "35240-4dd1b9f8-f348-4f0c-b8a7-56b941abc779"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"actionCode\": \"SUCCESS\",\n  \"errorNumber\": \"0\",\n  \"errorDescription\": \"Success\",\n  \"3dsVersion\": \"2.1.0\",\n  \"processorTransactionID\": \"11111111111111111111\",\n  \"status\": \"Y\",\n  \"ECI\": \"05\",\n  \"UCAF\": \"1111111111111111111111111111\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "03c476b3-50e6-41e4-953b-0d05184102d7",
-          "name": "3D Secure Initialize",
-          "request": {
-            "name": "3D Secure Initialize",
-            "description": {
-              "content": "Initializes a 3D Secure Card Authentication Request. \n\nRequest to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "3ds",
-                "init"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"order\": {\n    \"orderID\": \"<uuid>\",\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"sdkVersion\": \"<string>\",\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "d1d61e4c-2dc0-4288-9375-728d56059b38",
-              "name": "A JWT is Created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "init"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"referenceID\": \"1dkt062024\",\n  \"account\": {\n    \"card\": {\n      \"accountNumber\": \"4000000000002446\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"currency\": \"840\",\n    \"amount\": \"4.00\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"3dsID\": \"ID_BASE64-URL-SAFE-VALUE\",\n  \"jwt\": \"JWT-BASE64-URL-SAFE-VALUE\",\n  \"deviceCollectionURL\": \"https://someplace.somewhere.com/DeviceCollect\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b680ed64-d6e7-4bc4-8904-8efe95a0032d",
-              "name": "One or more Failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "init"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"referenceID\": \"1dkt062024\",\n  \"account\": {\n    \"card\": {\n      \"accountNumber\": \"4000000000002446\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"currency\": \"840\",\n    \"amount\": \"4.00\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "82e0f874-abf2-40b3-9575-fb4cb2d2649b",
-              "name": "The AccountID does not point to a valid Account.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "init"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"referenceID\": \"1dkt062024\",\n  \"account\": {\n    \"card\": {\n      \"accountNumber\": \"4000000000002446\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"currency\": \"840\",\n    \"amount\": \"4.00\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 404,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"AccountID\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "49680323-91f0-4974-ad15-3daec99deab7",
-          "name": "3D Secure Lookup",
-          "request": {
-            "name": "3D Secure Lookup",
-            "description": {
-              "content": "3D Secure Card Lookup.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "3ds",
-                "lookup"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "enhancedResponse",
-                  "value": "<string>",
-                  "description": "(Required) Provides more granular detail in 3DS responses."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"<string>\",\n      \"phone\": {\n        \"number\": \"<string>\",\n        \"countryCode\": \"<string>\"\n      },\n      \"name\": {\n        \"first\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"line2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country\": \"<string>\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"<uuid>\",\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"productCode\": \"<string>\",\n  \"browser\": {\n    \"deviceChannel\": \"<string>\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "53b356f0-2fd9-46df-bfa3-2f4318873ef4",
-              "name": "A Lookup Response is returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "lookup"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "enhancedResponse",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"test@tabapay.com\",\n      \"phone\": {\n        \"number\": \"5555555555\",\n        \"countryCode\": \"<string>\"\n      },\n      \"name\": {\n        \"first\": \"Tobias\",\n        \"last\": \"Pennywick\"\n      },\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"line2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country\": \"840\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"<uuid>\",\n    \"amount\": \"<string>\",\n    \"currency\": \"840\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"productCode\": \"<string>\",\n  \"browser\": {\n    \"deviceChannel\": \"<string>\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"3dsVersion\": \"2.1.0\",\n  \"enrolled\": \"Y\",\n  \"processorTransactionID\": \"11111111111111111111\",\n  \"dsTransactionID\": \"11111111-2222-3333-4444-555555555555\",\n  \"status\": \"Y\",\n  \"ECI\": \"05\",\n  \"UCAF\": \"1111111111111111111111111111\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "43e64bb2-4aa8-4e09-ad77-1ac48a3e4ab4",
-              "name": "One or more Failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "lookup"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "enhancedResponse",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"test@tabapay.com\",\n      \"phone\": {\n        \"number\": \"5555555555\",\n        \"countryCode\": \"<string>\"\n      },\n      \"name\": {\n        \"first\": \"Tobias\",\n        \"last\": \"Pennywick\"\n      },\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"line2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country\": \"840\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"<uuid>\",\n    \"amount\": \"<string>\",\n    \"currency\": \"840\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"productCode\": \"<string>\",\n  \"browser\": {\n    \"deviceChannel\": \"<string>\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "951d8ec5-8d1a-4ff5-8e1b-2d6600070a82",
-              "name": "The AccountID does not point to a valid Account.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "3ds",
-                    "lookup"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "enhancedResponse",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"account\": {\n    \"owner\": {\n      \"email\": \"test@tabapay.com\",\n      \"phone\": {\n        \"number\": \"5555555555\",\n        \"countryCode\": \"<string>\"\n      },\n      \"name\": {\n        \"first\": \"Tobias\",\n        \"last\": \"Pennywick\"\n      },\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"line2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country\": \"840\"\n      }\n    },\n    \"accountID\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\"\n    }\n  },\n  \"order\": {\n    \"orderID\": \"<uuid>\",\n    \"amount\": \"<string>\",\n    \"currency\": \"840\"\n  },\n  \"3dsID\": \"<string>\",\n  \"authenticationIndicator\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"productCode\": \"<string>\",\n  \"browser\": {\n    \"deviceChannel\": \"<string>\",\n    \"javascriptEnabled\": \"<boolean>\",\n    \"userAgent\": \"<string>\",\n    \"header\": \"<string>\",\n    \"javaEnabled\": \"<boolean>\",\n    \"language\": \"<string>\",\n    \"colorDepth\": \"<string>\",\n    \"screenHeight\": \"<string>\",\n    \"screenWidth\": \"<string>\",\n    \"ipAddress\": \"<string>\",\n    \"browserInfo\": \"<string>\"\n  },\n  \"sdkSessionID\": \"<string>\",\n  \"transactionMode\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 404,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"Account\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "5c475a22-465c-47dc-9990-4febbcbf70a2",
+              "createdAt": "2026-10-22T02:07:35.000Z",
+              "updatedAt": "2026-10-22T02:07:35.000Z",
+              "uid": "35240-5c475a22-465c-47dc-9990-4febbcbf70a2"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "94ca7fe8-d354-402e-9110-267ffa1f217d",
+          "createdAt": "2026-10-22T02:07:35.000Z",
+          "updatedAt": "2026-10-22T02:07:35.000Z",
+          "uid": "35240-94ca7fe8-d354-402e-9110-267ffa1f217d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "aec73da0-008a-43c6-8180-d4c541241b4c",
+      "createdAt": "2026-10-22T02:07:35.000Z",
+      "updatedAt": "2026-10-22T02:07:35.000Z",
+      "uid": "35240-aec73da0-008a-43c6-8180-d4c541241b4c"
     }
   ],
   "auth": {
@@ -806,17 +733,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f979388d-dec6-4e10-96b3-1200492d4693",
-    "name": "TabaPay APIs 3D Secure API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

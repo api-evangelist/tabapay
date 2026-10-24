@@ -1,293 +1,229 @@
 {
+  "info": {
+    "_postman_id": "c3ef315f-828e-40a6-8854-5d8eae58e566",
+    "name": "TabaPay Client API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:03.000Z",
+    "updatedAt": "2026-10-22T02:08:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c3ef315f-828e-40a6-8854-5d8eae58e566"
+  },
   "item": [
     {
-      "id": "9e033310-178a-49da-b36c-dc7ea1957e20",
-      "name": "Client",
-      "description": {
-        "content": "This resource represents a Client.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "558c3562-610e-4af4-8872-55fe3e1bdcd6",
-          "name": "Retrieve Client",
-          "request": {
-            "name": "Retrieve Client",
-            "description": {
-              "content": "Retrieves the attributes and status of a Client.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character ClientID. Present in your credential file."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "1229be19-dcbf-4420-91e9-c2cb8e10b1fc",
-              "name": "Client's attributes are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character ClientID. Present in your credential file."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Retrieve Client",
+                  "id": "7441f6f1-aa60-4620-8152-54321bc0cf97",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/clients/:ClientID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "clients",
+                        ":ClientID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2a109d30-b817-451d-9534-6342ab5982ed",
+                          "key": "ClientID",
+                          "value": "<string>",
+                          "description": "(Required) 22-character ClientID. Present in your credential file."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the attributes and status of a Client."
+                  },
+                  "response": [
+                    {
+                      "id": "e5fba61f-b822-4690-98f1-215cb77737b6",
+                      "name": "Client's attributes are returned.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ClientID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"label\": \"<string>\",\n  \"networks\": {\n    \"pull\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"push\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"limits\": {\n    \"currency\": \"<string>\",\n    \"pull\": {\n      \"transaction\": \"<string>\",\n      \"daily\": \"<string>\",\n      \"networks\": [\n        {\n          \"network\": \"<string>\",\n          \"transaction\": \"<string>\",\n          \"daily\": \"<string>\"\n        },\n        {\n          \"network\": \"<string>\",\n          \"transaction\": \"<string>\",\n          \"daily\": \"<string>\"\n        }\n      ]\n    },\n    \"push\": {\n      \"transaction\": \"<string>\",\n      \"daily\": \"<string>\",\n      \"networks\": [\n        {\n          \"network\": \"<string>\",\n          \"transaction\": \"<string>\",\n          \"daily\": \"<string>\"\n        },\n        {\n          \"network\": \"<string>\",\n          \"transaction\": \"<string>\",\n          \"daily\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-10-22T02:08:03.000Z",
+                      "updatedAt": "2026-10-22T02:08:03.000Z",
+                      "uid": "35240-e5fba61f-b822-4690-98f1-215cb77737b6"
+                    },
+                    {
+                      "id": "a65a8ef8-8d20-4481-9a70-7b8964003dd5",
+                      "name": "Client not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ClientID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:08:03.000Z",
+                      "updatedAt": "2026-10-22T02:08:03.000Z",
+                      "uid": "35240-a65a8ef8-8d20-4481-9a70-7b8964003dd5"
+                    },
+                    {
+                      "id": "c8739673-6aeb-491e-947c-e4be3337847b",
+                      "name": "Client locked.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ClientID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Locked (WebDAV) (RFC 4918)",
+                      "code": 423,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:08:03.000Z",
+                      "updatedAt": "2026-10-22T02:08:03.000Z",
+                      "uid": "35240-c8739673-6aeb-491e-947c-e4be3337847b"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:03.000Z",
+                  "updatedAt": "2026-10-22T02:08:03.000Z",
+                  "uid": "35240-7441f6f1-aa60-4620-8152-54321bc0cf97"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"label\": \"ClientLabel\",\n  \"networks\": {\n    \"pull\": [\n      \"STAR\",\n      \"Visa\"\n    ],\n    \"push\": [\n      \"STAR\",\n      \"CU24\",\n      \"Visa\"\n    ]\n  },\n  \"limits\": {\n    \"currency\": \"840\",\n    \"pull\": {\n      \"transaction\": \"0.25\",\n      \"daily\": \"1.00\"\n    },\n    \"push\": {\n      \"transaction\": \"0.25\",\n      \"daily\": \"1.00\",\n      \"networks\": [\n        {\n          \"network\": \"CU24\",\n          \"transaction\": \"0.20\",\n          \"daily\": \"1.00\"\n        }\n      ]\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d56fe255-f3bb-4343-af1d-6dd1c630cf58",
-              "name": "Client not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character ClientID. Present in your credential file."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 404,\n  \"EC\": \"3A1000000\",\n  \"EM\": \"Not Found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "78b05435-c2f7-4390-b172-8a977cf22c8a",
-              "name": "Client locked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character ClientID. Present in your credential file."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Locked (WebDAV) (RFC 4918)",
-              "code": 423,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 423,\n  \"EC\": \"3A1000000\",\n  \"EM\": \"Locked\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "8a5b27a7-3fe2-4f3c-ab9c-296acac2843b",
+              "createdAt": "2026-10-22T02:08:03.000Z",
+              "updatedAt": "2026-10-22T02:08:03.000Z",
+              "uid": "35240-8a5b27a7-3fe2-4f3c-ab9c-296acac2843b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "64f7d0bf-d500-45fa-93d3-c5e63edece41",
+          "createdAt": "2026-10-22T02:08:03.000Z",
+          "updatedAt": "2026-10-22T02:08:03.000Z",
+          "uid": "35240-64f7d0bf-d500-45fa-93d3-c5e63edece41"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "c6de938c-7669-441f-804f-ee0a242e6e55",
+      "createdAt": "2026-10-22T02:08:03.000Z",
+      "updatedAt": "2026-10-22T02:08:03.000Z",
+      "uid": "35240-c6de938c-7669-441f-804f-ee0a242e6e55"
     }
   ],
   "auth": {
@@ -295,17 +231,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4ee60cdf-a68f-4872-9033-0025be33682d",
-    "name": "TabaPay APIs 3D Secure Client API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

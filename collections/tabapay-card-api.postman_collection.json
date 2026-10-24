@@ -1,319 +1,300 @@
 {
+  "info": {
+    "_postman_id": "cc85b406-01fe-4712-81ac-c840f7258177",
+    "name": "TabaPay Card API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:07:51.000Z",
+    "updatedAt": "2026-10-22T02:07:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cc85b406-01fe-4712-81ac-c840f7258177"
+  },
   "item": [
     {
-      "id": "826af788-fbe8-41e8-ae74-0d0d8e611ba5",
-      "name": "Card",
-      "description": {
-        "content": "This resource represents a Payment Card (Debit Card, PrePaid Card, or Credit Card).",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "64ffe2c8-e677-4754-82c6-cd8e4f9cd463",
-          "name": "Query Card",
-          "request": {
-            "name": "Query Card",
-            "description": {
-              "content": "Returns the attributes for the requested Payment Card.\n\nRequest to enable <Glossary>ANI</Glossary> or <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "cards"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "AU",
-                  "value": "<string>",
-                  "description": "Use to send the card number and expiration date to network's Account Updater, and apply any card changes."
-                },
-                {
-                  "disabled": false,
-                  "key": "AVS",
-                  "value": "<string>",
-                  "description": "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-                },
-                {
-                  "disabled": false,
-                  "key": "ANI",
-                  "value": "<string>",
-                  "description": "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)"
-                },
-                {
-                  "disabled": false,
-                  "key": "Fees",
-                  "value": "<string>",
-                  "description": "Use to check fees.\n\nIf using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  },\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"securityCode\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    },\n    \"mobilePay\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\",\n      \"cryptogram\": \"<byte>\",\n      \"transactionID\": \"<byte>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"eciIndicator\": \"<string>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "81db5c58-c2f6-4c33-aa7a-a2361415184d",
-              "name": "The Payment Card's Attributes are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "cards"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "AU",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "AVS",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "ANI",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "Fees",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"card\": {\n    \"accountNumber\": \"4111111111111111\",\n    \"expirationDate\": \"202708\",\n    \"securityCode\": \"232\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94104\",\n      \"country\": \"840\"\n    }\n  },\n  \"currency\": \"840\",\n  \"timeout\": \"39\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "cards",
+                  "item": [
+                    {
+                      "name": "Query Card",
+                      "id": "84d04634-8878-460a-879c-2db982814b96",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"HF6idz4da4-\",\n      \"first\": \"I6OXo9E\",\n      \"middle\": \"otPdhcm 7I\",\n      \"last\": \"far8CPB\",\n      \"suffix\": \"ui1oKnPT2p\"\n    },\n    \"address\": {\n      \"line1\": \"F7i-\",\n      \"line2\": \"h0c.uA8gu\",\n      \"city\": \"iCzjy-nl8S\",\n      \"state\": \"7iV3x-l\",\n      \"zipcode\": \"OaK7APu1uv\",\n      \"country\": \"602\"\n    }\n  },\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"securityCode\": \"9251\"\n  },\n  \"card\": {\n    \"accountNumber\": \"4088040282195752980\",\n    \"expirationDate\": \"563955\",\n    \"securityCode\": \"6453\",\n    \"keyID\": \"1ze0H-xGTQqZTzykVc9uOI\",\n    \"data\": \"<string>\",\n    \"token\": \"4-8iEmCBBOV0Ug8x41YliAYZQ6u-f76GE5sPV852sKr5r0FrasePtrADgtxkJuiED42rVBKsAsn5QT8mQhFx0eAMpdXUXxacrnWJ9f46DwTQ4DbAoKKJWTaeZMsk97DQjsf7E17pvgZEG1HJ_Cpvp+6oLmRuh=mMVkc6wk97M3yIn0dGNA2gNy9G+1SXIzRh=8G-TnFgIESo9j5Le6_TTPC7V4M+Auu8iLlQbdq4H1fRNfuFHlvKIMSoXxxD+F7zILeGugrl-9IjJAELogc3ORTOIIYa5B6P0jFnsRa2-AAQA4eJzpo+WC27Q+9B46yEjJf2VzLzEYadr6kfVtHCt-fr\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"LxE6Yh3veygogUGMRR6bYbr+=Hi5g=I81VMNbInC3GcjxVF6DQdAlXRqjc-JTTM_QEkPjxEglRboypOfeulv4rdyZhD521a-AisfZJ=h+BHl1TEcynlQoEu8=j-l8c4G8=z9L1+mSa+UFC3nrHHIVWiQVaEplm5I-hFF+25ZyAQQcA3AXcr4woHIQ9wMtNhg-1MWLAbAEUhQYP2gnEKq4f62aFxv-LXlbsaY4IRTKwAaSViEdDLTIfue6mdR9DmUgKxfsGvIV0BMC==RWE6R9zYhLLlfk4qgQcJ6n=HYo8Cp3CZ-k4SHCzsCNE+ep0oSBREGHYEMDH1y99dnp2VI+-q7-sdZjXibNbi_3XVxIl5_rWuwRo7t8k8cMwYwW5t4h4ydZLMyccqvh3ZYfmFsGcwY_Lcoum-e7w-epTeY19Q9TJfqEBhL81O-dz4RPjPaSFYCelrXx5RV=FK9VqSb-a1p3rnNtEusbx9jQ47-FFzz3zGvF-a2N2th3udIh4Ez1tBBHE_W6f-4IK7PLFZDy7L1+6K+cg2jLUf5KwqPTkfgtPEcceKp6JaDYBPLOqq7gelBFQUHjLCMeVlkyZTpMo8xw2AB8mFyXlRAS97bOxuMcUYi0t-lbYliofUme_ZdXl+adsh9c4AfJrdIu_HmH=ZfqYzAUVZ9pgt82W6EaSdW2W6Jd+hzCrfdK2t5ZmiuQ=G5Vkk=1whdPZHdsLa2Q3V5R8rnRX5P-EJH2VdduaUgd=tJyU8kDGzwhsv30x8zlPpUg5==ZaV4uOwa6heRJJ=YKlLhSEHDENJRscH6fUSutHhr_+DrTDTLaSWi8Wq4svrY_0RsS2Gd42S5aAY=QfoJmQCdM9kiUudSRUrHRuW5H77U87NUor-gxH30X9hFP3bd6U+ywAwJ=AuKCZjmpkgoIG5fRpTqnr2dlCHAYvxi-jVES_vv7VdqeWWy28XBkIvcBHCiqJlBcVZ00=Gkrmj8h961VwBxM2=CnuTYYc0CbVSrEBDHx2JhLZm+9ZQ4AjLLOkmbtx+LybV4X_+gReQjkTkLnAoE_4rqUpCM-3a-oIAZaeDqo941mj9+RHZCCTe1V2h6w+xMbglzXapEVaTVItx1mjOmmI7U57312fgDCs-9Bs+BbF95yhfzkSVW8G8F9AXZYs1pW9zUeY_Xvnu=0bRWSC4i6e5GzWZDRE7BzYTWCI7b8c36Cm3Kfm3lCvMZRoQpu-MQWOoIbC6U6Ze9m3qK9L-DxU=w98pcaxDCfX+bWvXGOcuokNUZ9n6CDMAztENasQK+czSt0WGNqJXsPr6Ty0IJgXX=MBsM7S9yR9mpoWTj3tIxes9bzAOZ_3ZcCMoKzGDjt=-qjUIbgRy-pen_4x_OJKLqkRDsK_TRrMlM-lGvw6YO-Bk3lmfI69Iz-QLH85559MV41feqJtd8uS2CavUUFpLDcl=ORueBzHyhqD0wG-IyAX08n5fxnwVxZsSk7UWEWAN=eoEl=ut9rnJH\"\n    },\n    \"mobilePay\": {\n      \"accountNumber\": \"2641716490954\",\n      \"expirationDate\": \"927624\",\n      \"cryptogram\": \"hKx2uWip41XXulq4WeTh74ko3uzC\",\n      \"transactionID\": \"sAVPLG2x2dJTSEwFypOFk5dBYh6KNYWIsE7I28AAZCfVg0ZHsPWGAlmEoXgSLNt4\",\n      \"network\": \"r\",\n      \"type\": \"uVMTUYplV\",\n      \"eciIndicator\": \"2\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID/cards?AU=<string>&AVS=<string>&ANI=<string>&Fees=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID",
+                            "cards"
+                          ],
+                          "query": [
+                            {
+                              "description": "Use to send the card number and expiration date to network's Account Updater, and apply any card changes.",
+                              "key": "AU",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                              "key": "AVS",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                              "key": "ANI",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Use to check fees.\n\nIf using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.",
+                              "key": "Fees",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "c38a58da-9424-4f6f-ba6c-8a573817b394",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "Returns the attributes for the requested Payment Card.\n\nRequest to enable ANI or AVS at TabaPay Support or help@tabapay.com"
+                      },
+                      "response": [
+                        {
+                          "id": "9375eb55-6308-4456-9e51-53e9b882dc77",
+                          "name": "The Payment Card's Attributes are returned.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"HF6idz4da4-\",\n      \"first\": \"I6OXo9E\",\n      \"middle\": \"otPdhcm 7I\",\n      \"last\": \"far8CPB\",\n      \"suffix\": \"ui1oKnPT2p\"\n    },\n    \"address\": {\n      \"line1\": \"F7i-\",\n      \"line2\": \"h0c.uA8gu\",\n      \"city\": \"iCzjy-nl8S\",\n      \"state\": \"7iV3x-l\",\n      \"zipcode\": \"OaK7APu1uv\",\n      \"country\": \"602\"\n    }\n  },\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"securityCode\": \"9251\"\n  },\n  \"card\": {\n    \"accountNumber\": \"4088040282195752980\",\n    \"expirationDate\": \"563955\",\n    \"securityCode\": \"6453\",\n    \"keyID\": \"1ze0H-xGTQqZTzykVc9uOI\",\n    \"data\": \"<string>\",\n    \"token\": \"4-8iEmCBBOV0Ug8x41YliAYZQ6u-f76GE5sPV852sKr5r0FrasePtrADgtxkJuiED42rVBKsAsn5QT8mQhFx0eAMpdXUXxacrnWJ9f46DwTQ4DbAoKKJWTaeZMsk97DQjsf7E17pvgZEG1HJ_Cpvp+6oLmRuh=mMVkc6wk97M3yIn0dGNA2gNy9G+1SXIzRh=8G-TnFgIESo9j5Le6_TTPC7V4M+Auu8iLlQbdq4H1fRNfuFHlvKIMSoXxxD+F7zILeGugrl-9IjJAELogc3ORTOIIYa5B6P0jFnsRa2-AAQA4eJzpo+WC27Q+9B46yEjJf2VzLzEYadr6kfVtHCt-fr\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"LxE6Yh3veygogUGMRR6bYbr+=Hi5g=I81VMNbInC3GcjxVF6DQdAlXRqjc-JTTM_QEkPjxEglRboypOfeulv4rdyZhD521a-AisfZJ=h+BHl1TEcynlQoEu8=j-l8c4G8=z9L1+mSa+UFC3nrHHIVWiQVaEplm5I-hFF+25ZyAQQcA3AXcr4woHIQ9wMtNhg-1MWLAbAEUhQYP2gnEKq4f62aFxv-LXlbsaY4IRTKwAaSViEdDLTIfue6mdR9DmUgKxfsGvIV0BMC==RWE6R9zYhLLlfk4qgQcJ6n=HYo8Cp3CZ-k4SHCzsCNE+ep0oSBREGHYEMDH1y99dnp2VI+-q7-sdZjXibNbi_3XVxIl5_rWuwRo7t8k8cMwYwW5t4h4ydZLMyccqvh3ZYfmFsGcwY_Lcoum-e7w-epTeY19Q9TJfqEBhL81O-dz4RPjPaSFYCelrXx5RV=FK9VqSb-a1p3rnNtEusbx9jQ47-FFzz3zGvF-a2N2th3udIh4Ez1tBBHE_W6f-4IK7PLFZDy7L1+6K+cg2jLUf5KwqPTkfgtPEcceKp6JaDYBPLOqq7gelBFQUHjLCMeVlkyZTpMo8xw2AB8mFyXlRAS97bOxuMcUYi0t-lbYliofUme_ZdXl+adsh9c4AfJrdIu_HmH=ZfqYzAUVZ9pgt82W6EaSdW2W6Jd+hzCrfdK2t5ZmiuQ=G5Vkk=1whdPZHdsLa2Q3V5R8rnRX5P-EJH2VdduaUgd=tJyU8kDGzwhsv30x8zlPpUg5==ZaV4uOwa6heRJJ=YKlLhSEHDENJRscH6fUSutHhr_+DrTDTLaSWi8Wq4svrY_0RsS2Gd42S5aAY=QfoJmQCdM9kiUudSRUrHRuW5H77U87NUor-gxH30X9hFP3bd6U+ywAwJ=AuKCZjmpkgoIG5fRpTqnr2dlCHAYvxi-jVES_vv7VdqeWWy28XBkIvcBHCiqJlBcVZ00=Gkrmj8h961VwBxM2=CnuTYYc0CbVSrEBDHx2JhLZm+9ZQ4AjLLOkmbtx+LybV4X_+gReQjkTkLnAoE_4rqUpCM-3a-oIAZaeDqo941mj9+RHZCCTe1V2h6w+xMbglzXapEVaTVItx1mjOmmI7U57312fgDCs-9Bs+BbF95yhfzkSVW8G8F9AXZYs1pW9zUeY_Xvnu=0bRWSC4i6e5GzWZDRE7BzYTWCI7b8c36Cm3Kfm3lCvMZRoQpu-MQWOoIbC6U6Ze9m3qK9L-DxU=w98pcaxDCfX+bWvXGOcuokNUZ9n6CDMAztENasQK+czSt0WGNqJXsPr6Ty0IJgXX=MBsM7S9yR9mpoWTj3tIxes9bzAOZ_3ZcCMoKzGDjt=-qjUIbgRy-pen_4x_OJKLqkRDsK_TRrMlM-lGvw6YO-Bk3lmfI69Iz-QLH85559MV41feqJtd8uS2CavUUFpLDcl=ORueBzHyhqD0wG-IyAX08n5fxnwVxZsSk7UWEWAN=eoEl=ut9rnJH\"\n    },\n    \"mobilePay\": {\n      \"accountNumber\": \"2641716490954\",\n      \"expirationDate\": \"927624\",\n      \"cryptogram\": \"hKx2uWip41XXulq4WeTh74ko3uzC\",\n      \"transactionID\": \"sAVPLG2x2dJTSEwFypOFk5dBYh6KNYWIsE7I28AAZCfVg0ZHsPWGAlmEoXgSLNt4\",\n      \"network\": \"r\",\n      \"type\": \"uVMTUYplV\",\n      \"eciIndicator\": \"2\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/cards?AU=<string>&AVS=<string>&ANI=<string>&Fees=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "cards"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to send the card number and expiration date to network's Account Updater, and apply any card changes.",
+                                  "key": "AU",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                                  "key": "AVS",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                                  "key": "ANI",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to check fees.\n\nIf using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.",
+                                  "key": "Fees",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4\": \"<string>\",\n    \"nameFI\": \"<string>\",\n    \"pull\": {\n      \"enabled\": \"<string>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"push\": {\n      \"enabled\": \"<string>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": \"<string>\",\n      \"country\": \"644\",\n      \"availability\": \"<string>\"\n    }\n  },\n  \"AU\": {\n    \"reasonCode\": \"<string>\",\n    \"card\": {\n      \"accountNumber\": \"<string>\",\n      \"expirationDate\": \"<string>\",\n      \"token\": \"<string>\",\n      \"newBIN\": \"<string>\",\n      \"newLast4\": \"<string>\",\n      \"newExpirationDate\": \"<string>\"\n    }\n  },\n  \"AVS\": {\n    \"avsID\": \"<string>\",\n    \"networkRC\": \"<string>\",\n    \"networkID\": \"<string>\",\n    \"authorizeID\": \"<string>\",\n    \"resultText\": \"<string>\",\n    \"codeAVS\": \"<string>\",\n    \"codeSecurityCode\": \"<string>\",\n    \"par\": \"<string>\",\n    \"codeMAC\": \"<string>\",\n    \"EC\": \"<string>\",\n    \"ANI\": {\n      \"codeMatch\": \"<string>\",\n      \"codeFullName\": \"<string>\",\n      \"codeFirstName\": \"<string>\",\n      \"codeMiddleName\": \"<string>\",\n      \"codeLastName\": \"<string>\"\n    }\n  },\n  \"fees\": {\n    \"pull\": {\n      \"interchange\": \"<string>\",\n      \"network\": \"<string>\",\n      \"tabapay\": \"<string>\"\n    },\n    \"push\": {\n      \"interchange\": \"<string>\",\n      \"network\": \"<string>\",\n      \"tabapay\": \"<string>\"\n    }\n  },\n  \"limits\": {\n    \"card\": \"in dolor labore magna adipisicing\",\n    \"user\": \"et qui\"\n  },\n  \"RTM\": \"cupidatat\",\n  \"subClientID\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:07:51.000Z",
+                          "updatedAt": "2026-10-22T02:07:51.000Z",
+                          "uid": "35240-9375eb55-6308-4456-9e51-53e9b882dc77"
+                        },
+                        {
+                          "id": "c4c937ca-ba0c-44a2-be15-75525b9ab3f1",
+                          "name": "One or more Failures occurred while processing the Request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"HF6idz4da4-\",\n      \"first\": \"I6OXo9E\",\n      \"middle\": \"otPdhcm 7I\",\n      \"last\": \"far8CPB\",\n      \"suffix\": \"ui1oKnPT2p\"\n    },\n    \"address\": {\n      \"line1\": \"F7i-\",\n      \"line2\": \"h0c.uA8gu\",\n      \"city\": \"iCzjy-nl8S\",\n      \"state\": \"7iV3x-l\",\n      \"zipcode\": \"OaK7APu1uv\",\n      \"country\": \"602\"\n    }\n  },\n  \"account\": {\n    \"accountID\": \"<string>\",\n    \"securityCode\": \"9251\"\n  },\n  \"card\": {\n    \"accountNumber\": \"4088040282195752980\",\n    \"expirationDate\": \"563955\",\n    \"securityCode\": \"6453\",\n    \"keyID\": \"1ze0H-xGTQqZTzykVc9uOI\",\n    \"data\": \"<string>\",\n    \"token\": \"4-8iEmCBBOV0Ug8x41YliAYZQ6u-f76GE5sPV852sKr5r0FrasePtrADgtxkJuiED42rVBKsAsn5QT8mQhFx0eAMpdXUXxacrnWJ9f46DwTQ4DbAoKKJWTaeZMsk97DQjsf7E17pvgZEG1HJ_Cpvp+6oLmRuh=mMVkc6wk97M3yIn0dGNA2gNy9G+1SXIzRh=8G-TnFgIESo9j5Le6_TTPC7V4M+Auu8iLlQbdq4H1fRNfuFHlvKIMSoXxxD+F7zILeGugrl-9IjJAELogc3ORTOIIYa5B6P0jFnsRa2-AAQA4eJzpo+WC27Q+9B46yEjJf2VzLzEYadr6kfVtHCt-fr\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"LxE6Yh3veygogUGMRR6bYbr+=Hi5g=I81VMNbInC3GcjxVF6DQdAlXRqjc-JTTM_QEkPjxEglRboypOfeulv4rdyZhD521a-AisfZJ=h+BHl1TEcynlQoEu8=j-l8c4G8=z9L1+mSa+UFC3nrHHIVWiQVaEplm5I-hFF+25ZyAQQcA3AXcr4woHIQ9wMtNhg-1MWLAbAEUhQYP2gnEKq4f62aFxv-LXlbsaY4IRTKwAaSViEdDLTIfue6mdR9DmUgKxfsGvIV0BMC==RWE6R9zYhLLlfk4qgQcJ6n=HYo8Cp3CZ-k4SHCzsCNE+ep0oSBREGHYEMDH1y99dnp2VI+-q7-sdZjXibNbi_3XVxIl5_rWuwRo7t8k8cMwYwW5t4h4ydZLMyccqvh3ZYfmFsGcwY_Lcoum-e7w-epTeY19Q9TJfqEBhL81O-dz4RPjPaSFYCelrXx5RV=FK9VqSb-a1p3rnNtEusbx9jQ47-FFzz3zGvF-a2N2th3udIh4Ez1tBBHE_W6f-4IK7PLFZDy7L1+6K+cg2jLUf5KwqPTkfgtPEcceKp6JaDYBPLOqq7gelBFQUHjLCMeVlkyZTpMo8xw2AB8mFyXlRAS97bOxuMcUYi0t-lbYliofUme_ZdXl+adsh9c4AfJrdIu_HmH=ZfqYzAUVZ9pgt82W6EaSdW2W6Jd+hzCrfdK2t5ZmiuQ=G5Vkk=1whdPZHdsLa2Q3V5R8rnRX5P-EJH2VdduaUgd=tJyU8kDGzwhsv30x8zlPpUg5==ZaV4uOwa6heRJJ=YKlLhSEHDENJRscH6fUSutHhr_+DrTDTLaSWi8Wq4svrY_0RsS2Gd42S5aAY=QfoJmQCdM9kiUudSRUrHRuW5H77U87NUor-gxH30X9hFP3bd6U+ywAwJ=AuKCZjmpkgoIG5fRpTqnr2dlCHAYvxi-jVES_vv7VdqeWWy28XBkIvcBHCiqJlBcVZ00=Gkrmj8h961VwBxM2=CnuTYYc0CbVSrEBDHx2JhLZm+9ZQ4AjLLOkmbtx+LybV4X_+gReQjkTkLnAoE_4rqUpCM-3a-oIAZaeDqo941mj9+RHZCCTe1V2h6w+xMbglzXapEVaTVItx1mjOmmI7U57312fgDCs-9Bs+BbF95yhfzkSVW8G8F9AXZYs1pW9zUeY_Xvnu=0bRWSC4i6e5GzWZDRE7BzYTWCI7b8c36Cm3Kfm3lCvMZRoQpu-MQWOoIbC6U6Ze9m3qK9L-DxU=w98pcaxDCfX+bWvXGOcuokNUZ9n6CDMAztENasQK+czSt0WGNqJXsPr6Ty0IJgXX=MBsM7S9yR9mpoWTj3tIxes9bzAOZ_3ZcCMoKzGDjt=-qjUIbgRy-pen_4x_OJKLqkRDsK_TRrMlM-lGvw6YO-Bk3lmfI69Iz-QLH85559MV41feqJtd8uS2CavUUFpLDcl=ORueBzHyhqD0wG-IyAX08n5fxnwVxZsSk7UWEWAN=eoEl=ut9rnJH\"\n    },\n    \"mobilePay\": {\n      \"accountNumber\": \"2641716490954\",\n      \"expirationDate\": \"927624\",\n      \"cryptogram\": \"hKx2uWip41XXulq4WeTh74ko3uzC\",\n      \"transactionID\": \"sAVPLG2x2dJTSEwFypOFk5dBYh6KNYWIsE7I28AAZCfVg0ZHsPWGAlmEoXgSLNt4\",\n      \"network\": \"r\",\n      \"type\": \"uVMTUYplV\",\n      \"eciIndicator\": \"2\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/cards?AU=<string>&AVS=<string>&ANI=<string>&Fees=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "cards"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to send the card number and expiration date to network's Account Updater, and apply any card changes.",
+                                  "key": "AU",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use if you would like to perform [<<glossary:AVS>>](https://developers.tabapay.com/docs/address-verification)\n\nIf using in tandem with `Fees` query string, append `?AVS+Fees` or `?Fees+AVS` to your URL. \n\n Request to enable <Glossary>AVS</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                                  "key": "AVS",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use if you would like to perform [<<glossary:ANI>>](https://developers.tabapay.com/docs/account-name-inquiry-ani#/)\n\nIf using in tandem with `AVS` query string, append `?ANI+AVS` or `?AVS+ANI` to your URL. \n\n Request to enable <Glossary>ANI</Glossary> at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
+                                  "key": "ANI",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to check fees.\n\nIf using in tandem with `AVS` query string, append `?Fees+AVS` or `?AVS+Fees` to your URL.",
+                                  "key": "Fees",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Multi-Status (WebDAV) (RFC 4918)",
+                          "code": 207,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:07:51.000Z",
+                          "updatedAt": "2026-10-22T02:07:51.000Z",
+                          "uid": "35240-c4c937ca-ba0c-44a2-be15-75525b9ab3f1"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:07:51.000Z",
+                      "updatedAt": "2026-10-22T02:07:51.000Z",
+                      "uid": "35240-84d04634-8878-460a-879c-2db982814b96"
+                    }
+                  ],
+                  "id": "1cb31716-6f9e-412f-84cb-ca6ff75fdc0a",
+                  "createdAt": "2026-10-22T02:07:51.000Z",
+                  "updatedAt": "2026-10-22T02:07:51.000Z",
+                  "uid": "35240-1cb31716-6f9e-412f-84cb-ca6ff75fdc0a"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"card\": {\n    \"bin\": \"411111\",\n    \"last4\": \"1111\",\n    \"nameFI\": \"Financial Institution Name\",\n    \"pull\": {\n      \"enabled\": true,\n      \"network\": \"Visa\",\n      \"type\": \"Debit\",\n      \"regulated\": true,\n      \"currency\": \"840\",\n      \"country\": \"840\"\n    },\n    \"push\": {\n      \"enabled\": true,\n      \"network\": \"Visa\",\n      \"type\": \"Debit\",\n      \"regulated\": true,\n      \"currency\": \"840\",\n      \"country\": \"840\",\n      \"availability\": \"Immediate\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "20ed146e-f264-40ed-b893-744acb9a5ab4",
-              "name": "One or more Failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "cards"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "AU",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "AVS",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "ANI",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "Fees",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"card\": {\n    \"accountNumber\": \"4111111111111111\",\n    \"expirationDate\": \"202708\",\n    \"securityCode\": \"232\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94104\",\n      \"country\": \"840\"\n    }\n  },\n  \"currency\": \"840\",\n  \"timeout\": \"39\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "5055e657-f2a0-414d-b01e-b2c3e176aa1c",
+              "createdAt": "2026-10-22T02:07:51.000Z",
+              "updatedAt": "2026-10-22T02:07:51.000Z",
+              "uid": "35240-5055e657-f2a0-414d-b01e-b2c3e176aa1c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6e3a4d77-230b-4dc1-b5e0-33ee3035d444",
+          "createdAt": "2026-10-22T02:07:51.000Z",
+          "updatedAt": "2026-10-22T02:07:51.000Z",
+          "uid": "35240-6e3a4d77-230b-4dc1-b5e0-33ee3035d444"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "776db445-b863-4095-a682-1432f87b9ca5",
+      "createdAt": "2026-10-22T02:07:51.000Z",
+      "updatedAt": "2026-10-22T02:07:51.000Z",
+      "uid": "35240-776db445-b863-4095-a682-1432f87b9ca5"
     }
   ],
   "auth": {
@@ -321,17 +302,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "a7ecebd5-c2bb-4254-95d9-505186dd4c38",
-    "name": "TabaPay APIs 3D Secure Card API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

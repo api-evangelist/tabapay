@@ -1,260 +1,234 @@
 {
+  "info": {
+    "_postman_id": "52a487d9-1023-4561-a873-fed4f66c0cd6",
+    "name": "TabaPay FX Rate API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:08.000Z",
+    "updatedAt": "2026-10-22T02:08:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-52a487d9-1023-4561-a873-fed4f66c0cd6"
+  },
   "item": [
     {
-      "id": "df3fc27e-2d41-4a55-b7d2-db576dc47e54",
-      "name": "FXRate",
-      "description": {
-        "content": "This resource represents an FX Rate.",
-        "type": "text/plain"
-      },
+      "name": "v4",
       "item": [
         {
-          "id": "251b8cf3-62b5-4b3f-b0c4-e4e2755a504f",
-          "name": "Query FX",
-          "request": {
-            "name": "Query FX",
-            "description": {
-              "content": "***Currently in sandbox only***\n\nReturns the real-time FX-Rate and the amount in the beneficiary currency.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v4",
-                "clients",
-                ":ClientID",
-                "fxrate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"network\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "c8dd2434-9913-43b2-8dac-c91eb82e51a3",
-              "name": "The FX Rate has been queried and the process is complete.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v4",
-                    "clients",
-                    ":ClientID",
-                    "fxrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"network\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "fxrate",
+                  "item": [
+                    {
+                      "name": "Query FX",
+                      "id": "1e16f445-9486-499a-b006-9c05b9515e9d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"4457<3\",\n  \"network\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v4/clients/:ClientID/fxrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v4",
+                            "clients",
+                            ":ClientID",
+                            "fxrate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c3290ea0-ba13-427f-b269-d05c5ab63531",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "***Currently in sandbox only***\n\nReturns the real-time FX-Rate and the amount in the beneficiary currency."
+                      },
+                      "response": [
+                        {
+                          "id": "d80aa8da-0082-48ee-b347-980fe99671c1",
+                          "name": "The FX Rate has been queried and the process is complete.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"4457<3\",\n  \"network\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v4/clients/:ClientID/fxrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v4",
+                                "clients",
+                                ":ClientID",
+                                "fxrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"convertedAmount\": \"<string>\",\n  \"conversionRate\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:09.000Z",
+                          "updatedAt": "2026-10-22T02:08:09.000Z",
+                          "uid": "35240-d80aa8da-0082-48ee-b347-980fe99671c1"
+                        },
+                        {
+                          "id": "3ba0a7ce-a457-4e8b-a5a2-c78b8f97ecbc",
+                          "name": "One or more failures occurred while processing the Request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"4457<3\",\n  \"network\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v4/clients/:ClientID/fxrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v4",
+                                "clients",
+                                ":ClientID",
+                                "fxrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Multi-Status (WebDAV) (RFC 4918)",
+                          "code": 207,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:09.000Z",
+                          "updatedAt": "2026-10-22T02:08:09.000Z",
+                          "uid": "35240-3ba0a7ce-a457-4e8b-a5a2-c78b8f97ecbc"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:08.000Z",
+                      "updatedAt": "2026-10-22T02:08:08.000Z",
+                      "uid": "35240-1e16f445-9486-499a-b006-9c05b9515e9d"
+                    }
+                  ],
+                  "id": "109cdd1e-5522-4a45-8834-6537562a41e8",
+                  "createdAt": "2026-10-22T02:08:08.000Z",
+                  "updatedAt": "2026-10-22T02:08:08.000Z",
+                  "uid": "35240-109cdd1e-5522-4a45-8834-6537562a41e8"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"convertedAmount\": \"11.00\",\n  \"conversionRate\": \"1.345234\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ea32713c-98d4-4532-837c-a8896a74817c",
-              "name": "One or more failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v4",
-                    "clients",
-                    ":ClientID",
-                    "fxrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"fromCurrency\": \"<string>\",\n  \"toCurrency\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"network\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "40c7b9f2-fd5a-4daf-800c-cc7e8c121355",
+              "createdAt": "2026-10-22T02:08:08.000Z",
+              "updatedAt": "2026-10-22T02:08:08.000Z",
+              "uid": "35240-40c7b9f2-fd5a-4daf-800c-cc7e8c121355"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "92e183f5-fac8-431a-a664-a9b733612303",
+          "createdAt": "2026-10-22T02:08:08.000Z",
+          "updatedAt": "2026-10-22T02:08:08.000Z",
+          "uid": "35240-92e183f5-fac8-431a-a664-a9b733612303"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "d6aef089-cea2-4c37-8521-85b89a398c92",
+      "createdAt": "2026-10-22T02:08:08.000Z",
+      "updatedAt": "2026-10-22T02:08:08.000Z",
+      "uid": "35240-d6aef089-cea2-4c37-8521-85b89a398c92"
     }
   ],
   "auth": {
@@ -262,17 +236,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "8028be98-2a84-4f66-802a-22d25d4bec74",
-    "name": "TabaPay APIs 3D Secure FXRate API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

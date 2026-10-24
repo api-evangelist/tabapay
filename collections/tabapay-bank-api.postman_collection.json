@@ -1,260 +1,234 @@
 {
+  "info": {
+    "_postman_id": "f63cd537-7c56-44ac-8271-0911126fe3da",
+    "name": "TabaPay Bank API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:07:45.000Z",
+    "updatedAt": "2026-10-22T02:07:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f63cd537-7c56-44ac-8271-0911126fe3da"
+  },
   "item": [
     {
-      "id": "a45c798d-c21e-4f27-bc1a-0c2bdec7df58",
-      "name": "Bank",
-      "description": {
-        "content": "This resource represents a Bank.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "c5e71c05-15e9-4458-bc3d-d73a4a4b8a21",
-          "name": "Query Bank",
-          "request": {
-            "name": "Query Bank",
-            "description": {
-              "content": "Returns the attributes for the requested Bank.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "banks"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"routingNumber\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "1a3252a1-df0d-4375-a4d4-3e57793b5ec3",
-              "name": "The Bank's Attributes are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "banks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"routingNumber\": \"011001234\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "banks",
+                  "item": [
+                    {
+                      "name": "Query Bank",
+                      "id": "ccefd84a-d7aa-49db-8692-eda9d29c6cb0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"routingNumber\": \"919938598\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID/banks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID",
+                            "banks"
+                          ],
+                          "variable": [
+                            {
+                              "id": "529d70ad-6f40-484d-aef9-13448a5d23d8",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "Returns the attributes for the requested Bank."
+                      },
+                      "response": [
+                        {
+                          "id": "35918a24-aa5e-4761-ad2a-e95506814e16",
+                          "name": "The Bank's Attributes are returned.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"routingNumber\": \"919938598\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/banks",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "banks"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"RTP\": \"<boolean>\",\n  \"RTPAttributes\": {\n    \"TCH\": \"<boolean>\",\n    \"TCHRequestForPayment\": \"<boolean>\",\n    \"FED\": \"<boolean>\",\n    \"FEDRequestForPayment\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:07:46.000Z",
+                          "updatedAt": "2026-10-22T02:07:46.000Z",
+                          "uid": "35240-35918a24-aa5e-4761-ad2a-e95506814e16"
+                        },
+                        {
+                          "id": "1100fb3d-56ee-4937-9b9c-0e379cac8904",
+                          "name": "Bad Request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"routingNumber\": \"919938598\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/banks",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "banks"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"RTP\": \"<boolean>\",\n  \"RTPAttributes\": {\n    \"TCH\": \"<boolean>\",\n    \"TCHRequestForPayment\": \"<boolean>\",\n    \"FED\": \"<boolean>\",\n    \"FEDRequestForPayment\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:07:46.000Z",
+                          "updatedAt": "2026-10-22T02:07:46.000Z",
+                          "uid": "35240-1100fb3d-56ee-4937-9b9c-0e379cac8904"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:07:46.000Z",
+                      "updatedAt": "2026-10-22T02:07:46.000Z",
+                      "uid": "35240-ccefd84a-d7aa-49db-8692-eda9d29c6cb0"
+                    }
+                  ],
+                  "id": "f7e04770-ee72-4bc1-a3af-11ce1a935432",
+                  "createdAt": "2026-10-22T02:07:46.000Z",
+                  "updatedAt": "2026-10-22T02:07:46.000Z",
+                  "uid": "35240-f7e04770-ee72-4bc1-a3af-11ce1a935432"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"RTP\": true,\n  \"RTPAttributes\": {\n    \"TCH\": true,\n    \"TCHRequestForPayment\": false,\n    \"FED\": true,\n    \"FEDRequestForPayment\": false\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0ff34499-cc9e-45fa-8474-763fccdccb07",
-              "name": "Bad Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "banks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"routingNumber\": \"011001234\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 400,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"accounts.destinationAccount.bank.routingNumber\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "185a3d13-29c9-4b20-a0c8-4971e99296ea",
+              "createdAt": "2026-10-22T02:07:46.000Z",
+              "updatedAt": "2026-10-22T02:07:46.000Z",
+              "uid": "35240-185a3d13-29c9-4b20-a0c8-4971e99296ea"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6e2119b5-85aa-4886-beba-e4a6290c8860",
+          "createdAt": "2026-10-22T02:07:46.000Z",
+          "updatedAt": "2026-10-22T02:07:46.000Z",
+          "uid": "35240-6e2119b5-85aa-4886-beba-e4a6290c8860"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "e9a2c231-4d82-4681-b644-ae7536d6b4e7",
+      "createdAt": "2026-10-22T02:07:46.000Z",
+      "updatedAt": "2026-10-22T02:07:46.000Z",
+      "uid": "35240-e9a2c231-4d82-4681-b644-ae7536d6b4e7"
     }
   ],
   "auth": {
@@ -262,17 +236,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "53adaf0e-bfda-4be3-b2e2-4567c169ffd6",
-    "name": "TabaPay APIs 3D Secure Bank API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

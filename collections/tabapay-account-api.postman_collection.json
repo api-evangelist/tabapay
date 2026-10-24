@@ -1,1414 +1,1254 @@
 {
+  "info": {
+    "_postman_id": "1d700638-4338-4606-b9f8-25ed2d186449",
+    "name": "TabaPay Account API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:07:39.000Z",
+    "updatedAt": "2026-10-22T02:07:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1d700638-4338-4606-b9f8-25ed2d186449"
+  },
   "item": [
     {
-      "id": "abdfadeb-c06f-4b3b-a5c0-998a9209f882",
-      "name": "Account",
-      "description": {
-        "content": "This resource represents a Client's Account.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "8d82031f-a601-45dd-aa9a-68d3029df019",
-          "name": "Create Account",
-          "request": {
-            "name": "Create Account",
-            "description": {
-              "content": "Creates an Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "accounts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "RejectDuplicateCard",
-                  "value": "<string>",
-                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
-                },
-                {
-                  "disabled": false,
-                  "key": "OKToAddDuplicateCard",
-                  "value": "<string>",
-                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"countryCode\": \"<string>\",\n      \"number\": \"<string>\"\n    }\n  },\n  \"referenceID\": \"<string>\",\n  \"bank\": {\n    \"routingNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountType\": \"<string>\"\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "9b046ec8-b2bb-43f6-8aef-7e60aa85a6cd",
-              "name": "An Account is Created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "accounts",
+                  "item": [
+                    {
+                      "name": "Create Account",
+                      "id": "48a916d2-086a-40db-9096-ed3910c89642",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"x\",\n      \"first\": \"r\",\n      \"middle\": \"VJNKL P811\",\n      \"last\": \"bsxFtjXvOZo\",\n      \"suffix\": \"T3d3gbykSnk\"\n    },\n    \"address\": {\n      \"line1\": \"bbiL1\",\n      \"line2\": \"4jGA.6U\",\n      \"city\": \"-iQVb\",\n      \"state\": \"Sljd\",\n      \"zipcode\": \"p0rQT\",\n      \"country\": \"696\"\n    },\n    \"phone\": {\n      \"countryCode\": \"946\",\n      \"number\": \"6748542664\"\n    }\n  },\n  \"referenceID\": \"6ztTLy71TM\",\n  \"bank\": {\n    \"routingNumber\": \"298807108\",\n    \"accountNumber\": \"4729927\",\n    \"accountType\": \"C\"\n  },\n  \"card\": {\n    \"accountNumber\": \"6841074920525947\",\n    \"expirationDate\": \"206879\",\n    \"keyID\": \"JqfAnc600TL0dnhfcV-V4T\",\n    \"data\": \"<string>\",\n    \"token\": \"_qD+Oz5nF3=jUUv4pjo5PoFNNkFxeSDd+iaMcJs6IL_lcfhF0HX+iIusT_DMLlbKPA9wJipVZ7=GT2HwZfsKIv-NDhD2amNUxETVzeqdD44=ci2b4kRylIsI+NdmnP1kcToSV_Tx-LhFeOt731d0D5VbqQSazPrqDndFhXLdTh9nPDK6r7ykM6xAtj1SWfz=NK4kcTtKaetQVvRG1=uQu0l_g7MdZurgGhd-68aBkeDWJow+b3=PmP9SYGMlZEcytnsW1UrV-r84HvLfPT36yMBhTjzBqklDKot_LcVCqb1AJs31+T-Ft1BKj_y37AmD_w-8Zn6VsgmRG9NeJouNJ+UI\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"iDzNg5w_8e_amw1wP-4Bbc3xLbHL6FSA_cW=q3FW7t3lp403mPfk6W=_d4weSND32+5enzRuSaucwd4xeBVLo2UUHeVG7SLyciZiG_DEL_QAEQ88hmYSnD+5N+JluZgoJ5INHIOgD4C2=tb0gS5R59nFde3uyjBeR6xL_Ztw3hbb7yPSBZ1r3tDCY9PKVlKYPAAmDyZlBOezMp=-BGWMHTbTe58smBMMFIoueLHIIDEdfETeTNNh1vZnsxPw_EsQksl1CmEAWeyjnR9TYuFt+siS5=6K+x9DoMXyygB41hVbHSMQKCR5uSOWWKGm7B1A1K+_hG8XleEmaUJKrAmitkWYC3JIXh2Ez+uW59dyavEj8yAd_q1kPePc2dvuBw=mQRBRFPZM5GxBBIonBI1FNNTpnrtCGZYKVQyf8sdYQ8aCZ5u3q0wEMMdQoJZ0-w_R5tzJBn7WdaC4K2K-zOw91-YBSb6UTQ7St1tc4eCiSjGxD+=X5mcU7BEYPQdpOUMd3DhO65CcAxC==69-KThlF35V9Ip_6q2lf_GBX7FLX9Q33mYpSaBSpe3EgnKuk=H1KS1hafrHVaEPSnkZUGXUJVwMGQv2qj82jrh_S8v4qZT9iicR8KIPYSMAQbZKBra54A4AY7+Y1tkwR76i+wnQm39FudM4v4EAALbvG+m-hViUXanr8ZuumlS0RCnWonOU7Wy-8Z0V4GS1DBiE92iQcgGepl0UKQXdiq2=+cVOjk0p653W+23Ei=C7fgBwip5406VfVpAUGzcdd8FexRVf74j25yF=mO_JaAto+bXlXTbGO9pHUJbwNIE5TeVwYTpzol_DjImLi=hqELtkCCFRF66Fd7hK1JEdLjJivHArnbdeoJ8H1qYCNh3tWTOOXzlJEvL2YtWbqXcgVqPYIDp9S=z0j60PLDiBGMsQ6brNE9YjVc-OyFTm0k6IYyNU=M5I4zKS3KoUqh8VSuUWElYV+xhVXjaUG1+UyXXr+R8e1b=ZMosVsqN6PAiZvBZWf=2nzNIDpWI0LRhCm+sv3lnbkpomAvzRf4=iunjiqMGGcEsG_FJBCW5wdJ9cCNRoSTYeI+uEonC4Wg-m67q_1mfiA6XuAm1yfoTzvqiDN6HZm9P6JfzuEdoascsKI-CMPwARaGUFvE5JIar9eE-Govcyfdk+d4zEoztkeDM0PZtgWzLOnAqAvXq-lVS-I_ADxjGHOHcILiwD1IA-RtHLVJgKAer-D0UYVbdVlogGYFEg9TdjBkxNTtGV-eOK_j4xH7IO6lwGdZmEnj9zgb=ToJtZLOeBjmUav=OOAIC5Oan1dTis6mPE5YR30JwssYOTABuAOEUFo+53OS6MiMXubGLeWNtiO-AIS2=txXfG39NxQLidLEaSva5xTX25yhxxJLC8a9yg_RYf_Al+66U3tDH=vl_X52dky3I-Xfs0S1tsek7rwDyxnxs_yxBwQGz0xAa9=saBMxacHSO7Bbio=r4BNiYrD+E8\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID/accounts?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID",
+                            "accounts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                              "key": "RejectDuplicateCard",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                              "key": "OKToAddDuplicateCard",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "444e5b89-7648-41d0-bd13-88436ad25c9c",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
+                            }
+                          ]
+                        },
+                        "description": "Creates an Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a retrieve via referenceID. *(Allowed only up to 24 hours after original request)*"
+                      },
+                      "response": [
+                        {
+                          "id": "eb4d5229-e2f4-4d0e-bc8e-c8d783c0f870",
+                          "name": "An Account is Created.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"x\",\n      \"first\": \"r\",\n      \"middle\": \"VJNKL P811\",\n      \"last\": \"bsxFtjXvOZo\",\n      \"suffix\": \"T3d3gbykSnk\"\n    },\n    \"address\": {\n      \"line1\": \"bbiL1\",\n      \"line2\": \"4jGA.6U\",\n      \"city\": \"-iQVb\",\n      \"state\": \"Sljd\",\n      \"zipcode\": \"p0rQT\",\n      \"country\": \"696\"\n    },\n    \"phone\": {\n      \"countryCode\": \"946\",\n      \"number\": \"6748542664\"\n    }\n  },\n  \"referenceID\": \"6ztTLy71TM\",\n  \"bank\": {\n    \"routingNumber\": \"298807108\",\n    \"accountNumber\": \"4729927\",\n    \"accountType\": \"C\"\n  },\n  \"card\": {\n    \"accountNumber\": \"6841074920525947\",\n    \"expirationDate\": \"206879\",\n    \"keyID\": \"JqfAnc600TL0dnhfcV-V4T\",\n    \"data\": \"<string>\",\n    \"token\": \"_qD+Oz5nF3=jUUv4pjo5PoFNNkFxeSDd+iaMcJs6IL_lcfhF0HX+iIusT_DMLlbKPA9wJipVZ7=GT2HwZfsKIv-NDhD2amNUxETVzeqdD44=ci2b4kRylIsI+NdmnP1kcToSV_Tx-LhFeOt731d0D5VbqQSazPrqDndFhXLdTh9nPDK6r7ykM6xAtj1SWfz=NK4kcTtKaetQVvRG1=uQu0l_g7MdZurgGhd-68aBkeDWJow+b3=PmP9SYGMlZEcytnsW1UrV-r84HvLfPT36yMBhTjzBqklDKot_LcVCqb1AJs31+T-Ft1BKj_y37AmD_w-8Zn6VsgmRG9NeJouNJ+UI\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"iDzNg5w_8e_amw1wP-4Bbc3xLbHL6FSA_cW=q3FW7t3lp403mPfk6W=_d4weSND32+5enzRuSaucwd4xeBVLo2UUHeVG7SLyciZiG_DEL_QAEQ88hmYSnD+5N+JluZgoJ5INHIOgD4C2=tb0gS5R59nFde3uyjBeR6xL_Ztw3hbb7yPSBZ1r3tDCY9PKVlKYPAAmDyZlBOezMp=-BGWMHTbTe58smBMMFIoueLHIIDEdfETeTNNh1vZnsxPw_EsQksl1CmEAWeyjnR9TYuFt+siS5=6K+x9DoMXyygB41hVbHSMQKCR5uSOWWKGm7B1A1K+_hG8XleEmaUJKrAmitkWYC3JIXh2Ez+uW59dyavEj8yAd_q1kPePc2dvuBw=mQRBRFPZM5GxBBIonBI1FNNTpnrtCGZYKVQyf8sdYQ8aCZ5u3q0wEMMdQoJZ0-w_R5tzJBn7WdaC4K2K-zOw91-YBSb6UTQ7St1tc4eCiSjGxD+=X5mcU7BEYPQdpOUMd3DhO65CcAxC==69-KThlF35V9Ip_6q2lf_GBX7FLX9Q33mYpSaBSpe3EgnKuk=H1KS1hafrHVaEPSnkZUGXUJVwMGQv2qj82jrh_S8v4qZT9iicR8KIPYSMAQbZKBra54A4AY7+Y1tkwR76i+wnQm39FudM4v4EAALbvG+m-hViUXanr8ZuumlS0RCnWonOU7Wy-8Z0V4GS1DBiE92iQcgGepl0UKQXdiq2=+cVOjk0p653W+23Ei=C7fgBwip5406VfVpAUGzcdd8FexRVf74j25yF=mO_JaAto+bXlXTbGO9pHUJbwNIE5TeVwYTpzol_DjImLi=hqELtkCCFRF66Fd7hK1JEdLjJivHArnbdeoJ8H1qYCNh3tWTOOXzlJEvL2YtWbqXcgVqPYIDp9S=z0j60PLDiBGMsQ6brNE9YjVc-OyFTm0k6IYyNU=M5I4zKS3KoUqh8VSuUWElYV+xhVXjaUG1+UyXXr+R8e1b=ZMosVsqN6PAiZvBZWf=2nzNIDpWI0LRhCm+sv3lnbkpomAvzRf4=iunjiqMGGcEsG_FJBCW5wdJ9cCNRoSTYeI+uEonC4Wg-m67q_1mfiA6XuAm1yfoTzvqiDN6HZm9P6JfzuEdoascsKI-CMPwARaGUFvE5JIar9eE-Govcyfdk+d4zEoztkeDM0PZtgWzLOnAqAvXq-lVS-I_ADxjGHOHcILiwD1IA-RtHLVJgKAer-D0UYVbdVlogGYFEg9TdjBkxNTtGV-eOK_j4xH7IO6lwGdZmEnj9zgb=ToJtZLOeBjmUav=OOAIC5Oan1dTis6mPE5YR30JwssYOTABuAOEUFo+53OS6MiMXubGLeWNtiO-AIS2=txXfG39NxQLidLEaSva5xTX25yhxxJLC8a9yg_RYf_Al+66U3tDH=vl_X52dky3I-Xfs0S1tsek7rwDyxnxs_yxBwQGz0xAa9=saBMxacHSO7Bbio=r4BNiYrD+E8\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/accounts?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "accounts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "RejectDuplicateCard",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "OKToAddDuplicateCard",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"accountID\": \"<string>\",\n  \"card\": {\n    \"last4\": \"4538\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"notices\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-eb4d5229-e2f4-4d0e-bc8e-c8d783c0f870"
+                        },
+                        {
+                          "id": "09360ae9-162a-48aa-ab4a-3085f7d6a11b",
+                          "name": "Account created, but Duplicate Card Check Failed.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"x\",\n      \"first\": \"r\",\n      \"middle\": \"VJNKL P811\",\n      \"last\": \"bsxFtjXvOZo\",\n      \"suffix\": \"T3d3gbykSnk\"\n    },\n    \"address\": {\n      \"line1\": \"bbiL1\",\n      \"line2\": \"4jGA.6U\",\n      \"city\": \"-iQVb\",\n      \"state\": \"Sljd\",\n      \"zipcode\": \"p0rQT\",\n      \"country\": \"696\"\n    },\n    \"phone\": {\n      \"countryCode\": \"946\",\n      \"number\": \"6748542664\"\n    }\n  },\n  \"referenceID\": \"6ztTLy71TM\",\n  \"bank\": {\n    \"routingNumber\": \"298807108\",\n    \"accountNumber\": \"4729927\",\n    \"accountType\": \"C\"\n  },\n  \"card\": {\n    \"accountNumber\": \"6841074920525947\",\n    \"expirationDate\": \"206879\",\n    \"keyID\": \"JqfAnc600TL0dnhfcV-V4T\",\n    \"data\": \"<string>\",\n    \"token\": \"_qD+Oz5nF3=jUUv4pjo5PoFNNkFxeSDd+iaMcJs6IL_lcfhF0HX+iIusT_DMLlbKPA9wJipVZ7=GT2HwZfsKIv-NDhD2amNUxETVzeqdD44=ci2b4kRylIsI+NdmnP1kcToSV_Tx-LhFeOt731d0D5VbqQSazPrqDndFhXLdTh9nPDK6r7ykM6xAtj1SWfz=NK4kcTtKaetQVvRG1=uQu0l_g7MdZurgGhd-68aBkeDWJow+b3=PmP9SYGMlZEcytnsW1UrV-r84HvLfPT36yMBhTjzBqklDKot_LcVCqb1AJs31+T-Ft1BKj_y37AmD_w-8Zn6VsgmRG9NeJouNJ+UI\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"iDzNg5w_8e_amw1wP-4Bbc3xLbHL6FSA_cW=q3FW7t3lp403mPfk6W=_d4weSND32+5enzRuSaucwd4xeBVLo2UUHeVG7SLyciZiG_DEL_QAEQ88hmYSnD+5N+JluZgoJ5INHIOgD4C2=tb0gS5R59nFde3uyjBeR6xL_Ztw3hbb7yPSBZ1r3tDCY9PKVlKYPAAmDyZlBOezMp=-BGWMHTbTe58smBMMFIoueLHIIDEdfETeTNNh1vZnsxPw_EsQksl1CmEAWeyjnR9TYuFt+siS5=6K+x9DoMXyygB41hVbHSMQKCR5uSOWWKGm7B1A1K+_hG8XleEmaUJKrAmitkWYC3JIXh2Ez+uW59dyavEj8yAd_q1kPePc2dvuBw=mQRBRFPZM5GxBBIonBI1FNNTpnrtCGZYKVQyf8sdYQ8aCZ5u3q0wEMMdQoJZ0-w_R5tzJBn7WdaC4K2K-zOw91-YBSb6UTQ7St1tc4eCiSjGxD+=X5mcU7BEYPQdpOUMd3DhO65CcAxC==69-KThlF35V9Ip_6q2lf_GBX7FLX9Q33mYpSaBSpe3EgnKuk=H1KS1hafrHVaEPSnkZUGXUJVwMGQv2qj82jrh_S8v4qZT9iicR8KIPYSMAQbZKBra54A4AY7+Y1tkwR76i+wnQm39FudM4v4EAALbvG+m-hViUXanr8ZuumlS0RCnWonOU7Wy-8Z0V4GS1DBiE92iQcgGepl0UKQXdiq2=+cVOjk0p653W+23Ei=C7fgBwip5406VfVpAUGzcdd8FexRVf74j25yF=mO_JaAto+bXlXTbGO9pHUJbwNIE5TeVwYTpzol_DjImLi=hqELtkCCFRF66Fd7hK1JEdLjJivHArnbdeoJ8H1qYCNh3tWTOOXzlJEvL2YtWbqXcgVqPYIDp9S=z0j60PLDiBGMsQ6brNE9YjVc-OyFTm0k6IYyNU=M5I4zKS3KoUqh8VSuUWElYV+xhVXjaUG1+UyXXr+R8e1b=ZMosVsqN6PAiZvBZWf=2nzNIDpWI0LRhCm+sv3lnbkpomAvzRf4=iunjiqMGGcEsG_FJBCW5wdJ9cCNRoSTYeI+uEonC4Wg-m67q_1mfiA6XuAm1yfoTzvqiDN6HZm9P6JfzuEdoascsKI-CMPwARaGUFvE5JIar9eE-Govcyfdk+d4zEoztkeDM0PZtgWzLOnAqAvXq-lVS-I_ADxjGHOHcILiwD1IA-RtHLVJgKAer-D0UYVbdVlogGYFEg9TdjBkxNTtGV-eOK_j4xH7IO6lwGdZmEnj9zgb=ToJtZLOeBjmUav=OOAIC5Oan1dTis6mPE5YR30JwssYOTABuAOEUFo+53OS6MiMXubGLeWNtiO-AIS2=txXfG39NxQLidLEaSva5xTX25yhxxJLC8a9yg_RYf_Al+66U3tDH=vl_X52dky3I-Xfs0S1tsek7rwDyxnxs_yxBwQGz0xAa9=saBMxacHSO7Bbio=r4BNiYrD+E8\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/accounts?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "accounts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "RejectDuplicateCard",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "OKToAddDuplicateCard",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Multi-Status (WebDAV) (RFC 4918)",
+                          "code": 207,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-09360ae9-162a-48aa-ab4a-3085f7d6a11b"
+                        },
+                        {
+                          "id": "56c3157b-b14b-40f8-a1c1-d4fc549da1eb",
+                          "name": "Duplicate Card Check Matched.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"x\",\n      \"first\": \"r\",\n      \"middle\": \"VJNKL P811\",\n      \"last\": \"bsxFtjXvOZo\",\n      \"suffix\": \"T3d3gbykSnk\"\n    },\n    \"address\": {\n      \"line1\": \"bbiL1\",\n      \"line2\": \"4jGA.6U\",\n      \"city\": \"-iQVb\",\n      \"state\": \"Sljd\",\n      \"zipcode\": \"p0rQT\",\n      \"country\": \"696\"\n    },\n    \"phone\": {\n      \"countryCode\": \"946\",\n      \"number\": \"6748542664\"\n    }\n  },\n  \"referenceID\": \"6ztTLy71TM\",\n  \"bank\": {\n    \"routingNumber\": \"298807108\",\n    \"accountNumber\": \"4729927\",\n    \"accountType\": \"C\"\n  },\n  \"card\": {\n    \"accountNumber\": \"6841074920525947\",\n    \"expirationDate\": \"206879\",\n    \"keyID\": \"JqfAnc600TL0dnhfcV-V4T\",\n    \"data\": \"<string>\",\n    \"token\": \"_qD+Oz5nF3=jUUv4pjo5PoFNNkFxeSDd+iaMcJs6IL_lcfhF0HX+iIusT_DMLlbKPA9wJipVZ7=GT2HwZfsKIv-NDhD2amNUxETVzeqdD44=ci2b4kRylIsI+NdmnP1kcToSV_Tx-LhFeOt731d0D5VbqQSazPrqDndFhXLdTh9nPDK6r7ykM6xAtj1SWfz=NK4kcTtKaetQVvRG1=uQu0l_g7MdZurgGhd-68aBkeDWJow+b3=PmP9SYGMlZEcytnsW1UrV-r84HvLfPT36yMBhTjzBqklDKot_LcVCqb1AJs31+T-Ft1BKj_y37AmD_w-8Zn6VsgmRG9NeJouNJ+UI\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"iDzNg5w_8e_amw1wP-4Bbc3xLbHL6FSA_cW=q3FW7t3lp403mPfk6W=_d4weSND32+5enzRuSaucwd4xeBVLo2UUHeVG7SLyciZiG_DEL_QAEQ88hmYSnD+5N+JluZgoJ5INHIOgD4C2=tb0gS5R59nFde3uyjBeR6xL_Ztw3hbb7yPSBZ1r3tDCY9PKVlKYPAAmDyZlBOezMp=-BGWMHTbTe58smBMMFIoueLHIIDEdfETeTNNh1vZnsxPw_EsQksl1CmEAWeyjnR9TYuFt+siS5=6K+x9DoMXyygB41hVbHSMQKCR5uSOWWKGm7B1A1K+_hG8XleEmaUJKrAmitkWYC3JIXh2Ez+uW59dyavEj8yAd_q1kPePc2dvuBw=mQRBRFPZM5GxBBIonBI1FNNTpnrtCGZYKVQyf8sdYQ8aCZ5u3q0wEMMdQoJZ0-w_R5tzJBn7WdaC4K2K-zOw91-YBSb6UTQ7St1tc4eCiSjGxD+=X5mcU7BEYPQdpOUMd3DhO65CcAxC==69-KThlF35V9Ip_6q2lf_GBX7FLX9Q33mYpSaBSpe3EgnKuk=H1KS1hafrHVaEPSnkZUGXUJVwMGQv2qj82jrh_S8v4qZT9iicR8KIPYSMAQbZKBra54A4AY7+Y1tkwR76i+wnQm39FudM4v4EAALbvG+m-hViUXanr8ZuumlS0RCnWonOU7Wy-8Z0V4GS1DBiE92iQcgGepl0UKQXdiq2=+cVOjk0p653W+23Ei=C7fgBwip5406VfVpAUGzcdd8FexRVf74j25yF=mO_JaAto+bXlXTbGO9pHUJbwNIE5TeVwYTpzol_DjImLi=hqELtkCCFRF66Fd7hK1JEdLjJivHArnbdeoJ8H1qYCNh3tWTOOXzlJEvL2YtWbqXcgVqPYIDp9S=z0j60PLDiBGMsQ6brNE9YjVc-OyFTm0k6IYyNU=M5I4zKS3KoUqh8VSuUWElYV+xhVXjaUG1+UyXXr+R8e1b=ZMosVsqN6PAiZvBZWf=2nzNIDpWI0LRhCm+sv3lnbkpomAvzRf4=iunjiqMGGcEsG_FJBCW5wdJ9cCNRoSTYeI+uEonC4Wg-m67q_1mfiA6XuAm1yfoTzvqiDN6HZm9P6JfzuEdoascsKI-CMPwARaGUFvE5JIar9eE-Govcyfdk+d4zEoztkeDM0PZtgWzLOnAqAvXq-lVS-I_ADxjGHOHcILiwD1IA-RtHLVJgKAer-D0UYVbdVlogGYFEg9TdjBkxNTtGV-eOK_j4xH7IO6lwGdZmEnj9zgb=ToJtZLOeBjmUav=OOAIC5Oan1dTis6mPE5YR30JwssYOTABuAOEUFo+53OS6MiMXubGLeWNtiO-AIS2=txXfG39NxQLidLEaSva5xTX25yhxxJLC8a9yg_RYf_Al+66U3tDH=vl_X52dky3I-Xfs0S1tsek7rwDyxnxs_yxBwQGz0xAa9=saBMxacHSO7Bbio=r4BNiYrD+E8\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/accounts?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "accounts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "RejectDuplicateCard",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "OKToAddDuplicateCard",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"duplicateAccountIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-56c3157b-b14b-40f8-a1c1-d4fc549da1eb"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:07:40.000Z",
+                      "updatedAt": "2026-10-22T02:07:40.000Z",
+                      "uid": "35240-48a916d2-086a-40db-9096-ed3910c89642"
+                    }
+                  ],
+                  "id": "1d938dd1-7cc8-4bc4-9c3a-04c2df02013a",
+                  "createdAt": "2026-10-22T02:07:40.000Z",
+                  "updatedAt": "2026-10-22T02:07:40.000Z",
+                  "uid": "35240-1d938dd1-7cc8-4bc4-9c3a-04c2df02013a"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"accountID\": \"TabaPay_AccountID_22ch\",\n  \"card\": {\n    \"last4\": \"1234\",\n    \"expirationDate\": \"202502\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "acaa7666-59b5-4d83-a7c4-e8ae26257f8a",
-              "name": "Account created, but Duplicate Card Check Failed.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9722976f-960a-4bfd-b139-edb58ace4312",
-              "name": "Duplicate Card Check Matched.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. <br> Note: <<glossary:SubClientID>> will create accountIDs at the same Client level. This is not recommended if you cannot share SubClient and Client accountIDs at the same level."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"bank\": {\n    \"routingNumber\": \"021000021\",\n    \"accountNumber\": \"123456789\",\n    \"accountType\": \"C\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"Owner\",\n      \"middle\": \"Test\",\n      \"last\": \"Name\"\n    },\n    \"address\": {\n      \"line1\": \"123 Street\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94103\",\n      \"country\": \"840\"\n    }\n  },\n  \"referenceID\": \"uniqueid123\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 409,\n  \"EC\": \"3C463000\",\n  \"EM\": \"Duplicate\",\n  \"duplicateAccountIDs\": [\n    \"ih0V8HSE2S6gAUqCkG29uw\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "be978fc2-17af-4892-9656-5dfafbf44cbd",
+              "createdAt": "2026-10-22T02:07:40.000Z",
+              "updatedAt": "2026-10-22T02:07:40.000Z",
+              "uid": "35240-be978fc2-17af-4892-9656-5dfafbf44cbd"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c262dbdd-bb3c-4a23-8293-1238279da176",
-          "name": "Delete Account",
-          "request": {
-            "name": "Delete Account",
-            "description": {
-              "content": "The Account is marked for Deletion.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":Version",
-                "clients",
-                ":ClientID",
-                "accounts",
-                ":AccountID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "DeleteDuplicateCard",
-                  "value": "<string>",
-                  "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/)."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "Version",
-                  "description": "(Required) `v1` is the only accepted value."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "AccountID",
-                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "073b1949-ee6e-4d2e-9fd5-d90e894b0166",
-              "name": "Account is marked for deletion.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "DeleteDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` is the only accepted value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ad3b11a1-7c33-4896-9861-965dcd1323f6",
-              "name": "Account marked for deletion, but Delete Duplicate Card Check Failed.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "DeleteDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` is the only accepted value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c69fefb9-d217-4282-a0be-714a737f8565",
-          "name": "Retrieve Account",
-          "request": {
-            "name": "Retrieve Account",
-            "description": {
-              "content": "Retrieves the Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a [retrieve via referenceID](https://developers.tabapay.com/reference/retrieve-via-referenceid). *(Allowed only up to 24 hours after original request)*",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":Version",
-                "clients",
-                ":ClientID",
-                "accounts",
-                ":AccountID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "Version",
-                  "description": "(Required) `v1` is the only accepted value."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "AccountID",
-                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "fb6deec4-d280-4b70-8360-9dcc3d143f7b",
-              "name": "Account retrieved.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` is the only accepted value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"referenceID\": \"1\",\n  \"card\": {\n    \"last4\": \"9990\",\n    \"expirationDate\": \"202012\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"first\": \"John\",\n      \"last\": \"Customer\"\n    },\n    \"address\": {\n      \"line1\": \"465 Fairchild Drive\",\n      \"line2\": \"Suite #222\",\n      \"city\": \"Mountain View\",\n      \"state\": \"CA\",\n      \"zipcode\": \"94043\"\n    },\n    \"phone\": {\n      \"number\": \"4159808222\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3ea7229c-0feb-4c91-8153-27a8be4200c9",
-              "name": "Too late to retrieve account by referenceId. Use accountId.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` is the only accepted value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "code": 421,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 421,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"ReferenceID\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "618f69be-02a1-4fe3-bf81-443dff35adc0",
-          "name": "Update Account",
-          "request": {
-            "name": "Update Account",
-            "description": {
-              "content": "Updates the Account. Use `v1` to replace all fields.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":Version",
-                "clients",
-                ":ClientID",
-                "accounts",
-                ":AccountID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "RejectDuplicateCard",
-                  "value": "<string>",
-                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
-                },
-                {
-                  "disabled": false,
-                  "key": "OKToAddDuplicateCard",
-                  "value": "<string>",
-                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "Version",
-                  "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "AccountID",
-                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"number\": \"<string>\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "4a9fe555-092f-4993-809f-c04fa5147ad8",
-              "name": "Account is updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b084dfc-7e18-4de6-af13-2bd38efcbbdd",
-              "name": "Account updated, but update duplicate card check failed.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 207,\n  \"EC\": \"InternalErrorCode\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "29684267-64c1-4ced-acf1-3415e5ede3f2",
-              "name": "Duplicate card check matched.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":Version",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "RejectDuplicateCard",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "OKToAddDuplicateCard",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "Version",
-                      "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"keyID\": \"<string>\",\n    \"data\": \"<string>\",\n    \"token\": \"<byte>\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"<string>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 409,\n  \"EC\": \"3C463000\",\n  \"EM\": \"Duplicate\",\n  \"duplicateAccountIDs\": [\n    \"ih0V8HSE2S6gAUqCkG29uw\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cd0f04da-4826-4777-a34f-ddc6f01ce50b",
-          "name": "Update Account V2",
-          "request": {
-            "name": "Update Account V2",
-            "description": {
-              "content": "Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers ([Refer to v1](https://developers.tabapay.com/reference/updateaccount#/)).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "accounts",
-                ":AccountID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "AccountID",
-                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"phone\": {\n      \"number\": \"<string>\",\n      \"countryCode\": \"<string>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "2ea7c2d6-bb60-4b6d-986c-b3c134e70f6a",
-              "name": "Account is updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "accounts",
-                    ":AccountID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "AccountID",
-                      "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"card\": {\n    \"accountNumber\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"<string>\",\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\",\n      \"suffix\": \"<string>\"\n    },\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\",\n      \"country\": \"840\"\n    },\n    \"phone\": {\n      \"number\": \"5555555555\",\n      \"countryCode\": \"<string>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "40b3e33e-c304-4c0e-aea5-3324bdfc8fa3",
+          "createdAt": "2026-10-22T02:07:40.000Z",
+          "updatedAt": "2026-10-22T02:07:40.000Z",
+          "uid": "35240-40b3e33e-c304-4c0e-aea5-3324bdfc8fa3"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
+      "id": "30c9d966-2923-487b-a6dd-3c2f11acad2e",
+      "createdAt": "2026-10-22T02:07:40.000Z",
+      "updatedAt": "2026-10-22T02:07:40.000Z",
+      "uid": "35240-30c9d966-2923-487b-a6dd-3c2f11acad2e"
     },
     {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
+      "name": "{Version}",
+      "item": [
+        {
+          "name": "clients",
+          "item": [
+            {
+              "name": "{ClientID}",
+              "item": [
+                {
+                  "name": "accounts",
+                  "item": [
+                    {
+                      "name": "{AccountID}",
+                      "item": [
+                        {
+                          "name": "Delete Account",
+                          "id": "0165461d-6628-416c-9be2-75b4447805d1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?DeleteDuplicateCard=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":Version",
+                                "clients",
+                                ":ClientID",
+                                "accounts",
+                                ":AccountID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).",
+                                  "key": "DeleteDuplicateCard",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1f357f53-c774-4ebe-9048-43fe6bd6b40c",
+                                  "key": "Version",
+                                  "value": "v1",
+                                  "description": "(Required) `v1` is the only accepted value."
+                                },
+                                {
+                                  "id": "cd2b15dd-e07e-4c83-a089-b55f3768663a",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "7799f4bb-5d8d-4c90-9ed4-a4260e0b97d3",
+                                  "key": "AccountID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                                }
+                              ]
+                            },
+                            "description": "The Account is marked for Deletion."
+                          },
+                          "response": [
+                            {
+                              "id": "544d64a7-ffcb-4cee-80d0-b26f6e33751e",
+                              "name": "Account is marked for deletion.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?DeleteDuplicateCard=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).",
+                                      "key": "DeleteDuplicateCard",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-544d64a7-ffcb-4cee-80d0-b26f6e33751e"
+                            },
+                            {
+                              "id": "c47c8195-207c-43ef-945f-f0577dd808eb",
+                              "name": "Account marked for deletion, but Delete Duplicate Card Check Failed.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?DeleteDuplicateCard=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).",
+                                      "key": "DeleteDuplicateCard",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Multi-Status (WebDAV) (RFC 4918)",
+                              "code": 207,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-c47c8195-207c-43ef-945f-f0577dd808eb"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-0165461d-6628-416c-9be2-75b4447805d1"
+                        },
+                        {
+                          "name": "Retrieve Account",
+                          "id": "9e5cd37b-7be5-444c-9e6b-972ff929ef8f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":Version",
+                                "clients",
+                                ":ClientID",
+                                "accounts",
+                                ":AccountID"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "603d5b48-0009-4941-b8aa-07999c2690da",
+                                  "key": "Version",
+                                  "value": "v1",
+                                  "description": "(Required) `v1` is the only accepted value."
+                                },
+                                {
+                                  "id": "5b6763c1-5e83-4d03-812f-21361de94f43",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "ae50f94c-d64a-46b5-b563-0e991bcb637f",
+                                  "key": "AccountID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the Account.\n\nIn circumstances where you fail to receive an `accountID` from us, you can do a retrieve via referenceID. *(Allowed only up to 24 hours after original request)*"
+                          },
+                          "response": [
+                            {
+                              "id": "f5ac9605-75a3-46bc-a5cd-cb864d38189b",
+                              "name": "Account retrieved.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"RZCe1iaH5s\",\n      \"first\": \"q66-\",\n      \"middle\": \"U\",\n      \"last\": \"E\",\n      \"suffix\": \"1\"\n    },\n    \"address\": {\n      \"line1\": \"4.WiU8M2\",\n      \"line2\": \"Sc3\",\n      \"city\": \"UbVs3im\",\n      \"state\": \"qPNB\",\n      \"zipcode\": \"RI3G9E\",\n      \"country\": \"697\"\n    },\n    \"phone\": {\n      \"number\": \"1981365\",\n      \"countryCode\": \"712\"\n    }\n  },\n  \"referenceID\": \"4fsyRZFqdYMnAC\",\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"bank\": {\n    \"last4\": \"<string>\",\n    \"routingNumber\": \"699524498\",\n    \"accountType\": \"B\"\n  },\n  \"card\": {\n    \"last4\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-f5ac9605-75a3-46bc-a5cd-cb864d38189b"
+                            },
+                            {
+                              "id": "3c4843c2-665d-45b6-bd1c-44b0aa3fe394",
+                              "name": "Too late to retrieve account by referenceId. Use accountId.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-3c4843c2-665d-45b6-bd1c-44b0aa3fe394"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-9e5cd37b-7be5-444c-9e6b-972ff929ef8f"
+                        },
+                        {
+                          "name": "Update Account",
+                          "id": "d3ec9acb-a0cc-48d2-b1f1-6145548f8dab",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"zCV\",\n      \"first\": \"JOiffhMI \",\n      \"middle\": \"Sr9FX\",\n      \"last\": \"D\",\n      \"suffix\": \"icwzRNFHXjp\"\n    },\n    \"address\": {\n      \"line1\": \"g2MOa\",\n      \"line2\": \"G\",\n      \"city\": \"y KYte-S9Q\",\n      \"state\": \"8lFxwqM5\",\n      \"zipcode\": \"MJ\",\n      \"country\": \"283\"\n    },\n    \"phone\": {\n      \"number\": \"39109\",\n      \"countryCode\": \"430\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"80764259039436\",\n    \"expirationDate\": \"649729\",\n    \"keyID\": \"aokMNlN2ihlWZsoRxJdgRF\",\n    \"data\": \"<string>\",\n    \"token\": \"wN48z-zy-mwjvamly9mxoTG4VkAmOZWg30hcvtj9rEsLDC3-IRsx5X1OH8s1SYWN-M65g9pHtnfbXC_=+O3xUmDo+TaimpJ=8qAS3NhCRDAzLlmtXlKzcF39Pl0LFtHfwsGm7vthf6PKWgb_UfsfHKAp-N23lchYIou=g1ZvUcRsaE5Hrc+InGwK5offan1=+OA1YD7Wv+1GP-Al2K5LgayO845eAutjc9QAnm4s2V1ZJYI6EfRcUzSpt_DE+=ZvGQBd-Zt83+SsY-AVk0dm+=6Yy9Fouuv5Q9j6TBcD3op99i3unVmm58y-N8ylY1o+rVyye28QdnEmsh3tboXWnvut\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"hyfVX9QdpWj0bkZk1LYMI_zw=I3Sl3k0=bJGuaFNbKB+rCceOYVEIyzPl_VEfyS5CPzhYokDjS-5m-DZeCQY+Dd2FKbfaoO3o65zF9dHma4iVMp2VWTQzOh8gG+2XPTBY=M4SpUxAs-jIkjea46Ti81gEsR6l5NnAIdQU6uhLhOys9GsVwD2KhkQnA0a6g9omB6Bmp97C=R-h4rG2azC6=w8hbPQZ6QBo63z6HGchFZ4Nc19Pk9wIxYYtYfWD_odBW0m08nREgaffaLtU34Tk1AJgP=mDUuYIIbnPOUi9DdOPNSRI2u7o7H9dJgKpD6=qVtZgzWy8RQLBd1l+Gdc4YgCB2g0m+nR=M37s3603R6JgLt=z6ecVU7vokcNJll+Er7PD1=vMWY7GpP0H6ZjSNhw9a+AcAL=Ykye2Z0K_C-g+BmavfjvMnwPYMr1rYT9A9w5NM98T-qYUzBCdgEgWD4=pOQQLuZ7re41IpBkaeRa_ez0elkbs_Kq4jV_a7nEjSFkV-u0TrhI38MhZBxN76zH=My0TcDgOT8-rE-_5Yz-3KB9LjQqohms0qK3=vPJYb7mZ5uQlVZPKQHzdCmLv1_jQYmKXwUHV24i+4f-IBhHB8=XjNXVVjcP5IlcmPHWEQJ6CM=Wxobjod7wPrSB411L66+xIlxbE5qKsjzmHMUFTEcn=ZA9XEB7O65Vhq7pr=rj0R5_1DIjc1q79g0_eS6X9D9SnU=jN84L8HOUL62dGqvKlrBReMAca=HoNr6ub=6+CSl-kJN4txadU23sdJZsJgt=qL8jLmldpuwV0clDvB=t8xq5G9Cz9IiCTUTZZncbg7pCM+1ssrd7BRXBuIJjaTKTKtMTf_C+OJS2hRXfbatCIdq3osS+sLdBdc7fEYeZ5yGi=0ULAPTSnqi75E_lZfHgRgK9+_zEOZKGi9fPSmg3SjaHojpgoclE3u=8nbaHBexNAOq6ZCWBzx8jOSku=-fo6sRtT7bFkYq8Uzp6_IeSnKVkvIgq2zdh_qtrmMr9J=xcyyj=pY9ghv2IqPIRBjWdjjA=e2pvdd_830McKhbQSmm3siDWyOXsl-6Nkq5Wp8ufCNlj0lbObqMwkRz6nU8i-=Ls4=aR+g7IAEWbrV5lCU6Hy+glyFRrF4hQDOwUIIyjnfDGDMGnCF32rwK6Y-+gsLOH-3rBmP0DTGSCqZMIk3ApUwk7=aitY+-28Ou5gdC6sVM5-ob7W5rL5A=CAPGkTDzjMqPYa3G3t48=8DTV_2DgxJaKDTgCBL64AYX=Y8lcKBNlr+KB1tGCkWI2e242N+zbkc56=bamlYnZRrS9TnSTTN1UteUTZWudsfLaOq_ghgF3W6DTwljSFvUYr8reEOGtHKKDZ-W+0uHT_q0da4tVYsFYp+EAMGLA7mv5+cjE4osKZh9SFjQ42hmYzsvjNVa2oH_WV=wF0EuOs1XU5gkoFVbev2QeYQ57SDSYh9eXR17EuZapdBrXe4YTkHYT\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":Version",
+                                "clients",
+                                ":ClientID",
+                                "accounts",
+                                ":AccountID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "RejectDuplicateCard",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                  "key": "OKToAddDuplicateCard",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "2d11828b-236b-43fc-aeae-4d19f2e1b952",
+                                  "key": "Version",
+                                  "value": "vv",
+                                  "description": "(Required) `v1` and `v2` are the only accepted values. Use `v1` to replace all fields, and `v2` replace any one or more fields, excluding excluding card account numbers."
+                                },
+                                {
+                                  "id": "136febe2-eb04-447b-aaba-1f370efc0c12",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "91ac1e5d-0dd7-4bd6-af6c-10676d9ee627",
+                                  "key": "AccountID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                                }
+                              ]
+                            },
+                            "description": "Updates the Account. Use `v1` to replace all fields."
+                          },
+                          "response": [
+                            {
+                              "id": "0c7fbc7a-9b8a-4c93-9a7e-0d222d904934",
+                              "name": "Account is updated.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"zCV\",\n      \"first\": \"JOiffhMI \",\n      \"middle\": \"Sr9FX\",\n      \"last\": \"D\",\n      \"suffix\": \"icwzRNFHXjp\"\n    },\n    \"address\": {\n      \"line1\": \"g2MOa\",\n      \"line2\": \"G\",\n      \"city\": \"y KYte-S9Q\",\n      \"state\": \"8lFxwqM5\",\n      \"zipcode\": \"MJ\",\n      \"country\": \"283\"\n    },\n    \"phone\": {\n      \"number\": \"39109\",\n      \"countryCode\": \"430\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"80764259039436\",\n    \"expirationDate\": \"649729\",\n    \"keyID\": \"aokMNlN2ihlWZsoRxJdgRF\",\n    \"data\": \"<string>\",\n    \"token\": \"wN48z-zy-mwjvamly9mxoTG4VkAmOZWg30hcvtj9rEsLDC3-IRsx5X1OH8s1SYWN-M65g9pHtnfbXC_=+O3xUmDo+TaimpJ=8qAS3NhCRDAzLlmtXlKzcF39Pl0LFtHfwsGm7vthf6PKWgb_UfsfHKAp-N23lchYIou=g1ZvUcRsaE5Hrc+InGwK5offan1=+OA1YD7Wv+1GP-Al2K5LgayO845eAutjc9QAnm4s2V1ZJYI6EfRcUzSpt_DE+=ZvGQBd-Zt83+SsY-AVk0dm+=6Yy9Fouuv5Q9j6TBcD3op99i3unVmm58y-N8ylY1o+rVyye28QdnEmsh3tboXWnvut\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"hyfVX9QdpWj0bkZk1LYMI_zw=I3Sl3k0=bJGuaFNbKB+rCceOYVEIyzPl_VEfyS5CPzhYokDjS-5m-DZeCQY+Dd2FKbfaoO3o65zF9dHma4iVMp2VWTQzOh8gG+2XPTBY=M4SpUxAs-jIkjea46Ti81gEsR6l5NnAIdQU6uhLhOys9GsVwD2KhkQnA0a6g9omB6Bmp97C=R-h4rG2azC6=w8hbPQZ6QBo63z6HGchFZ4Nc19Pk9wIxYYtYfWD_odBW0m08nREgaffaLtU34Tk1AJgP=mDUuYIIbnPOUi9DdOPNSRI2u7o7H9dJgKpD6=qVtZgzWy8RQLBd1l+Gdc4YgCB2g0m+nR=M37s3603R6JgLt=z6ecVU7vokcNJll+Er7PD1=vMWY7GpP0H6ZjSNhw9a+AcAL=Ykye2Z0K_C-g+BmavfjvMnwPYMr1rYT9A9w5NM98T-qYUzBCdgEgWD4=pOQQLuZ7re41IpBkaeRa_ez0elkbs_Kq4jV_a7nEjSFkV-u0TrhI38MhZBxN76zH=My0TcDgOT8-rE-_5Yz-3KB9LjQqohms0qK3=vPJYb7mZ5uQlVZPKQHzdCmLv1_jQYmKXwUHV24i+4f-IBhHB8=XjNXVVjcP5IlcmPHWEQJ6CM=Wxobjod7wPrSB411L66+xIlxbE5qKsjzmHMUFTEcn=ZA9XEB7O65Vhq7pr=rj0R5_1DIjc1q79g0_eS6X9D9SnU=jN84L8HOUL62dGqvKlrBReMAca=HoNr6ub=6+CSl-kJN4txadU23sdJZsJgt=qL8jLmldpuwV0clDvB=t8xq5G9Cz9IiCTUTZZncbg7pCM+1ssrd7BRXBuIJjaTKTKtMTf_C+OJS2hRXfbatCIdq3osS+sLdBdc7fEYeZ5yGi=0ULAPTSnqi75E_lZfHgRgK9+_zEOZKGi9fPSmg3SjaHojpgoclE3u=8nbaHBexNAOq6ZCWBzx8jOSku=-fo6sRtT7bFkYq8Uzp6_IeSnKVkvIgq2zdh_qtrmMr9J=xcyyj=pY9ghv2IqPIRBjWdjjA=e2pvdd_830McKhbQSmm3siDWyOXsl-6Nkq5Wp8ufCNlj0lbObqMwkRz6nU8i-=Ls4=aR+g7IAEWbrV5lCU6Hy+glyFRrF4hQDOwUIIyjnfDGDMGnCF32rwK6Y-+gsLOH-3rBmP0DTGSCqZMIk3ApUwk7=aitY+-28Ou5gdC6sVM5-ob7W5rL5A=CAPGkTDzjMqPYa3G3t48=8DTV_2DgxJaKDTgCBL64AYX=Y8lcKBNlr+KB1tGCkWI2e242N+zbkc56=bamlYnZRrS9TnSTTN1UteUTZWudsfLaOq_ghgF3W6DTwljSFvUYr8reEOGtHKKDZ-W+0uHT_q0da4tVYsFYp+EAMGLA7mv5+cjE4osKZh9SFjQ42hmYzsvjNVa2oH_WV=wF0EuOs1XU5gkoFVbev2QeYQ57SDSYh9eXR17EuZapdBrXe4YTkHYT\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "RejectDuplicateCard",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "OKToAddDuplicateCard",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-0c7fbc7a-9b8a-4c93-9a7e-0d222d904934"
+                            },
+                            {
+                              "id": "3b4616b6-727b-4f93-a852-2cb962c1fcb5",
+                              "name": "Account updated, but update duplicate card check failed.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"zCV\",\n      \"first\": \"JOiffhMI \",\n      \"middle\": \"Sr9FX\",\n      \"last\": \"D\",\n      \"suffix\": \"icwzRNFHXjp\"\n    },\n    \"address\": {\n      \"line1\": \"g2MOa\",\n      \"line2\": \"G\",\n      \"city\": \"y KYte-S9Q\",\n      \"state\": \"8lFxwqM5\",\n      \"zipcode\": \"MJ\",\n      \"country\": \"283\"\n    },\n    \"phone\": {\n      \"number\": \"39109\",\n      \"countryCode\": \"430\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"80764259039436\",\n    \"expirationDate\": \"649729\",\n    \"keyID\": \"aokMNlN2ihlWZsoRxJdgRF\",\n    \"data\": \"<string>\",\n    \"token\": \"wN48z-zy-mwjvamly9mxoTG4VkAmOZWg30hcvtj9rEsLDC3-IRsx5X1OH8s1SYWN-M65g9pHtnfbXC_=+O3xUmDo+TaimpJ=8qAS3NhCRDAzLlmtXlKzcF39Pl0LFtHfwsGm7vthf6PKWgb_UfsfHKAp-N23lchYIou=g1ZvUcRsaE5Hrc+InGwK5offan1=+OA1YD7Wv+1GP-Al2K5LgayO845eAutjc9QAnm4s2V1ZJYI6EfRcUzSpt_DE+=ZvGQBd-Zt83+SsY-AVk0dm+=6Yy9Fouuv5Q9j6TBcD3op99i3unVmm58y-N8ylY1o+rVyye28QdnEmsh3tboXWnvut\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"hyfVX9QdpWj0bkZk1LYMI_zw=I3Sl3k0=bJGuaFNbKB+rCceOYVEIyzPl_VEfyS5CPzhYokDjS-5m-DZeCQY+Dd2FKbfaoO3o65zF9dHma4iVMp2VWTQzOh8gG+2XPTBY=M4SpUxAs-jIkjea46Ti81gEsR6l5NnAIdQU6uhLhOys9GsVwD2KhkQnA0a6g9omB6Bmp97C=R-h4rG2azC6=w8hbPQZ6QBo63z6HGchFZ4Nc19Pk9wIxYYtYfWD_odBW0m08nREgaffaLtU34Tk1AJgP=mDUuYIIbnPOUi9DdOPNSRI2u7o7H9dJgKpD6=qVtZgzWy8RQLBd1l+Gdc4YgCB2g0m+nR=M37s3603R6JgLt=z6ecVU7vokcNJll+Er7PD1=vMWY7GpP0H6ZjSNhw9a+AcAL=Ykye2Z0K_C-g+BmavfjvMnwPYMr1rYT9A9w5NM98T-qYUzBCdgEgWD4=pOQQLuZ7re41IpBkaeRa_ez0elkbs_Kq4jV_a7nEjSFkV-u0TrhI38MhZBxN76zH=My0TcDgOT8-rE-_5Yz-3KB9LjQqohms0qK3=vPJYb7mZ5uQlVZPKQHzdCmLv1_jQYmKXwUHV24i+4f-IBhHB8=XjNXVVjcP5IlcmPHWEQJ6CM=Wxobjod7wPrSB411L66+xIlxbE5qKsjzmHMUFTEcn=ZA9XEB7O65Vhq7pr=rj0R5_1DIjc1q79g0_eS6X9D9SnU=jN84L8HOUL62dGqvKlrBReMAca=HoNr6ub=6+CSl-kJN4txadU23sdJZsJgt=qL8jLmldpuwV0clDvB=t8xq5G9Cz9IiCTUTZZncbg7pCM+1ssrd7BRXBuIJjaTKTKtMTf_C+OJS2hRXfbatCIdq3osS+sLdBdc7fEYeZ5yGi=0ULAPTSnqi75E_lZfHgRgK9+_zEOZKGi9fPSmg3SjaHojpgoclE3u=8nbaHBexNAOq6ZCWBzx8jOSku=-fo6sRtT7bFkYq8Uzp6_IeSnKVkvIgq2zdh_qtrmMr9J=xcyyj=pY9ghv2IqPIRBjWdjjA=e2pvdd_830McKhbQSmm3siDWyOXsl-6Nkq5Wp8ufCNlj0lbObqMwkRz6nU8i-=Ls4=aR+g7IAEWbrV5lCU6Hy+glyFRrF4hQDOwUIIyjnfDGDMGnCF32rwK6Y-+gsLOH-3rBmP0DTGSCqZMIk3ApUwk7=aitY+-28Ou5gdC6sVM5-ob7W5rL5A=CAPGkTDzjMqPYa3G3t48=8DTV_2DgxJaKDTgCBL64AYX=Y8lcKBNlr+KB1tGCkWI2e242N+zbkc56=bamlYnZRrS9TnSTTN1UteUTZWudsfLaOq_ghgF3W6DTwljSFvUYr8reEOGtHKKDZ-W+0uHT_q0da4tVYsFYp+EAMGLA7mv5+cjE4osKZh9SFjQ42hmYzsvjNVa2oH_WV=wF0EuOs1XU5gkoFVbev2QeYQ57SDSYh9eXR17EuZapdBrXe4YTkHYT\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "RejectDuplicateCard",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "OKToAddDuplicateCard",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Multi-Status (WebDAV) (RFC 4918)",
+                              "code": 207,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-3b4616b6-727b-4f93-a852-2cb962c1fcb5"
+                            },
+                            {
+                              "id": "7358740f-a392-42fe-a47f-41e88256a139",
+                              "name": "Duplicate card check matched.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"owner\": {\n    \"name\": {\n      \"company\": \"zCV\",\n      \"first\": \"JOiffhMI \",\n      \"middle\": \"Sr9FX\",\n      \"last\": \"D\",\n      \"suffix\": \"icwzRNFHXjp\"\n    },\n    \"address\": {\n      \"line1\": \"g2MOa\",\n      \"line2\": \"G\",\n      \"city\": \"y KYte-S9Q\",\n      \"state\": \"8lFxwqM5\",\n      \"zipcode\": \"MJ\",\n      \"country\": \"283\"\n    },\n    \"phone\": {\n      \"number\": \"39109\",\n      \"countryCode\": \"430\"\n    }\n  },\n  \"card\": {\n    \"accountNumber\": \"80764259039436\",\n    \"expirationDate\": \"649729\",\n    \"keyID\": \"aokMNlN2ihlWZsoRxJdgRF\",\n    \"data\": \"<string>\",\n    \"token\": \"wN48z-zy-mwjvamly9mxoTG4VkAmOZWg30hcvtj9rEsLDC3-IRsx5X1OH8s1SYWN-M65g9pHtnfbXC_=+O3xUmDo+TaimpJ=8qAS3NhCRDAzLlmtXlKzcF39Pl0LFtHfwsGm7vthf6PKWgb_UfsfHKAp-N23lchYIou=g1ZvUcRsaE5Hrc+InGwK5offan1=+OA1YD7Wv+1GP-Al2K5LgayO845eAutjc9QAnm4s2V1ZJYI6EfRcUzSpt_DE+=ZvGQBd-Zt83+SsY-AVk0dm+=6Yy9Fouuv5Q9j6TBcD3op99i3unVmm58y-N8ylY1o+rVyye28QdnEmsh3tboXWnvut\",\n    \"device\": {\n      \"id\": \"<string>\",\n      \"blob\": \"hyfVX9QdpWj0bkZk1LYMI_zw=I3Sl3k0=bJGuaFNbKB+rCceOYVEIyzPl_VEfyS5CPzhYokDjS-5m-DZeCQY+Dd2FKbfaoO3o65zF9dHma4iVMp2VWTQzOh8gG+2XPTBY=M4SpUxAs-jIkjea46Ti81gEsR6l5NnAIdQU6uhLhOys9GsVwD2KhkQnA0a6g9omB6Bmp97C=R-h4rG2azC6=w8hbPQZ6QBo63z6HGchFZ4Nc19Pk9wIxYYtYfWD_odBW0m08nREgaffaLtU34Tk1AJgP=mDUuYIIbnPOUi9DdOPNSRI2u7o7H9dJgKpD6=qVtZgzWy8RQLBd1l+Gdc4YgCB2g0m+nR=M37s3603R6JgLt=z6ecVU7vokcNJll+Er7PD1=vMWY7GpP0H6ZjSNhw9a+AcAL=Ykye2Z0K_C-g+BmavfjvMnwPYMr1rYT9A9w5NM98T-qYUzBCdgEgWD4=pOQQLuZ7re41IpBkaeRa_ez0elkbs_Kq4jV_a7nEjSFkV-u0TrhI38MhZBxN76zH=My0TcDgOT8-rE-_5Yz-3KB9LjQqohms0qK3=vPJYb7mZ5uQlVZPKQHzdCmLv1_jQYmKXwUHV24i+4f-IBhHB8=XjNXVVjcP5IlcmPHWEQJ6CM=Wxobjod7wPrSB411L66+xIlxbE5qKsjzmHMUFTEcn=ZA9XEB7O65Vhq7pr=rj0R5_1DIjc1q79g0_eS6X9D9SnU=jN84L8HOUL62dGqvKlrBReMAca=HoNr6ub=6+CSl-kJN4txadU23sdJZsJgt=qL8jLmldpuwV0clDvB=t8xq5G9Cz9IiCTUTZZncbg7pCM+1ssrd7BRXBuIJjaTKTKtMTf_C+OJS2hRXfbatCIdq3osS+sLdBdc7fEYeZ5yGi=0ULAPTSnqi75E_lZfHgRgK9+_zEOZKGi9fPSmg3SjaHojpgoclE3u=8nbaHBexNAOq6ZCWBzx8jOSku=-fo6sRtT7bFkYq8Uzp6_IeSnKVkvIgq2zdh_qtrmMr9J=xcyyj=pY9ghv2IqPIRBjWdjjA=e2pvdd_830McKhbQSmm3siDWyOXsl-6Nkq5Wp8ufCNlj0lbObqMwkRz6nU8i-=Ls4=aR+g7IAEWbrV5lCU6Hy+glyFRrF4hQDOwUIIyjnfDGDMGnCF32rwK6Y-+gsLOH-3rBmP0DTGSCqZMIk3ApUwk7=aitY+-28Ou5gdC6sVM5-ob7W5rL5A=CAPGkTDzjMqPYa3G3t48=8DTV_2DgxJaKDTgCBL64AYX=Y8lcKBNlr+KB1tGCkWI2e242N+zbkc56=bamlYnZRrS9TnSTTN1UteUTZWudsfLaOq_ghgF3W6DTwljSFvUYr8reEOGtHKKDZ-W+0uHT_q0da4tVYsFYp+EAMGLA7mv5+cjE4osKZh9SFjQ42hmYzsvjNVa2oH_WV=wF0EuOs1XU5gkoFVbev2QeYQ57SDSYh9eXR17EuZapdBrXe4YTkHYT\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:Version/clients/:ClientID/accounts/:AccountID?RejectDuplicateCard=<string>&OKToAddDuplicateCard=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":Version",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to disallow account creation if an account with card already exists\n\nIncompatible with query string `OKToAddDuplicateCard`. All requests must use `RejectDuplicateCard` or `OKToAddDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "RejectDuplicateCard",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Use to allow account creation if an account with card already exists\n\nIncompatible with query string `RejectDuplicateCard`. All requests must use `OKToAddDuplicateCard` or `RejectDuplicateCard` if using [Duplicate Card Check](https://developers.tabapay.com/reference/how-to-use-duplicate-card-check#/).\nUse is allowed if <<glossary:Version>> is `v1` (not `v2`)",
+                                      "key": "OKToAddDuplicateCard",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "Version"
+                                    },
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Conflict",
+                              "code": 409,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"duplicateAccountIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-7358740f-a392-42fe-a47f-41e88256a139"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-d3ec9acb-a0cc-48d2-b1f1-6145548f8dab"
+                        }
+                      ],
+                      "id": "e40a5b82-6784-4901-8638-a1d5d58409ac",
+                      "createdAt": "2026-10-22T02:07:40.000Z",
+                      "updatedAt": "2026-10-22T02:07:40.000Z",
+                      "uid": "35240-e40a5b82-6784-4901-8638-a1d5d58409ac"
+                    }
+                  ],
+                  "id": "a07d7762-f7b0-43e4-bdf3-b64d2b5eda70",
+                  "createdAt": "2026-10-22T02:07:40.000Z",
+                  "updatedAt": "2026-10-22T02:07:40.000Z",
+                  "uid": "35240-a07d7762-f7b0-43e4-bdf3-b64d2b5eda70"
+                }
+              ],
+              "id": "30e502d7-b516-4d04-b011-ec88b4d3a7a2",
+              "createdAt": "2026-10-22T02:07:40.000Z",
+              "updatedAt": "2026-10-22T02:07:40.000Z",
+              "uid": "35240-30e502d7-b516-4d04-b011-ec88b4d3a7a2"
+            }
+          ],
+          "id": "3494f46b-9e50-45d5-aea7-c9d9078984b2",
+          "createdAt": "2026-10-22T02:07:40.000Z",
+          "updatedAt": "2026-10-22T02:07:40.000Z",
+          "uid": "35240-3494f46b-9e50-45d5-aea7-c9d9078984b2"
+        }
+      ],
+      "id": "ff8fced1-33b0-46f6-b7ae-40e9b1e82ced",
+      "createdAt": "2026-10-22T02:07:40.000Z",
+      "updatedAt": "2026-10-22T02:07:40.000Z",
+      "uid": "35240-ff8fced1-33b0-46f6-b7ae-40e9b1e82ced"
     },
     {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "name": "v2",
+      "item": [
+        {
+          "name": "clients",
+          "item": [
+            {
+              "name": "{ClientID}",
+              "item": [
+                {
+                  "name": "accounts",
+                  "item": [
+                    {
+                      "name": "{AccountID}",
+                      "item": [
+                        {
+                          "name": "Update Account V2",
+                          "id": "3064348a-4698-4e0c-a2cf-51353177887f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"card\": {\n    \"accountNumber\": \"17131618014987625\",\n    \"expirationDate\": \"309396\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"xx5F5gb3uW\",\n      \"first\": \"XyMVf6z\",\n      \"middle\": \"kO\",\n      \"last\": \"b7AF3r-yb\",\n      \"suffix\": \"D\"\n    },\n    \"address\": {\n      \"line1\": \"gSP\",\n      \"line2\": \"zh3z8Dh6\",\n      \"city\": \"8Y97R\",\n      \"state\": \"a\",\n      \"zipcode\": \"2v\",\n      \"country\": \"788\"\n    },\n    \"phone\": {\n      \"number\": \"733458084\",\n      \"countryCode\": \"015\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/accounts/:AccountID",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "accounts",
+                                ":AccountID"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "05e25588-6e9f-4137-9aef-257cec36164b",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "03e90d79-dad1-46bc-9696-dd6288d064c8",
+                                  "key": "AccountID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22 character assigned <<glossary:accountID>>.\n\nReturned from [Create Account](https://developers.tabapay.com/reference/account#/)"
+                                }
+                              ]
+                            },
+                            "description": "Update any one or more fields (e.g. Owner, Address, Phone, Exp. date), excluding card account numbers (Refer to v1)."
+                          },
+                          "response": [
+                            {
+                              "id": "c14edb21-8b48-4ec8-b1e1-8f36ea7aa295",
+                              "name": "Account is updated.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"card\": {\n    \"accountNumber\": \"17131618014987625\",\n    \"expirationDate\": \"309396\"\n  },\n  \"owner\": {\n    \"name\": {\n      \"company\": \"xx5F5gb3uW\",\n      \"first\": \"XyMVf6z\",\n      \"middle\": \"kO\",\n      \"last\": \"b7AF3r-yb\",\n      \"suffix\": \"D\"\n    },\n    \"address\": {\n      \"line1\": \"gSP\",\n      \"line2\": \"zh3z8Dh6\",\n      \"city\": \"8Y97R\",\n      \"state\": \"a\",\n      \"zipcode\": \"2v\",\n      \"country\": \"788\"\n    },\n    \"phone\": {\n      \"number\": \"733458084\",\n      \"countryCode\": \"015\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/accounts/:AccountID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "accounts",
+                                    ":AccountID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "AccountID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:07:40.000Z",
+                              "updatedAt": "2026-10-22T02:07:40.000Z",
+                              "uid": "35240-c14edb21-8b48-4ec8-b1e1-8f36ea7aa295"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:07:40.000Z",
+                          "updatedAt": "2026-10-22T02:07:40.000Z",
+                          "uid": "35240-3064348a-4698-4e0c-a2cf-51353177887f"
+                        }
+                      ],
+                      "id": "76584834-d306-4580-adf6-838b12c4517b",
+                      "createdAt": "2026-10-22T02:07:40.000Z",
+                      "updatedAt": "2026-10-22T02:07:40.000Z",
+                      "uid": "35240-76584834-d306-4580-adf6-838b12c4517b"
+                    }
+                  ],
+                  "id": "e90bacb7-c365-4067-bab6-9d728518d94f",
+                  "createdAt": "2026-10-22T02:07:40.000Z",
+                  "updatedAt": "2026-10-22T02:07:40.000Z",
+                  "uid": "35240-e90bacb7-c365-4067-bab6-9d728518d94f"
+                }
+              ],
+              "id": "7f5c4a88-8a69-4c5b-9ce9-ff1256c8007e",
+              "createdAt": "2026-10-22T02:07:40.000Z",
+              "updatedAt": "2026-10-22T02:07:40.000Z",
+              "uid": "35240-7f5c4a88-8a69-4c5b-9ce9-ff1256c8007e"
+            }
+          ],
+          "id": "e7f94073-26af-4d9a-9c76-7293de7777b0",
+          "createdAt": "2026-10-22T02:07:40.000Z",
+          "updatedAt": "2026-10-22T02:07:40.000Z",
+          "uid": "35240-e7f94073-26af-4d9a-9c76-7293de7777b0"
+        }
+      ],
+      "id": "3d97b24d-8307-4784-b30b-a15c363bc42f",
+      "createdAt": "2026-10-22T02:07:40.000Z",
+      "updatedAt": "2026-10-22T02:07:40.000Z",
+      "uid": "35240-3d97b24d-8307-4784-b30b-a15c363bc42f"
     }
   ],
   "auth": {
@@ -1416,17 +1256,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "22840146-016f-48f3-af6e-55f78fb80c3c",
-    "name": "TabaPay APIs 3D Secure Account API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

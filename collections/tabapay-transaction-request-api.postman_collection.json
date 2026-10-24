@@ -1,0 +1,194 @@
+{
+  "info": {
+    "_postman_id": "e601279a-efb1-4b10-b0e8-2262c325ea4b",
+    "name": "TabaPay Transaction Request API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:09:08.000Z",
+    "updatedAt": "2026-10-22T02:09:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e601279a-efb1-4b10-b0e8-2262c325ea4b"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "clients",
+          "item": [
+            {
+              "name": "{ClientID}",
+              "item": [
+                {
+                  "name": "transactionrequests",
+                  "item": [
+                    {
+                      "name": "Create TransactionRequest",
+                      "id": "99f39a88-2b83-494e-af89-47bc087c439d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"pull\",\n  \"amount\": \"4762'63\",\n  \"customer\": {\n    \"name\": {\n      \"first\": \"78nQqqn42h\",\n      \"last\": \"j96cP\"\n    },\n    \"address\": {\n      \"line1\": \"-.gNDH\",\n      \"city\": \"5\",\n      \"state\": \"xW7\",\n      \"zipcode\": \"PZuHLNnF\",\n      \"country\": \"397\",\n      \"line2\": \"qkq.Qi-n5ep\"\n    },\n    \"callback\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"user1\": \"0H4WAVEN13QFB\",\n  \"user2\": \"QwqLWS7Wklm2M5 \"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/clients/:ClientID/transactionrequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "clients",
+                            ":ClientID",
+                            "transactionrequests"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1f27e678-05cc-4487-a257-6db6c8e97e14",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "Creates a TransactionRequest One-time Payment Portal (>)."
+                      },
+                      "response": [
+                        {
+                          "id": "5e932aab-7197-4ea0-bc63-ab02f8aa6e0a",
+                          "name": "A Transaction is created and processing is completed.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"type\": \"pull\",\n  \"amount\": \"4762'63\",\n  \"customer\": {\n    \"name\": {\n      \"first\": \"78nQqqn42h\",\n      \"last\": \"j96cP\"\n    },\n    \"address\": {\n      \"line1\": \"-.gNDH\",\n      \"city\": \"5\",\n      \"state\": \"xW7\",\n      \"zipcode\": \"PZuHLNnF\",\n      \"country\": \"397\",\n      \"line2\": \"qkq.Qi-n5ep\"\n    },\n    \"callback\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"user1\": \"0H4WAVEN13QFB\",\n  \"user2\": \"QwqLWS7Wklm2M5 \"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/transactionrequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "transactionrequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"otppID\": \"<string>\",\n  \"link\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:09:09.000Z",
+                          "updatedAt": "2026-10-22T02:09:09.000Z",
+                          "uid": "35240-5e932aab-7197-4ea0-bc63-ab02f8aa6e0a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:09:09.000Z",
+                      "updatedAt": "2026-10-22T02:09:09.000Z",
+                      "uid": "35240-99f39a88-2b83-494e-af89-47bc087c439d"
+                    }
+                  ],
+                  "id": "39c08d31-3cc8-45cb-9733-6f161a07fd71",
+                  "createdAt": "2026-10-22T02:09:09.000Z",
+                  "updatedAt": "2026-10-22T02:09:09.000Z",
+                  "uid": "35240-39c08d31-3cc8-45cb-9733-6f161a07fd71"
+                }
+              ],
+              "id": "7cc0b3f5-95c7-42a9-948b-bb7f9e47e214",
+              "createdAt": "2026-10-22T02:09:09.000Z",
+              "updatedAt": "2026-10-22T02:09:09.000Z",
+              "uid": "35240-7cc0b3f5-95c7-42a9-948b-bb7f9e47e214"
+            }
+          ],
+          "id": "c10944e8-7fc9-4ec7-80d2-40130d038f99",
+          "createdAt": "2026-10-22T02:09:09.000Z",
+          "updatedAt": "2026-10-22T02:09:09.000Z",
+          "uid": "35240-c10944e8-7fc9-4ec7-80d2-40130d038f99"
+        }
+      ],
+      "id": "27e8e6b1-a3d5-4b22-8188-1d1b8962a9ee",
+      "createdAt": "2026-10-22T02:09:09.000Z",
+      "updatedAt": "2026-10-22T02:09:09.000Z",
+      "uid": "35240-27e8e6b1-a3d5-4b22-8188-1d1b8962a9ee"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
+    }
+  ]
+}

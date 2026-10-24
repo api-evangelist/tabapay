@@ -1,491 +1,421 @@
 {
+  "info": {
+    "_postman_id": "2c890fe6-6f32-455f-9f6d-288a8239ff00",
+    "name": "TabaPay Verification API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:09:02.000Z",
+    "updatedAt": "2026-10-22T02:09:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2c890fe6-6f32-455f-9f6d-288a8239ff00"
+  },
   "item": [
     {
-      "id": "b21df506-7e5c-4407-ae91-ee76fecf78aa",
-      "name": "Verification",
-      "description": {
-        "content": "This resource represents a Client's Verification.",
-        "type": "text/plain"
-      },
+      "name": "v2",
       "item": [
         {
-          "id": "4c315bee-8266-472d-8c8d-0530532cd2c4",
-          "name": "Create Verification",
-          "request": {
-            "name": "Create Verification",
-            "description": {
-              "content": "Creates a KYB/KYC verification case. \n\n Request to enable at [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new#/) or [help@tabapay.com](mailto:help@tabapay.com)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "verifications"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"referenceID\": \"<string>\",\n  \"userID\": \"<string>\",\n  \"document\": {\n    \"front\": \"<string>\",\n    \"back\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "7a8744d8-fc1f-4ad8-ac53-f5eec5c4bb4a",
-              "name": "Verification created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "verifications"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"document\": {\n    \"front\": \"22CharacTabapayDocID11\",\n    \"back\": \"22CharacTabapayDocID12\"\n  },\n  \"referenceID\": \"1234reference\",\n  \"userID\": \"22CharacterTabaPayID12\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{ClientID}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "verifications",
+                  "item": [
+                    {
+                      "name": "{VerificationID}",
+                      "item": [
+                        {
+                          "name": "Retrieve Verification",
+                          "id": "fd2b2bde-ac91-4b17-bcb7-05d0da0cb37f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications/:VerificationID?referenceID=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "verifications",
+                                ":VerificationID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Reference ID fallback lookup.",
+                                  "key": "referenceID",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "51203a0d-8d16-47dc-acd4-8348fd746d76",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "0d2520fa-0409-4f4d-80d4-30dcc0a93124",
+                                  "key": "VerificationID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character VerificationID returned from Create Verification."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a verification by verificationID."
+                          },
+                          "response": [
+                            {
+                              "id": "e2d69040-c11d-48ee-849f-be6cffdc2f6d",
+                              "name": "Verification retrieved.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications/:VerificationID?referenceID=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "verifications",
+                                    ":VerificationID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Reference ID fallback lookup.",
+                                      "key": "referenceID",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "VerificationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"verificationID\": \"PBIj3DDvW63LgL86jlACgH\",\n  \"referenceID\": \"sKH\",\n  \"userID\": \"xgvkys0RDQjN7fJ8E0BSid\",\n  \"status\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-10-22T02:09:03.000Z",
+                              "updatedAt": "2026-10-22T02:09:03.000Z",
+                              "uid": "35240-e2d69040-c11d-48ee-849f-be6cffdc2f6d"
+                            },
+                            {
+                              "id": "b13cafe6-1a17-40b1-be87-a9bea6d85584",
+                              "name": "Verification not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications/:VerificationID?referenceID=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "clients",
+                                    ":ClientID",
+                                    "verifications",
+                                    ":VerificationID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Reference ID fallback lookup.",
+                                      "key": "referenceID",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "VerificationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:09:03.000Z",
+                              "updatedAt": "2026-10-22T02:09:03.000Z",
+                              "uid": "35240-b13cafe6-1a17-40b1-be87-a9bea6d85584"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:09:03.000Z",
+                          "updatedAt": "2026-10-22T02:09:03.000Z",
+                          "uid": "35240-fd2b2bde-ac91-4b17-bcb7-05d0da0cb37f"
+                        }
+                      ],
+                      "id": "32588f61-873b-4d82-b465-43ad29ecf376",
+                      "createdAt": "2026-10-22T02:09:02.000Z",
+                      "updatedAt": "2026-10-22T02:09:02.000Z",
+                      "uid": "35240-32588f61-873b-4d82-b465-43ad29ecf376"
+                    },
+                    {
+                      "name": "Create Verification",
+                      "id": "43b48240-12d5-4385-b8eb-aa6e7d3fface",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"referenceID\": \"RK\",\n  \"userID\": \"q9VsLxngKKGh7DRgpRE3bu\",\n  \"document\": {\n    \"front\": \"<string>\",\n    \"back\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "clients",
+                            ":ClientID",
+                            "verifications"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bcca5bcc-be7a-4fe9-b2c7-95bd60c0deb9",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                            }
+                          ]
+                        },
+                        "description": "Creates a KYB/KYC verification case.\n\nRequest to enable at TabaPay Support or help@tabapay.com"
+                      },
+                      "response": [
+                        {
+                          "id": "f63a8fc6-5f9d-4910-b2b7-919dee454cba",
+                          "name": "Verification created.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"referenceID\": \"RK\",\n  \"userID\": \"q9VsLxngKKGh7DRgpRE3bu\",\n  \"document\": {\n    \"front\": \"<string>\",\n    \"back\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "verifications"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"verificationID\": \"AE09HU4Wq2BSRTlH0g3Q22\",\n  \"status\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:09:03.000Z",
+                          "updatedAt": "2026-10-22T02:09:03.000Z",
+                          "uid": "35240-f63a8fc6-5f9d-4910-b2b7-919dee454cba"
+                        },
+                        {
+                          "id": "4820add8-b26d-48dd-9e2c-6862071defb7",
+                          "name": "One or more failures occurred while processing the Request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"referenceID\": \"RK\",\n  \"userID\": \"q9VsLxngKKGh7DRgpRE3bu\",\n  \"document\": {\n    \"front\": \"<string>\",\n    \"back\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/clients/:ClientID/verifications",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "clients",
+                                ":ClientID",
+                                "verifications"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Multi-Status (WebDAV) (RFC 4918)",
+                          "code": 207,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:09:03.000Z",
+                          "updatedAt": "2026-10-22T02:09:03.000Z",
+                          "uid": "35240-4820add8-b26d-48dd-9e2c-6862071defb7"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:09:03.000Z",
+                      "updatedAt": "2026-10-22T02:09:03.000Z",
+                      "uid": "35240-43b48240-12d5-4385-b8eb-aa6e7d3fface"
+                    }
+                  ],
+                  "id": "85a2ed93-b14f-4ea3-b100-523f659935b8",
+                  "createdAt": "2026-10-22T02:09:02.000Z",
+                  "updatedAt": "2026-10-22T02:09:02.000Z",
+                  "uid": "35240-85a2ed93-b14f-4ea3-b100-523f659935b8"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"verificationID\": \"22CharacterTPVerifyID12\",\n  \"status\": \"CREATED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "89726056-a380-4ce2-a7ed-2184d9cd8dff",
-              "name": "One or more failures occurred while processing the Request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "verifications"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"document\": {\n    \"front\": \"22CharacTabapayDocID11\",\n    \"back\": \"22CharacTabapayDocID12\"\n  },\n  \"referenceID\": \"1234reference\",\n  \"userID\": \"22CharacterTabaPayID12\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 6217,\n  \"EC\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cc2c02ed-5720-4ca7-8589-a0ef7d575567",
-          "name": "Retrieve Verification",
-          "request": {
-            "name": "Retrieve Verification",
-            "description": {
-              "content": "Retrieves a verification by verificationID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "clients",
-                ":ClientID",
-                "verifications",
-                ":VerificationID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "referenceID",
-                  "value": "<string>",
-                  "description": "Reference ID fallback lookup."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "VerificationID",
-                  "description": "(Required) 22-character VerificationID returned from Create Verification."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c4870cfa-6d7b-4502-b5c2-67746d4d88f8",
-              "name": "Verification retrieved.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "verifications",
-                    ":VerificationID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "referenceID",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "VerificationID",
-                      "description": "(Required) 22-character VerificationID returned from Create Verification."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"verificationID\": \"22CharacterTabaPayID12\",\n  \"referenceID\": \"123RefID\",\n  \"userID\": \"22CharacterTPayUserID12\",\n  \"status\": \"PENDING\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f625985f-f34f-43e2-87e3-2820dd9f45b8",
-              "name": "Verification not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "clients",
-                    ":ClientID",
-                    "verifications",
-                    ":VerificationID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "referenceID",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "VerificationID",
-                      "description": "(Required) 22-character VerificationID returned from Create Verification."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 3242,\n  \"EC\": \"string\",\n  \"EM\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "03bde8ea-f1ae-4dd4-a6f1-41ba3b78f90e",
+              "createdAt": "2026-10-22T02:09:02.000Z",
+              "updatedAt": "2026-10-22T02:09:02.000Z",
+              "uid": "35240-03bde8ea-f1ae-4dd4-a6f1-41ba3b78f90e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3d3b1e90-ec11-4cf6-a555-7577f090dcc1",
+          "createdAt": "2026-10-22T02:09:02.000Z",
+          "updatedAt": "2026-10-22T02:09:02.000Z",
+          "uid": "35240-3d3b1e90-ec11-4cf6-a555-7577f090dcc1"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "2aa416c3-45be-4e9f-950a-4fd55acdfffa",
+      "createdAt": "2026-10-22T02:09:02.000Z",
+      "updatedAt": "2026-10-22T02:09:02.000Z",
+      "uid": "35240-2aa416c3-45be-4e9f-950a-4fd55acdfffa"
     }
   ],
   "auth": {
@@ -493,17 +423,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c16a9b72-0371-4f4c-98c8-51f7bff54dc8",
-    "name": "TabaPay APIs 3D Secure Verification API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }

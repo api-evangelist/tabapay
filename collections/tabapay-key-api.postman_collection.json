@@ -1,722 +1,599 @@
 {
+  "info": {
+    "_postman_id": "ea3e3931-40c0-419b-bdf1-fc7b342af6fb",
+    "name": "TabaPay Key API",
+    "description": "TabaPay Resource and Service Operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:20.000Z",
+    "updatedAt": "2026-10-22T02:08:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ea3e3931-40c0-419b-bdf1-fc7b342af6fb"
+  },
   "item": [
     {
-      "id": "5a6485e4-ee3c-4fa3-814b-626b559c29c4",
-      "name": "Key",
-      "description": {
-        "content": "This resource represents an RSA Encryption Key.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "6a7903f9-df0c-4f81-a9df-5130ccbb18f0",
-          "name": "Create Key",
-          "request": {
-            "name": "Create Key",
-            "description": {
-              "content": "Creates a Key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "keys"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID."
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "Raw",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "clients",
+          "item": [
             {
-              "id": "3074c9d3-0cd4-46f5-86e9-d6a87990784a",
-              "name": "A Key is created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{ClientID}",
+              "item": [
+                {
+                  "name": "keys",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID."
+                      "name": "{KeyID}",
+                      "item": [
+                        {
+                          "name": "Delete Key",
+                          "id": "0d18a14c-bb8c-4994-949f-f365e4e42f61",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "keys",
+                                ":KeyID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to specify your key format",
+                                  "key": "Format",
+                                  "value": "Raw"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c91b112f-f453-405d-a6bb-088532cdeefe",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "c8ef9c37-531f-437c-8e68-96d1711b3d65",
+                                  "key": "KeyID",
+                                  "value": "<string>",
+                                  "description": "(Required) Identification for the RSA key"
+                                }
+                              ]
+                            },
+                            "description": "Deletes a Key."
+                          },
+                          "response": [
+                            {
+                              "id": "6415e959-b105-47bc-a27f-ad2766daebac",
+                              "name": "The Key is marked for deletion.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "clients",
+                                    ":ClientID",
+                                    "keys",
+                                    ":KeyID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to specify your key format",
+                                      "key": "Format",
+                                      "value": "Raw"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "KeyID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:20.000Z",
+                              "updatedAt": "2026-10-22T02:08:20.000Z",
+                              "uid": "35240-6415e959-b105-47bc-a27f-ad2766daebac"
+                            },
+                            {
+                              "id": "7e9a7b49-3ca6-46dc-b986-3c01a176ebfb",
+                              "name": "Key not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "clients",
+                                    ":ClientID",
+                                    "keys",
+                                    ":KeyID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to specify your key format",
+                                      "key": "Format",
+                                      "value": "Raw"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "KeyID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:20.000Z",
+                              "updatedAt": "2026-10-22T02:08:20.000Z",
+                              "uid": "35240-7e9a7b49-3ca6-46dc-b986-3c01a176ebfb"
+                            },
+                            {
+                              "id": "7059c960-2e6d-4d6e-a30c-b0928c189fdd",
+                              "name": "Key already marked for deletion",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "clients",
+                                    ":ClientID",
+                                    "keys",
+                                    ":KeyID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to specify your key format",
+                                      "key": "Format",
+                                      "value": "Raw"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "KeyID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gone",
+                              "code": 410,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:08:20.000Z",
+                              "updatedAt": "2026-10-22T02:08:20.000Z",
+                              "uid": "35240-7059c960-2e6d-4d6e-a30c-b0928c189fdd"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:08:20.000Z",
+                          "updatedAt": "2026-10-22T02:08:20.000Z",
+                          "uid": "35240-0d18a14c-bb8c-4994-949f-f365e4e42f61"
+                        },
+                        {
+                          "name": "Retrieve Key",
+                          "id": "3f2fd042-2ea9-48f4-82e3-3bc82d8ba12a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "keys",
+                                ":KeyID"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use to specify your key format",
+                                  "key": "Format",
+                                  "value": "Raw"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c4f87112-c762-4b42-8e00-b5995556110f",
+                                  "key": "ClientID",
+                                  "value": "<string>",
+                                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
+                                },
+                                {
+                                  "id": "7906a348-ae2e-47df-be53-6fc617f9457a",
+                                  "key": "KeyID",
+                                  "value": "<string>",
+                                  "description": "(Required) Identification for the RSA key"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the Key."
+                          },
+                          "response": [
+                            {
+                              "id": "e1d61a31-2a1f-486c-97ba-7332ef87e3d6",
+                              "name": "The Key is returned.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/clients/:ClientID/keys/:KeyID?Format=Raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "clients",
+                                    ":ClientID",
+                                    "keys",
+                                    ":KeyID"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Use to specify your key format",
+                                      "key": "Format",
+                                      "value": "Raw"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "ClientID"
+                                    },
+                                    {
+                                      "key": "KeyID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"key\": \"<string>\",\n  \"keyModulus\": \"<string>\",\n  \"keyExponent\": \"<string>\",\n  \"expiration\": \"2091-01-34T23:35:27Z\"\n}",
+                              "createdAt": "2026-10-22T02:08:20.000Z",
+                              "updatedAt": "2026-10-22T02:08:20.000Z",
+                              "uid": "35240-e1d61a31-2a1f-486c-97ba-7332ef87e3d6"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:08:20.000Z",
+                          "updatedAt": "2026-10-22T02:08:20.000Z",
+                          "uid": "35240-3f2fd042-2ea9-48f4-82e3-3bc82d8ba12a"
+                        }
+                      ],
+                      "id": "f99bfdb4-0608-4a85-861b-4ff5c9abe70d",
+                      "createdAt": "2026-10-22T02:08:20.000Z",
+                      "updatedAt": "2026-10-22T02:08:20.000Z",
+                      "uid": "35240-f99bfdb4-0608-4a85-861b-4ff5c9abe70d"
                     },
                     {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
+                      "name": "Create Key",
+                      "id": "19d84d10-6bac-42e7-8be4-93ec3ff54d3c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "Raw",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/clients/:ClientID/keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "clients",
+                            ":ClientID",
+                            "keys"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c45b2b63-3e81-4845-a71f-7c8c62bb4110",
+                              "key": "ClientID",
+                              "value": "<string>",
+                              "description": "(Required) 22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID."
+                            }
+                          ]
+                        },
+                        "description": "Creates a Key."
+                      },
+                      "response": [
+                        {
+                          "id": "f3c3994e-a15a-485f-b812-a16284d940b5",
+                          "name": "A Key is created.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "Raw",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/keys",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "keys"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\",\n  \"keyID\": \"<string>\",\n  \"key\": \"<string>\",\n  \"keyModulus\": \"<string>\",\n  \"keyExponent\": \"<string>\",\n  \"expiration\": \"2061-10-31T14:06:23Z\",\n  \"notices\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:20.000Z",
+                          "updatedAt": "2026-10-22T02:08:20.000Z",
+                          "uid": "35240-f3c3994e-a15a-485f-b812-a16284d940b5"
+                        },
+                        {
+                          "id": "9e6db885-f9ff-460d-b801-eb2e37a9c424",
+                          "name": "Created too many Keys.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "Raw",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/clients/:ClientID/keys",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "clients",
+                                ":ClientID",
+                                "keys"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ClientID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"SC\": \"<integer>\",\n  \"EC\": \"<string>\",\n  \"EM\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:20.000Z",
+                          "updatedAt": "2026-10-22T02:08:20.000Z",
+                          "uid": "35240-9e6db885-f9ff-460d-b801-eb2e37a9c424"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:20.000Z",
+                      "updatedAt": "2026-10-22T02:08:20.000Z",
+                      "uid": "35240-19d84d10-6bac-42e7-8be4-93ec3ff54d3c"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "ASN\\1",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"keyID\": \"TabaPay_KeyID_22_chars\",\n  \"key\": \"Base64_Encoded_Key\",\n  \"expiration\": \"2017-04-03T00:00:00Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ed09250a-3b2a-4932-b087-af64b735ff07",
-              "name": "Created too many Keys.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character ClientID. Present in your credential file. Ask boarding/support if you need to specify a SubClientID."
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "ASN\\1",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 429,\n  \"EC\": \"InternalErrorCode\",\n  \"EM\": \"Keys Created\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d5d090d4-3a16-4686-bcb9-4d715ad29954",
-          "name": "Delete Key",
-          "request": {
-            "name": "Delete Key",
-            "description": {
-              "content": "Deletes a Key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "keys",
-                ":KeyID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "Format",
-                  "value": "<string>",
-                  "description": "Use to specify your key format"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "KeyID",
-                  "description": "(Required) Identification for the RSA key"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "6fafaff4-ec5a-4e4c-9005-b8eb213af5f7",
-              "name": "The Key is marked for deletion.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys",
-                    ":KeyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "Format",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "KeyID",
-                      "description": "(Required) Identification for the RSA key"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "697fc47c-ef13-4ebd-9805-0487dcaa6104",
-              "name": "Key not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys",
-                    ":KeyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "Format",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "KeyID",
-                      "description": "(Required) Identification for the RSA key"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 404,\n  \"EC\": \"10000000\",\n  \"EM\": \"KeyID\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "39393639-c28e-482f-a860-a712139e338c",
-              "name": "Key already marked for deletion",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys",
-                    ":KeyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "Format",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "KeyID",
-                      "description": "(Required) Identification for the RSA key"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Gone",
-              "code": 410,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"SC\": 410,\n  \"EC\": \"50000000\",\n  \"EM\": \"Key Deleted\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9ae41aea-83aa-49b3-95c1-2500f4e29440",
-          "name": "Retrieve Key",
-          "request": {
-            "name": "Retrieve Key",
-            "description": {
-              "content": "Retrieves the Key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "clients",
-                ":ClientID",
-                "keys",
-                ":KeyID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "Format",
-                  "value": "<string>",
-                  "description": "Use to specify your key format"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ClientID",
-                  "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "KeyID",
-                  "description": "(Required) Identification for the RSA key"
-                },
-                {
-                  "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                  "type": "any",
-                  "value": "{{FQDN}}",
-                  "key": "FQDN"
-                },
-                {
-                  "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                  "type": "any",
-                  "value": "{{PORT}}",
-                  "key": "PORT"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "21b120f6-6003-4e23-9838-db2c64365761",
-              "name": "The Key is returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "clients",
-                    ":ClientID",
-                    "keys",
-                    ":KeyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "Format",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ClientID",
-                      "description": "(Required) 22-character <<glossary:ClientID>>. Ask [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) if you need to specify a <<glossary:SubClientID>>."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "KeyID",
-                      "description": "(Required) Identification for the RSA key"
-                    },
-                    {
-                      "description": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-                      "type": "any",
-                      "value": "{{FQDN}}",
-                      "key": "FQDN"
-                    },
-                    {
-                      "description": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-                      "type": "any",
-                      "value": "{{PORT}}",
-                      "key": "PORT"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "8e629e41-2f6a-49cc-b20a-a99380ea6ca3",
+                  "createdAt": "2026-10-22T02:08:20.000Z",
+                  "updatedAt": "2026-10-22T02:08:20.000Z",
+                  "uid": "35240-8e629e41-2f6a-49cc-b20a-a99380ea6ca3"
                 }
               ],
-              "body": "{\n  \"SC\": 200,\n  \"EC\": \"0\",\n  \"keyID\": \"TabaPay_KeyID_22_chars\",\n  \"key\": \"Base64_Encoded_Key\",\n  \"expiration\": \"2017-04-03T00:00:00Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "d8a17f49-8565-40db-976f-b44402c40bfc",
+              "createdAt": "2026-10-22T02:08:20.000Z",
+              "updatedAt": "2026-10-22T02:08:20.000Z",
+              "uid": "35240-d8a17f49-8565-40db-976f-b44402c40bfc"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "fc3190c1-2d21-41fe-a8db-3087c33f52bb",
+          "createdAt": "2026-10-22T02:08:20.000Z",
+          "updatedAt": "2026-10-22T02:08:20.000Z",
+          "uid": "35240-fc3190c1-2d21-41fe-a8db-3087c33f52bb"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Contact [TabaPay Support](https://tabapay.zendesk.com/hc/en-us/requests/new) for the Fully Qualified Domain Name you should be using.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "FQDN",
-      "key": "FQDN"
-    },
-    {
-      "description": {
-        "content": "Ensure you have the capability to access the PORT TabaPay specifies in your credentials file.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "PORT",
-      "key": "PORT"
-    },
-    {
-      "type": "string",
-      "value": "https://{{FQDN}}:{{PORT}}",
-      "key": "baseUrl"
+      "id": "ddc38901-1ce8-492d-92bb-3db07ba8ec2c",
+      "createdAt": "2026-10-22T02:08:20.000Z",
+      "updatedAt": "2026-10-22T02:08:20.000Z",
+      "uid": "35240-ddc38901-1ce8-492d-92bb-3db07ba8ec2c"
     }
   ],
   "auth": {
@@ -724,17 +601,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c19189fc-efd7-44dd-9c7e-78af67ccb02e",
-    "name": "TabaPay APIs 3D Secure Key API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "TabaPay Resource and Service Operations",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "FQDN",
+      "value": "FQDN"
+    },
+    {
+      "key": "PORT",
+      "value": "PORT"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{FQDN}}:{{PORT}}"
     }
-  }
+  ]
 }
